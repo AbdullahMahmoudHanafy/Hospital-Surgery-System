@@ -8,18 +8,18 @@
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id = "Nav-bar">
+    <div class = "Nav-bar">
         
-        <div id = "Right-nav">
+        <div class = "Right-nav">
             <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button>
-            <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-moon"></i></button>
+            <button class = "Nav-bar-icon-btn" id = "Dark-mode"><i class="fa-solid fa-moon"></i></button>
             <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
-            <div id = "Admin-data">
+            <div class = "Admin-data">
                 <h3>عبدالله محمود</h3>
-                <img src="../public/images/myImage.jpg" alt="An admin's image" id = "Admin-img">
+                <img src="../public/images/myImage.jpg" alt="An admin's image" class = "Admin-img">
             </div>
         </div>
-        <div id = "Left-nav">
+        <div class = "Left-nav">
             <button class = "Nav-bar-btn">المعدات</button>
             <button class = "Nav-bar-btn">العمليات</button>
             <button class = "Nav-bar-btn">غرف العمليات</button>
@@ -29,5 +29,94 @@
             <button class = "Nav-bar-btn">الصفحة الرئيسية</button>
         </div>
     </div>
+
+    <div id = "Front-div">
+        <h1>أهلا بك في نظام العمليات الجراحية بالمستشفى</h1>
+        <div id = "All-data-div">
+            <div class = "Data-div">
+                <div class = "Icon-div">
+                    <i class="fa-solid fa-user-doctor Data-icon"></i>
+                </div>
+                <div class = "Small-data-div">
+                    <h3>الجراحون</h3>
+                    <h3>5</h3>
+                </div>
+                <div class = "Icon-div s">
+                    <i class="fa-solid fa-circle-plus Data-icon"></i>
+                </div>
+            </div>
+            <div class = "Data-div">
+                <div class = "Icon-div">
+                    <i class="fa-solid fa-user Data-icon"></i>
+                </div>
+                <div class = "Small-data-div">
+                    <h3>المرضى</h3>
+                    <h3>13</h3>
+                </div>
+                <div class = "Icon-div s">
+                    <i class="fa-solid fa-circle-plus Data-icon"></i>
+                </div>
+            </div>
+            <div class = "Data-div">
+                <div class = "Icon-div">
+                    <i class="fa-solid fa-user-tie Data-icon"></i>
+                </div>
+                <div class = "Small-data-div">
+                    <h3>المشرفون</h3>
+                    <h3>3</h3>
+                </div>
+                <div class = "Icon-div s">
+                    <i class="fa-solid fa-circle-plus Data-icon"></i>
+                </div>
+            </div>
+        </div>
+        <div id = "All-data-div">
+            <div class = "Data-div">
+                <div class = "Icon-div">
+                    <i class="fa-solid fa-syringe Data-icon"></i>
+                </div>
+                <div class = "Small-data-div">
+                    <h3>العمليات</h3>
+                    <h3>8</h3>
+                </div>
+                <div class = "Icon-div s">
+                    <i class="fa-solid fa-circle-plus Data-icon"></i>
+                </div>
+            </div>
+            <div class = "Data-div">
+                <div class = "Icon-div">
+                    <i class="fa-solid fa-stethoscope Data-icon"></i>
+                </div>
+                <div class = "Small-data-div">
+                    <h3>الأجهزة</h3>
+                    <h3>20</h3>
+                </div>
+                <div class = "Icon-div s">
+                    <i class="fa-solid fa-circle-plus Data-icon"></i>
+                </div>
+            </div>
+            <div class = "Data-div">
+                <div class = "Icon-div">
+                    <i class="fa-regular fa-calendar-days Data-icon"></i>
+                </div>
+                <div class = "Small-data-div">
+                    <h3>المواعيد</h3>
+                    <h3>6</h3>
+                </div>
+                <div class = "Icon-div s">
+                    <i class="fa-solid fa-circle-plus Data-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var content = document.getElementsByTagName('body')[0]
+        var h1 = document.getElementsByTagName('h1')[0]
+        var darkMode = document.getElementById('Dark-mode')
+        darkMode.addEventListener('click', function(){
+            content.classList.toggle('night')
+            h1.classList.toggle('night')
+        })
+    </script>
 </body>
 </html>
