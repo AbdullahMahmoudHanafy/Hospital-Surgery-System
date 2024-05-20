@@ -1,25 +1,26 @@
 #Nav-bar{
     height: 60px;
-    background-color: aqua;
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
 body{
-    background-color:azure;
+    background-color:whitesmoke;
+    margin: 0px;
 }
 
 .Nav-bar-btn{
     height: 60px;
     font-size: large;
-    background-color: aqua;
+    background-color: white;
     border: none;
     padding: 20px;
 }
 
 .Nav-bar-btn:hover, .Nav-bar-icon-btn:hover {
-    background-color:azure;
+    background-color:silver
 }
 
 #Right-nav{
@@ -46,7 +47,7 @@ body{
     width: 35px;
     height: 35px;
     font-size: large;
-    background-color: aqua;
+    background-color: white;
     border: none;
     border-radius: 8px;
 }
