@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+}
+
 .Nav-bar{
     height: 60px;
-    background-color: #164ee6;
+    background-color: aqua;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -10,7 +18,7 @@
 
 body{
     /* background-image: url("../images/hospitalSystem.jpg"); */
-    background-color:azure;
+    background-color:white;
     margin: 0px;
 }
 
@@ -27,13 +35,18 @@ h1.night{
     color: white;
     height: 60px;
     font-size: large;
-    background-color: transparent;
+    background-color: rgb(61, 116, 255);
     border: none;
     padding: 20px;
+    color: white;
+}
+
+.navbar-name{
+    color:white;
 }
 
 .Nav-bar-btn:hover, .Nav-bar-icon-btn:hover {
-    background-color:blue;
+    background-color:azure;
 }
 
 .Right-nav{
@@ -65,10 +78,11 @@ h3{
     width: 35px;
     height: 35px;
     font-size: large;
-    background-color: transparent;
+    background-color: rgb(61, 116, 255);
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    color: white;
 }
 
 .Exit-icon{
@@ -81,6 +95,7 @@ h3{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: rgb(61, 116, 255);
 }
 
 #All-data-div{
@@ -95,9 +110,10 @@ h3{
     flex-direction: row;
     align-items: center;
     justify-content:flex-start ;
-    background-color: #164ee6;
+    background-color: aqua;
     height: 100px;
     width: 250px;
+    color: white;
 }
 
 .Data-icon{
@@ -118,12 +134,12 @@ h3{
     margin-left: 20px;
     width: 65px;
     height: 65px;
-    background-color:#164ee6;
+    background-color:aqua
 
 }
 
 .s{
-    background-color: #164ee6;
+    background-color: aqua;
 }
 .Small-data-div{
     width: 80px;
