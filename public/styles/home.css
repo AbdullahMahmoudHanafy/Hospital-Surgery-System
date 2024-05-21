@@ -8,7 +8,7 @@
 
 .Nav-bar{
     height: 60px;
-    background-color: aqua;
+    background-color: rgb(61, 116, 255);
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -46,7 +46,8 @@ h1.night{
 }
 
 .Nav-bar-btn:hover, .Nav-bar-icon-btn:hover {
-    background-color:azure;
+    background-color:white;
+    color: rgb(61, 116, 255);
 }
 
 .Right-nav{
@@ -110,7 +111,7 @@ h3{
     flex-direction: row;
     align-items: center;
     justify-content:flex-start ;
-    background-color: aqua;
+    background-color: rgb(61, 116, 255);
     height: 100px;
     width: 250px;
     color: white;
@@ -134,12 +135,11 @@ h3{
     margin-left: 20px;
     width: 65px;
     height: 65px;
-    background-color:aqua
-
+    background-color:rgb(61, 116, 255);
 }
 
 .s{
-    background-color: aqua;
+    background-color: rgb(61, 116, 255);
 }
 .Small-data-div{
     width: 80px;
