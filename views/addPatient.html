@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة مريض</title>
+    <link rel="stylesheet" href="../public/styles/addPatientStyle.css">
+    <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h5> إضافة مريض</h5>
+        <form>
+            <label for="name" dir='rtl' lang='ar'>اسم المريض</label>
+            <input type="name" id="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
+            <label for="ID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
+            <input type="ID" id="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+            <label for="adress" dir='rtl' lang='ar'>عنوان المريض</label>
+            <input type="adress" id="adress" name="adress" placeholder="ادخل عنوان المريض" dir='rtl' lang='ar' required>
+            <label for="email" dir='rtl' lang='ar'>رمز تعريف العملية</label>
+            <input type="ID" id="ID" name="ID" placeholder="ادخل رمز تعريف العملية" dir='rtl' lang='ar' required>
+            <label for="ID" dir='rtl' lang='ar'>رقم الغرفة</label>
+            <div class="roomDropdown" dir='rtl' lang='ar' required>
+                <p class="roomID" dir='rtl' lang='ar' >اختر رقم الغرفة  </p>
+                <div class="roomNumbers">
+                    <p class="number">1</p>
+                    <p class="number">2</p>
+                    <p class="number">3</p>
+                    <p class="number">4</p>
+                    <p class="number">5</p>
+                </div>
+            </div>
+            
+            <label for="date" dir='rtl' lang='ar'>اختر التاريخ المناسب</label>
+            <input type="date" id="date" name="date" placeholder=" اختر التاريخ المناسب" dir='rtl' lang='ar' required>
+            <label for="time" dir='rtl' lang='ar'>اختر الميعاد المناسب</label>
+            <input type="time" id="time" name="time" placeholder=" اختر التاريخ المناسب" dir='rtl' lang='ar' required>
+            <div class="buttonContainer" dir='rtl' lang='ar' >
+                <button class="submitt" dir='rtl' lang='ar'>تأكيد الحجز </button>
+                <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+            </div>
+        </form>
+    </div>
+   
+</body>
