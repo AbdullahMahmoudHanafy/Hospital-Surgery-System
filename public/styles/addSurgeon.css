@@ -38,7 +38,8 @@ input[type="email"],
 input[type="password"],
 input[type="adress"],
 input[type="phone"],
-input[type="ID"]
+input[type="ID"],
+input[type="speciality"]
  {
     padding: 10px;
     margin-bottom: 15px;
