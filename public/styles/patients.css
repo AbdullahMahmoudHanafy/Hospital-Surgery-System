@@ -149,8 +149,10 @@ body{
 }
 
 .table-header, .patient-row{
+    position: relative;
     display: flex;
     padding: 16px 24px;
+    align-items: center;
     gap: 30px;
     border: solid rgb(243, 244, 246) 0.8px;
     height: 80px;
@@ -208,3 +210,40 @@ body{
 }
 
 
+.menu-col{
+    height: 20px; /*do not follow the content height*/
+    position: absolute;
+    left: 20px;
+}
+
+.menu-col .content{
+    display: none; /*as it is not existed*/
+    position: absolute; /*moved to new layer */
+    z-index: 100;
+    height: 80px;
+    width: 110px;
+    background-color: rgba(255, 255, 255, 0.655);
+    transform: translateX(80px) translateY(5px);
+}
+
+.menu-col:hover .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.content button{
+    background-color:#f9fafb;
+    border: solid rgb(243, 244, 246) 0.8px;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.content button:hover{
+    background-color: whitesmoke;
+}
