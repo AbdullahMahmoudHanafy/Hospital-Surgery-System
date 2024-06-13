@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة مريض</title>
+    <link rel="stylesheet" href="../public/styles/roomPage.css">
+    <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h5> حجز غرفة</h5>
+        <form>
+            <label for="roomDropdown" dir='rtl' lang='ar'>رقم الغرفة</label>
+            <div class="roomDropdown" dir='rtl' lang='ar' required>
+                <p class="roomID" dir='rtl' lang='ar' >اختر رقم الغرفة  </p>
+                <div class="roomNumbers">
+                    <p class="number">1</p>
+                    <p class="number">2</p>
+                    <p class="number">3</p>
+                    <p class="number">4</p>
+                    <p class="number">5</p>
+                </div>
+            </div>
+            <label for="roomStatus" dir='rtl' lang='ar'>حالة الغرفة</label>
+            <input type="roomStatus" id="roomStatus" name="roomStatus" placeholder="ادخل حالة الغرفة" dir='rtl' lang='ar' required>
+            <div class="buttonContainer" dir='rtl' lang='ar' >
+                <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+            </div>
+        </form>
+    </div>
+   
+</body>

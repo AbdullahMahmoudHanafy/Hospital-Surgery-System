@@ -1,0 +1,106 @@
+body, html {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 400px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h5 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input[type="name"],
+input[type="serial"],
+input[type="date"],
+input[type="warranty"],
+input[type="status"],
+input[type="company"],
+input[type="price"]
+ {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.buttonContainer{
+    margin-top: 5px;
+    margin-right: 0.5px;
+    display: flex;
+    gap: 10px;
+}
+
+.submitt {
+    display: flex;
+    width: 200px;
+    background-color: #164ee6;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+    padding-right: 83px;
+}
+
+.submitt:hover{
+    background-color: #1547cf;
+}
+
+.submitt:active{
+    background-color: #123fbb;
+}
+
+.cancel{
+    text-align: right;
+    display: inline-block;
+    width: 200px;
+    background-color: rgb(212, 211, 211);
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+    padding-right: 78px;
+}
+
+.cancel:hover{
+    background-color: rgb(182, 181, 181);
+}
+
+.cancel:active{
+    background-color: rgb(156, 156, 156);
+}
+
+input[type="date"]{
+    padding-left: 275px;
+}
