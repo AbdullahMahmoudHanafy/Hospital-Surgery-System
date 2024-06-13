@@ -210,14 +210,14 @@ body{
 }
 
 
-.menu-col{
-    height: 20px; /*do not follow the content height*/
-    position: absolute;
-    left: 20px;
+.content{
+    display: none; /*as it is not existed*/
 }
 
-.menu-col .content{
-    display: none; /*as it is not existed*/
+.content-display{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: absolute; /*moved to new layer */
     z-index: 100;
     height: 80px;
