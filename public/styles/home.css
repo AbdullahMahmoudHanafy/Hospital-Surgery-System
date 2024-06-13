@@ -13,7 +13,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
     display: block; /* Initially hidden */
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 100; /* Ensure it's above other content */
 }
 
 .Nav-bar{
@@ -145,15 +145,20 @@ h3{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    margin-left: 20px;
-    width: 65px;
-    height: 65px;
+    border-radius: 100%;
+    border: none;
+    margin-left: 30px;
+    width: 45px;
+    height: 45px;
     background-color:rgb(61, 116, 255);
 }
 
-.s{
+.addButton{
     background-color: rgb(61, 116, 255);
+}
+.addButton-icon:hover, .addButton:hover{
+    background-color: white;
+    color: rgb(61, 116, 255);
 }
 .Small-data-div{
     width: 80px;
