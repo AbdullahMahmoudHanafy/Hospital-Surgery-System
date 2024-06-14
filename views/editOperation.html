@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> تعديل بيانات العملية</title>
+    <link rel="stylesheet" href="Public/Assets/editOperation_style.css">
+
+   
+</head>
+<body>
+    <div class="container">
+      
+        
+       <div class="content">
+        <h1 class="head"> تعديل العملية</h1>
+        <br>
+
+        <a href="your-other-page.html" class="cancel-button">
+            <img src="cancel.png" alt="Cancel" />
+        </a>
+       
+        
+        <form action="editOperation" method="POST">
+            <div class="form-group">
+                <label for="roomCode">كود الغرفة</label>
+                <input type="text" id="roomCode" name="roomCode" value="3124">
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="operationName">اسم العملية</label>
+                <input type="text" id="operationName" name="operationName" value="فتاء">
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="operationCost">تاريخ المقابلة</label>
+                <input type="text" id="operationCost" name="operationCost"value="100k" >
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="requriedEquipments">الاجهزة اللازمة</label>
+                <input type="text" id="requriedEquipments" name="requriedEquipments"val="جهاز بلايستيشن" >
+
+
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="description">وصف العملية</label>
+                <input type="text" id="description" name="description" >
+            </div>
+            <br>
+
+            
+
+
+
+           
+            <div class="button-group">
+                <button type="button" class="cancel" onclick="window.location.href='/'">إلغاء</button>
+                <button type="submit">تحديث المعلومات</button>
+            </div>
+        </form> 
+       </div>
+    </div>
+    
+
+    </script>
+</body>
+</html>

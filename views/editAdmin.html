@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> تعديل بيانات الادمن</title>
+    <link rel="stylesheet" href="eiditDoctorStyle.css">
+
+   
+</head>
+<body>
+    <div class="container">
+      
+        
+       <div class="content">
+        <h1 class="head">  تعديل بيانات الادمن</h1>
+        <br>
+
+        <a href="your-other-page.html" class="cancel-button">
+            <img src="cancel.png" alt="Cancel" />
+        </a>
+       
+        
+        <form action="editAdmin" method="POST">
+            <div class="form-group">
+                <label for="firstName">الاسم الأول</label>
+                <input type="text" id="firstName" name="firstName" value="احمد">
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="lastName">اسم العائلة</label>
+                <input type="text" id="lastName" name="lastName" value="حسن">
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="birthDate">تاريخ الميلاد</label>
+                <input type="date" id="birthDate" name="birthDate" >
+            </div>
+            <br>
+
+            
+            <div class="form-group">
+                <label>الجنس</label>
+                <div class="radio-group">
+                    <input type="radio" id="male" name="sex" value="male" checked>
+                    <label for="male" ><strong class="sexVal">ذكر</strong></label>
+                    <input type="radio" id="female" name="sex" value="female" >
+                    <label for="female"><strong class="sexVal">أنثى</strong></label>
+                </div>
+            </div>
+            <br>
+
+
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="text" id="password" name="password" value="Drop Table">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="confirmPassword">تأكيد كلمة المرور</label>
+                <input type="text" id="confirmPassword" name="password" value="Drop Table">
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="mobile">رقم الهاتف</label>
+                <input type="tel" id="mobile" name="mobile" value="031321">
+            </div>
+            <br>
+
+
+
+
+           
+            <div class="button-group">
+                <button type="button" class="cancel" onclick="window.location.href='/'">إلغاء</button>
+                <button type="submit">تحديث المعلومات</button>
+            </div>
+        </form> 
+       </div>
+    </div>
+</body>
+</html>

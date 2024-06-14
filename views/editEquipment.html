@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> تعديل بيانات الجهاز</title>
+    <link rel="stylesheet" href="Public/Assets/editEquipment_style.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+
+
+        <div class="content">
+            <h1 class="head"> تعديل بيانات الجهاز</h1>
+            <br>
+
+            <a href="your-other-page.html" class="cancel-button">
+                <img src="cancel.png" alt="Cancel" />
+            </a>
+
+
+            <form action="editEquipment" method="POST">
+                <div class="form-group">
+                    <label for="equipmentName">اسم الجهاز</label>
+                    <input type="text" id="equipmentName" name="equipmentName" value="رنين مغناطيسي">
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="price">سعر الجهاز</label>
+                    <input type="text" id="price" name="price" value="نص جنيه">
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="warrantly">الضمان</label>
+                    <input type="text" id="warrantly" name="warrantly" value="years 2">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="status">حالة الجهاز</label>
+                    <input type="text" id="status" name="status" val="علي ما يرام">
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="company">اسم المصنع</label>
+                    <input type="text" id="company" name="company" val="توشيبا">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="productionDate">تاريخ الانتاج</label>
+                    <input type="date" id="productionDate" name="productionDate">
+                </div>
+                <br>
+
+
+
+
+                <div class="button-group">
+                    <button type="button" class="cancel" onclick="window.location.href='/'">إلغاء</button>
+                    <button type="submit">تحديث المعلومات</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
