@@ -1,0 +1,108 @@
+.addAppointment {
+    width: 400px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.roomDropdown{
+    display: inline-block;
+    position:relative;
+}
+
+.roomNumbers{
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+    z-index: 70;
+}
+.roomDropdown:hover .roomNumbers{
+    display: block;
+    background-color: white;
+    border-radius: 6px;
+    border-color:#c1bfbfe8  ;
+    border-style: solid;
+    border-width: 0.5px;
+    border-top-style: none;
+    margin-left: 0px;
+}
+.number{
+    display: block;
+    margin-right: 0px;
+    margin-left: 0px;
+    color: #000000;
+    background-color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding:5px;
+    text-decoration: none;
+    border-style: solid;
+    border-width: 0.5px;
+    border-left-style: none;
+    border-right-style: none;
+    border-color:#c1bfbfe8  ;
+    border-bottom: none;
+    margin-left: 0px;
+    padding-right: 10px;
+}
+
+
+.roomNumbers :hover{
+    color: #FFFFFF;
+    background-color: #164ee6;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+input[type="time"]
+{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}
+
+input[type="date"]
+{
+    text-align: right;
+    direction: rtl;
+    padding-left: 270px;
+    color:#767676e8;
+}
+
+input[type="time"]
+{
+    text-align: right;
+    direction: rtl;
+    padding-left: 293px;
+    color:#767676e8;
+}
+
+.roomID{
+    margin-top: 0px;
+    font-family: Arial, sans-serif;
+    border-style: solid;
+    border-color:#c1bfbfe8 ;
+    border-width: 1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 3px;
+    padding-right: 7px;
+    font-weight:100;
+    font-size: 13.5px;
+    color:#676666e8;
+}

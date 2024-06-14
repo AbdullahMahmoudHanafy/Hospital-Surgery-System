@@ -6,22 +6,66 @@
     <title>الصفحة الرئيسية</title>
     <link rel="stylesheet" href="../public/styles/home.css">
     <link rel="stylesheet" href="../public/styles/addSurgeon.css">
+    <link rel="stylesheet" href="../public/styles/adminPage.css">
+    <link rel="stylesheet" href="../public/styles/addDeviceStyle.css">
+    <link rel="stylesheet" href="../public/styles/appointmentStyle.css">
+    <link rel="stylesheet" href="../public/styles/addPatient.css">
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class = "Nav-bar">
-        <div class="overlay" id="overlay">
+        <div class="overlay1" id="overlay1">
         <div class="container addSurgeon">
-            <h5>إضافة طبيب </h5>
+            <h5>إضافة جراح </h5>
             <form>
-                <label for="name" dir='rtl' lang='ar'>اسم الطبيب</label>
-                <input type="name" id="name" name="name" placeholder="ادخل اسم الطبيب" dir='rtl' lang='ar' required>
-                <label for="speciality" dir='rtl' lang='ar'>تخصص الطبيب</label>
-                <input type="speciality" id="speciality" name="speciality" placeholder="ادخل تخصص الطبيب" dir='rtl' lang='ar' required>
-                <label for="ID" dir='rtl' lang='ar'>الرقم القومي للطبيب</label>
+                <label for="name" dir='rtl' lang='ar'>اسم الجراح</label>
+                <input type="name" id="name" name="name" placeholder="ادخل الاسم" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>
                 <input type="ID" id="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
-                <label for="adress" dir='rtl' lang='ar'>عنوان الطبيب</label>
-                <input type="adress" id="adress" name="adress" placeholder="ادخل عنوان الطبيب" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>جنس الجراح</label>
+                <input type="ID" id="ID" name="ID" placeholder="ادخل جنس الجراح" dir='rtl' lang='ar' required>
+                <label for="adress" dir='rtl' lang='ar'>عنوان الجراح</label>
+                <input type="adress" id="adress" name="adress" placeholder="ادخل العنوان" dir='rtl' lang='ar' required>
+                <label for="email" dir='rtl' lang='ar'>البريد الالكتروني للجراح</label>
+                <input type="email" id="email" name="ID" placeholder="ادخل البريد الاكتروني" dir='rtl' lang='ar' required>
+                <label for="phone" dir='rtl' lang='ar'>رقم هاتف الجراح</label>
+                <input type="phone" id="phone" name="phone" placeholder=" ادخل رقم الهاتف"dir='rtl' lang='ar' required>
+                <label for="speciality" dir='rtl' lang='ar'>تخصص الجراح</label>
+                <input type="speciality" id="speciality" name="speciality" placeholder="ادخل التخصص" dir='rtl' lang='ar' required>
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class = "overlay2" id = "overlay2">
+        <div class="container addPatient">
+            <h5> إضافة مريض</h5>
+            <form>
+                <label for="name" dir='rtl' lang='ar'>اسم المريض</label>
+                <input type="name" id="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
+                <input type="ID" id="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>جنس المريض</label>
+                <input type="ID" id="ID" name="ID" placeholder="ادخل جنس المريض" dir='rtl' lang='ar' required>
+                <label for="adress" dir='rtl' lang='ar'>عنوان المريض</label>
+                <input type="adress" id="adress" name="adress" placeholder="ادخل عنوان المريض" dir='rtl' lang='ar' required>
+                <label for="phone" dir='rtl' lang='ar'>رقم هاتف المريض</label>
+                <input type="phone" id="phone" name="phone" placeholder=" ادخل رقم الهاتف"dir='rtl' lang='ar' required>
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="overlay3" id="overlay3">
+        <div class="container addAdmin">
+            <h5> تسجيل مسؤل جديد</h5>
+            <form>
+                <label for="name" dir='rtl' lang='ar'>اسم المستخدم</label>
+                <input type="name" id="name" name="name" placeholder="ادخل اسم المستخدم" dir='rtl' lang='ar' required>
                 <label for="email" dir='rtl' lang='ar'>Email</label>
                 <input type="email" id="email" name="ID" placeholder="ادخل ال Email" dir='rtl' lang='ar' required>
                 <label for="password" dir='rtl' lang='ar'>Password</label>
@@ -30,8 +74,70 @@
                 <input type="password" id="password" name="password" placeholder="ادخل ال password مرة اخري " dir='rtl' lang='ar' required>
                 <label for="phone" dir='rtl' lang='ar'>رقم الهاتف المحمول</label>
                 <input type="phone" id="phone" name="phone" placeholder=" ادخل رقم الهاتف المحمول"dir='rtl' lang='ar' required>
+                <label for="adress" dir='rtl' lang='ar'>عنوان المستخدم</label>
+                <input type="adress" id="adress" name="adress" placeholder="ادخل عنوان المستخدم" dir='rtl' lang='ar' required>
                 <div class="buttonContainer" dir='rtl' lang='ar' >
                     <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+                <p class ="haveAnAccount" dir='rtl' lang='ar' required>هل لديك حساب؟<span class="logIn" dir='rtl' lang='ar' required>تسجيل دخول </span></p>
+            </form>
+        </div>
+    </div>
+    <div class = "overlay4" id = "overlay4"></div>
+    <div class = "overlay5" id = "overlay5">
+        <div class="container addDevice">
+            <h5> إضافة جهاز</h5>
+            <form>
+                <label for="name" dir='rtl' lang='ar'>اسم الجهاز</label>
+                <input type="name" id="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
+                <label for="serial" dir='rtl' lang='ar'>serial number</label>
+                <input type="serial" id="ID" name="ID" placeholder="ادخل serial number" dir='rtl' lang='ar' required>
+                <label for="price" dir='rtl' lang='ar'>سعر الجهاز</label>
+                <input type="price" id="adress" name="adress" placeholder="ادخل سعر الجهاز" dir='rtl' lang='ar' required>
+                <label for="warranty" dir='rtl' lang='ar'>warranty</label>
+                <input type="warranty" id="email" name="ID" placeholder="ادخل ال warranty" dir='rtl' lang='ar' required>
+                <label for="status" dir='rtl' lang='ar'>حالة الجهاز</label>
+                <input type="status" id="status" name="status" placeholder="ادخل حالة الجهاز" dir='rtl' lang='ar' required>
+                <label for="company" dir='rtl' lang='ar'>اسم الشركة المصنعة</label>
+                <input type="company" id="company" name="company" placeholder="ادخل اسم الشركة المصنعة" dir='rtl' lang='ar' required>
+                <label for="date" dir='rtl' lang='ar'>تاريخ التصنيع</label>
+                <input type="date" id="date" name="date" placeholder=" ادخل تاريخ التصنيع"dir='rtl' lang='ar' required>
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class = "overlay6" id = "overlay6">
+        <div class="container addAppointment">
+            <h5> عملية الحجز</h5>
+            <form>
+                <label for="ID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
+                <input type="ID" id="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>
+                <input type="ID" id="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>رمز تعريف العملية</label>
+                <input type="ID" id="ID" name="ID" placeholder="ادخل رمز تعريف العملية" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>رقم الغرفة</label>
+                <div class="roomDropdown" dir='rtl' lang='ar' required>
+                    <p class="roomID" dir='rtl' lang='ar' >اختر رقم الغرفة  </p>
+                    <div class="roomNumbers">
+                        <p class="number">1</p>
+                        <p class="number">2</p>
+                        <p class="number">3</p>
+                        <p class="number">4</p>
+                        <p class="number">5</p>
+                    </div>
+                </div>
+    
+                <label for="date" dir='rtl' lang='ar'>اختر التاريخ المناسب</label>
+                <input type="date" id="date" name="date" placeholder=" اختر التاريخ المناسب" dir='rtl' lang='ar' required>
+                <label for="time" dir='rtl' lang='ar'>اختر الميعاد المناسب</label>
+                <input type="time" id="time" name="time" placeholder=" اختر التاريخ المناسب" dir='rtl' lang='ar' required>
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>تأكيد الحجز </button>
                     <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
                 </div>
             </form>
@@ -68,7 +174,7 @@
                     <h3>الجراحون</h3>
                     <h3>5</h3>
                 </div>
-                <button class = "Icon-div addButton">
+                <button class = "Icon-div Icon-div-but addButton1">
                     <i class="fa-solid fa-circle-plus Data-icon addButton-icon"></i>
                 </button>
             </div>
@@ -80,7 +186,7 @@
                     <h3>المرضى</h3>
                     <h3>13</h3>
                 </div>
-                <button class = "Icon-div addButton">
+                <button class = "Icon-div Icon-div-but addButton2">
                     <i class="fa-solid fa-circle-plus Data-icon addButton-icon"></i>
                 </button>
             </div>
@@ -92,7 +198,7 @@
                     <h3>المشرفون</h3>
                     <h3>3</h3>
                 </div>
-                <button class = "Icon-div addButton">
+                <button class = "Icon-div Icon-div-but addButton3">
                     <i class="fa-solid fa-circle-plus Data-icon addButton-icon"></i>
                 </button>
             </div>
@@ -106,7 +212,7 @@
                     <h3>العمليات</h3>
                     <h3>8</h3>
                 </div>
-                <button class = "Icon-div addButton">
+                <button class = "Icon-div Icon-div-but addButton4">
                     <i class="fa-solid fa-circle-plus Data-icon addButton-icon"></i>
                 </button>
             </div>
@@ -118,7 +224,7 @@
                     <h3>الأجهزة</h3>
                     <h3>20</h3>
                 </div>
-                <button class = "Icon-div addButton">
+                <button class = "Icon-div Icon-div-but addButton5">
                     <i class="fa-solid fa-circle-plus Data-icon addButton-icon"></i>
                 </button>
             </div>
@@ -130,47 +236,12 @@
                     <h3>المواعيد</h3>
                     <h3>6</h3>
                 </div>
-                <button class = "Icon-div addButton">
+                <button class = "Icon-div Icon-div-but addButton6">
                     <i class="fa-solid fa-circle-plus Data-icon addButton-icon"></i>
                 </button>
             </div>
         </div>
     </div>
-    <script>
-        var content = document.getElementsByTagName('body')[0]
-        var h1 = document.getElementsByTagName('h1')[0]
-        var darkMode = document.getElementById('Dark-mode')
-        darkMode.addEventListener('click', function(){
-            content.classList.toggle('night')
-            h1.classList.toggle('night')
-        })
-
-
-        var addButton = document.querySelectorAll('.addButton')
-        var addSurgeon = document.querySelector('.addSurgeon')
-        addButton.forEach((addingButton) => {
-            addingButton.addEventListener('click', function(){
-                var overlay = document.querySelector('.overlay')
-                overlay.style.display = "flex"
-                var cancelAdding = document.querySelector('.cancel')
-                cancelAdding.addEventListener('click', function(){
-                    overlay.style.display = "none"
-                })
-            })
-        });
-        // var addButton = document.querySelector('.addButton')
-        // var addSurgeon = document.querySelector('.addSurgeon')
-        // addButton.addEventListener('click', function(){
-        //     const overlay = document.createElement('Div')
-        //     overlay.id = 'overlay'
-        //     overlay.classList.add('overlay')
-        //     addSurgeon.style.display = "block"
-        //     content.appendChild(overlay)
-        //     overlay.addEventListener('click', function() {
-        //         overlay.remove();
-        //     });
-
-        // })
-    </script>
+    <script src="../public/js/AddingButtons.js"></script>
 </body>
 </html>

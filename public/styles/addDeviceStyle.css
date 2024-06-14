@@ -1,0 +1,28 @@
+.addDevice {
+    width: 400px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="serial"],
+input[type="date"],
+input[type="warranty"],
+input[type="status"],
+input[type="company"],
+input[type="price"]
+ {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}
+
+input[type="date"]{
+    padding-left: 275px;
+}

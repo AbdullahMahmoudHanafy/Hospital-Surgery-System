@@ -1,0 +1,44 @@
+/* body, html {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.addAdmin {
+    z-index: 101;
+    width: 400px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.haveAnAccount{
+    text-align: center;
+    margin-top: 0px;
+    padding-bottom: 10px;
+    font-size:medium;
+}
+
+.logIn{
+    margin-right: 4px;
+    color: #164ee6;
+    border-style: solid;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+}
+
+.logIn:hover{
+    cursor: pointer;
+}
+
+.logIn:active{
+    cursor: pointer;
+    color:#123fbb;
+}
