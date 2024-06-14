@@ -5,11 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصفحة الرئيسية</title>
     <link rel="stylesheet" href="../public/styles/home.css">
+    <link rel="stylesheet" href="../public/styles/addSurgeon.css">
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class = "Nav-bar">
-        <!-- <div class="overlay" id="overlay"></div> -->
+        <div class="overlay" id="overlay">
+        <div class="container addSurgeon">
+            <h5>إضافة طبيب </h5>
+            <form>
+                <label for="name" dir='rtl' lang='ar'>اسم الطبيب</label>
+                <input type="name" id="name" name="name" placeholder="ادخل اسم الطبيب" dir='rtl' lang='ar' required>
+                <label for="speciality" dir='rtl' lang='ar'>تخصص الطبيب</label>
+                <input type="speciality" id="speciality" name="speciality" placeholder="ادخل تخصص الطبيب" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>الرقم القومي للطبيب</label>
+                <input type="ID" id="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <label for="adress" dir='rtl' lang='ar'>عنوان الطبيب</label>
+                <input type="adress" id="adress" name="adress" placeholder="ادخل عنوان الطبيب" dir='rtl' lang='ar' required>
+                <label for="email" dir='rtl' lang='ar'>Email</label>
+                <input type="email" id="email" name="ID" placeholder="ادخل ال Email" dir='rtl' lang='ar' required>
+                <label for="password" dir='rtl' lang='ar'>Password</label>
+                <input type="password" id="password" name="password" placeholder="ادخل ال password" dir='rtl' lang='ar' required>
+                <label for="password" dir='rtl' lang='ar'>تأكيد ال password</label>
+                <input type="password" id="password" name="password" placeholder="ادخل ال password مرة اخري " dir='rtl' lang='ar' required>
+                <label for="phone" dir='rtl' lang='ar'>رقم الهاتف المحمول</label>
+                <input type="phone" id="phone" name="phone" placeholder=" ادخل رقم الهاتف المحمول"dir='rtl' lang='ar' required>
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
         <div class = "Right-nav">
             <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button>
             <button class = "Nav-bar-icon-btn" id = "Dark-mode"><i class="fa-solid fa-moon"></i></button>
@@ -118,16 +145,32 @@
             h1.classList.toggle('night')
         })
 
-        var addButton = document.querySelector('.addButton')
-        addButton.addEventListener('click', function(){
-            const overlay = document.createElement('Div')
-            overlay.id = 'overlay'
-            overlay.classList.add('overlay')
-            content.appendChild(overlay)
-            overlay.addEventListener('click', function() {
-                overlay.remove();
-            });
-        })
+
+        var addButton = document.querySelectorAll('.addButton')
+        var addSurgeon = document.querySelector('.addSurgeon')
+        addButton.forEach((addingButton) => {
+            addingButton.addEventListener('click', function(){
+                var overlay = document.querySelector('.overlay')
+                overlay.style.display = "flex"
+                var cancelAdding = document.querySelector('.cancel')
+                cancelAdding.addEventListener('click', function(){
+                    overlay.style.display = "none"
+                })
+            })
+        });
+        // var addButton = document.querySelector('.addButton')
+        // var addSurgeon = document.querySelector('.addSurgeon')
+        // addButton.addEventListener('click', function(){
+        //     const overlay = document.createElement('Div')
+        //     overlay.id = 'overlay'
+        //     overlay.classList.add('overlay')
+        //     addSurgeon.style.display = "block"
+        //     content.appendChild(overlay)
+        //     overlay.addEventListener('click', function() {
+        //         overlay.remove();
+        //     });
+
+        // })
     </script>
 </body>
 </html>
