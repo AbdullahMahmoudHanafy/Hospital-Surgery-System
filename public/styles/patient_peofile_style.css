@@ -1,0 +1,214 @@
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 60%;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.upperdiv{
+    height: 350px;
+}
+
+.details{
+    margin: 20px 0;
+    align-items: center;
+    padding-top:40px ;
+    justify-content: center;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    float: left;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 20px;
+    border: 3px solid #007bff;
+    justify-content: flex-end;
+
+}
+
+.info h2 {
+    margin: 0;
+    color: #007bff;
+    font-size: 24px;
+    text-align: center; 
+    margin-right: 50px; 
+}
+
+.details p {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    
+}
+
+.details i {
+    margin-left: 10px;
+    color: #007bff;
+}
+
+.buttons {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin-top: 20px;
+}
+
+.buttons button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.buttons .edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.buttons .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+
+
+.operations {
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.operations h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.operation {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.column {
+    flex: 1;
+    padding: 15px;
+}
+
+.column h4 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.column p {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.operation p strong {
+    color: #333;
+}
+
+
+
+.Nav-bar{
+    height: 60px;
+    background-color: aqua;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+
+body{
+    /* background-image: url("../images/hospitalSystem.jpg"); */
+    background-color:azure;
+    margin: 0px;
+}
+
+body.night{
+    background-color: #111827;
+    margin: 0px;
+}
+
+h1.night{
+    color: white;
+}
+
+.Nav-bar-btn{
+    height: 60px;
+    font-size: large;
+    background-color: transparent;
+    border: none;
+    padding: 20px;
+}
+
+.Nav-bar-btn:hover, .Nav-bar-icon-btn:hover {
+    background-color:azure;
+}
+
+.Right-nav{
+    width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Admin-data{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.Admin-img{
+    width: 42px;
+    height: 42px;
+    border-radius: 30px;
+    margin: 10px;
+}
+
+.Nav-bar-icon-btn{
+    width: 35px;
+    height: 35px;
+    font-size: large;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.Exit-icon{
+    rotate: 180deg;
+}
