@@ -1,53 +1,44 @@
-body {
+ .edit-overlay-container {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
     direction: rtl;
     text-align: right;
-}
-.container {
-    
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    
-}
-.content {
+} 
+
+.edit-overlay-content {
     overflow-y: scroll;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-background: #fff;
-
-width: 400px;
-height: 600px;
-
-margin: 0 auto;
-padding: 20px;
-border-radius: 8px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-
-
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    width: 400px;
+    height: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.sexVal{
+
+.sexVal {
     margin-right: 10px;
-    
+
     color: #888;
     font-size: 14px;
 }
-a.cancel-button {
+
+.edit-overlay a.cancel-button {
     position: absolute;
     top: 15px;
-    left:20px; 
+    left: 20px;
     z-index: 999;
-}       
+}
 
-a.cancel-button img {
- width: 30px; 
- height: 30px;
- 
+.edit-overlay a.cancel-button img {
+    width: 30px;
+    height: 30px;
+
 }
 
 h1 {
@@ -56,39 +47,45 @@ h1 {
     color: #333;
     text-align: center;
 }
+
 .form-group {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
 }
-label {
+
+.edit-overlay label {
     width: 129px;
     font-weight: bold;
     margin-left: 10px;
 }
 
-input[type="radio"]{
+.edit-overlay input[type="radio"] {
     margin-right: 40px;
 }
-input[type="text"],
-input[type="date"],
-input[type="tel"] {
+
+.edit-overlay input[type="text"],
+.edit-overlay input[type="date"],
+.edit-overlay input[type="tel"] {
     width: 100%;
     padding: 5px;
     height: 25px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
 .custom-file-input {
     display: flex;
     align-items: center;
 }
+
 .custom-file-input input[type="file"] {
     display: none;
 }
+
 .custom-file-input label {
     display: inline-block;
-    background-color: #6200ee;
+    background-color: rgb(61, 116, 255);
     color: #fff;
     padding: 5px 20px;
     border-radius: 4px;
@@ -97,21 +94,24 @@ input[type="tel"] {
     width: auto;
     white-space: nowrap;
 }
+
 .custom-file-input label:hover {
     background-color: #3700b3;
 }
+
 .custom-file-input .file-chosen {
     margin-right: 10px;
     color: #888;
     font-size: 14px;
 }
+
 .radio-group {
     display: flex;
     align-items: center;
 }
 
 .radio-group input[type="radio"] {
-   
+
     appearance: none;
     background-color: #fff;
     margin: 0;
@@ -125,6 +125,7 @@ input[type="tel"] {
     display: grid;
     place-content: center;
 }
+
 .radio-group input[type="radio"]::before {
     content: "";
     width: 0.65em;
@@ -134,15 +135,18 @@ input[type="tel"] {
     transition: 120ms transform ease-in-out;
     background-color: #6200ee;
 }
+
 .radio-group input[type="radio"]:checked::before {
     transform: scale(1);
 }
-.button-group {
+
+.edit-overlay .button-group {
     display: flex;
     justify-content: flex-end;
 }
-button {
-    background-color: #6200ee;
+
+.edit-overlay button {
+    background-color: rgb(61, 116, 255);
     color: #fff;
     padding: 5px 20px;
     border: none;
@@ -151,12 +155,15 @@ button {
     margin-left: 10px;
     height: 35px;
 }
-button.cancel {
+
+.edit-overlay button.cancel-edit {
     background-color: #bbb;
 }
-button:hover {
+
+.edit-overlay button:hover {
     background-color: #3700b3;
 }
-button.cancel:hover {
+
+.edit-overlay button.cancel-edit:hover {
     background-color: #999;
 }
