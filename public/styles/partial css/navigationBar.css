@@ -55,3 +55,22 @@
 button{
     cursor: pointer;
 }
+
+
+.Admin-data{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.Admin-img{
+    width: 42px;
+    height: 42px;
+    border-radius: 30px;
+    margin: 10px;
+}
+
+
+h3{
+    color: white;
+}
