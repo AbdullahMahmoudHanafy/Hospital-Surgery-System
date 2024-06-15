@@ -2,7 +2,6 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 20px;
     direction: rtl;
     text-align: right;
 }
@@ -21,7 +20,7 @@ left: 50%;
 transform: translate(-50%, -50%);
 background: #fff;
 
-width: 700px;
+width: 400px;
 
 margin: 0 auto;
 padding: 20px;
@@ -54,6 +53,7 @@ h1 {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
+    text-align: center;
 }
 .form-group {
     display: flex;
@@ -68,7 +68,7 @@ label {
 input[type="text"],
 input[type="date"],
 input[type="tel"] {
-    width: 40%;
+    width: 100%;
     padding: 5px;
     height: 25px;
     border: 1px solid #ccc;
@@ -154,21 +154,4 @@ button:hover {
 }
 button.cancel:hover {
     background-color: #999;
-}
- 
-.head{
-    margin-right: 40%;
-}
-#description{
-    width: 295px;                 /* Width of the textarea */
-    height: 150px;               /* Height of the textarea */
-                   /* Padding inside the textarea */
-    font-size: 16px;             /* Font size of the text */
-    border: 1px solid #ccc;      /* Border of the textarea */
-    border-radius: 4px;          /* Rounded corners */
-    box-sizing: border-box;      /* Include padding and border in the element's total width and height */
-    resize: vertical;            /* Allow vertical resizing */
-    line-height: 1.5;            /* Line height for better readability */
-    overflow: auto;              /* Add scrollbars when needed */
-    vertical-align: top; 
 }
