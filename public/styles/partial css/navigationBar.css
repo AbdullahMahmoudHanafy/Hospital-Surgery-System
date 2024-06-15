@@ -1,0 +1,57 @@
+
+.Nav-bar{
+    height: 60px;
+    background-color: rgb(61, 116, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+
+.Nav-bar-btn{
+    color: white;
+    height: 60px;
+    font-size: large;
+    background-color: rgb(61, 116, 255);
+    border: none;
+    padding: 20px;
+    color: white;
+}
+
+.navbar-name{
+    color:white;
+}
+
+.Nav-bar-btn:hover, .Nav-bar-icon-btn:hover {
+    background-color:white;
+    color: rgb(61, 116, 255);
+}
+
+.Right-nav{
+    width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.Nav-bar-icon-btn{
+    color: white;
+    width: 35px;
+    height: 35px;
+    font-size: large;
+    background-color: rgb(61, 116, 255);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+}
+
+.Exit-icon{
+    rotate: 180deg;
+}
+
+button{
+    cursor: pointer;
+}

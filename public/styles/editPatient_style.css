@@ -1,11 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    direction: rtl;
-    text-align: right;
-}
-.container {
+.editPatient {
     
     position: relative;
     width: 100%;
@@ -139,7 +132,7 @@ input[type="tel"] {
     display: flex;
     justify-content: flex-end;
 }
-button {
+.edit-btn {
     background-color: #6200ee;
     color: #fff;
     padding: 5px 20px;
@@ -149,12 +142,20 @@ button {
     margin-left: 10px;
     height: 35px;
 }
-button.cancel {
+.edit-btn .cancel{
+    background-color: #888;
+}
+
+.edit-btn .cancel:hover{
+    background-color: #333;
+}
+
+.edit-btn.cancel {
     background-color: #bbb;
 }
-button:hover {
+.edit-btn:hover {
     background-color: #3700b3;
 }
-button.cancel:hover {
+.edit-btn.cancel:hover {
     background-color: #999;
 }

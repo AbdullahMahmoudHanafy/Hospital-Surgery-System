@@ -5,28 +5,6 @@
     box-sizing: border-box;
     font-family: "Rubik", sans-serif;
 }
-.overlay1, .overlay2, .overlay3, .overlay4, .overlay5, .overlay6 {
-    position: fixed;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */ /* Initially hidden */
-    z-index: 100; /* Ensure it's above other content */
-}
-
-.Nav-bar{
-    height: 60px;
-    background-color: rgb(61, 116, 255);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-bottom: 50px;
-}
-
 
 body{
     /* background-image: url("../images/hospitalSystem.jpg"); */
@@ -47,32 +25,6 @@ h1.night{
     color: white;
 }
 
-.Nav-bar-btn{
-    color: white;
-    height: 60px;
-    font-size: large;
-    background-color: rgb(61, 116, 255);
-    border: none;
-    padding: 20px;
-    color: white;
-}
-
-.navbar-name{
-    color:white;
-}
-
-.Nav-bar-btn:hover, .Nav-bar-icon-btn:hover {
-    background-color:white;
-    color: rgb(61, 116, 255);
-}
-
-.Right-nav{
-    width: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .Admin-data{
     display: flex;
     align-items: center;
@@ -89,23 +41,6 @@ h1.night{
 h3{
     color: white;
 }
-
-.Nav-bar-icon-btn{
-    color: white;
-    width: 35px;
-    height: 35px;
-    font-size: large;
-    background-color: rgb(61, 116, 255);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    color: white;
-}
-
-.Exit-icon{
-    rotate: 180deg;
-}
-
 
 #Front-div{
     display: flex;

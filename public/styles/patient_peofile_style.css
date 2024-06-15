@@ -93,9 +93,17 @@ body {
     color: white;
 }
 
+.edit-btn:hover{
+    background-color: blue;
+}
+
 .buttons .delete-btn {
     background-color: #dc3545;
     color: white;
+}
+
+.delete-btn:hover{
+    background-color: darkred;
 }
 
 
@@ -141,17 +149,6 @@ body {
 }
 
 
-
-.Nav-bar{
-    height: 60px;
-    background-color: aqua;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-bottom: 50px;
-}
-
-
 body{
     /* background-image: url("../images/hospitalSystem.jpg"); */
     background-color:azure;
@@ -167,25 +164,6 @@ h1.night{
     color: white;
 }
 
-.Nav-bar-btn{
-    height: 60px;
-    font-size: large;
-    background-color: transparent;
-    border: none;
-    padding: 20px;
-}
-
-.Nav-bar-btn:hover, .Nav-bar-icon-btn:hover {
-    background-color:azure;
-}
-
-.Right-nav{
-    width: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .Admin-data{
     display: flex;
     align-items: center;
@@ -197,18 +175,4 @@ h1.night{
     height: 42px;
     border-radius: 30px;
     margin: 10px;
-}
-
-.Nav-bar-icon-btn{
-    width: 35px;
-    height: 35px;
-    font-size: large;
-    background-color: transparent;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.Exit-icon{
-    rotate: 180deg;
 }
