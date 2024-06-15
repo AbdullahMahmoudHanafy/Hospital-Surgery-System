@@ -10,8 +10,8 @@
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */ /* Initially hidden */
     z-index: 100; /* Ensure it's above other content */
 }
-
-.edit-overlay-container {
+ 
+ .edit-overlay-container {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
