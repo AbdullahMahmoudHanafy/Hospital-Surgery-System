@@ -9,14 +9,13 @@
     <link rel="stylesheet" href="../public/styles/partial css/navigationBar.css">
     <link rel="stylesheet" href="../public/styles/editPatient_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../public/styles/deleteOverlay.css">
 </head>
 
 <body>
-    <div class="overlay1" id="overlay1">
-        <div class="editPatient">
-      
-        
-            <div class="content">
+    <div class="edit-overlay" id="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
              <h1 class="head"> تعديل بيانات المريض</h1>
              <br>
             
@@ -75,14 +74,24 @@
                  <br>
      
                  <div class="button-group">
-                     <button type="button" class="edit-btn cancel">إلغاء</button>
-                     <button type="submit" class="edit-btn">تحديث البيانات</button>
+                     <button type="button" class="cancel-edit">إلغاء</button>
+                     <button type="submit">تحديث البيانات</button>
                  </div>
              </form> 
             </div>
          </div>
     </div>
-    <div class="overlay2" id="overlay2"></div>
+    <div class="delete-overlay" dir="rtl">
+        <div class="delete-overlay-container">
+            <header>تأكيد عملية الحذف</header>
+            <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت
+                متأكد من عملية الحذف؟</h3>
+            <div class="buttons-container">
+                <button class="cancel-deletion">إغلاق</button>
+                <button class="confirm-deletion">تأكيد</button>
+            </div>
+        </div>
+    </div>
     <div class = "Nav-bar">
         
             

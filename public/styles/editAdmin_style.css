@@ -9,6 +9,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */ /* Initially hidden */
     z-index: 100; /* Ensure it's above other content */
+    
 }
  
  .edit-overlay-container {
@@ -34,7 +35,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.sexVal {
+.edit-overlay .sexVal {
     margin-right: 10px;
 
     color: #888;
@@ -54,7 +55,7 @@
 
 }
 
-h1 {
+.edit-overlay h1 {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
