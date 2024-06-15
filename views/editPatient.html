@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> تعديل بيانات الطبيب</title>
+    <title> تعديل بيانات المريض</title>
     <link rel="stylesheet" href="../public/styles/editPatient_style.css">
 
    
@@ -15,22 +15,18 @@
        <div class="content">
         <h1 class="head"> تعديل بيانات المريض</h1>
         <br>
-
-        <a href="your-other-page.html" class="cancel-button">
-            <img src="cancel.png" alt="Cancel" />
-        </a>
        
         
-        <form action="editSurgeon" method="POST">
+        <form action="editPatient" method="POST">
             <div class="form-group">
-                <label for="firstName">الاسم الأول</label>
-                <input type="text" id="firstName" name="firstName" value="احمد">
+                <label for="name">الاسم</label>
+                <input type="text" id="name" name="name" value="احمد">
             </div>
             <br>
 
             <div class="form-group">
-                <label for="lastName">اسم العائلة</label>
-                <input type="text" id="lastName" name="lastName" value="حسن">
+                <label for="nationalID">الرقم القومي</label>
+                <input type="text" id="nationalID" name="nationalID" value="3030630">
             </div>
             <br>
 
@@ -42,36 +38,14 @@
 
             
             <div class="form-group">
-                <label>الجنس</label>
-                <div class="radio-group">
-                    <input type="radio" id="male" name="sex" value="male" checked>
-                    <label for="male" ><strong class="sexVal">ذكر</strong></label>
-                    <input type="radio" id="female" name="sex" value="female" >
-                    <label for="female"><strong class="sexVal">أنثى</strong></label>
-                </div>
+                <!-- Other form fields (name, email, password, etc.) -->
+            
+                <label for="gender">الجنس</label>
+                <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
+                <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+            
+                <!-- Submit button and other fields go here -->
             </div>
-            <br>
-
-
-            <div class="form-group">
-                <label for="nationalID">الرقم القومي</label>
-                <input type="text" id="nationalID" name="nationalID" value="32491">
-            </div>
-            <br>
-
-
-            <div class="form-group">
-                <label for="mobile">رقم الهاتف</label>
-                <input type="tel" id="mobile" name="mobile" value="031321">
-            </div>
-            <br>
-
-
-            <div class="form-group">
-                <label for="special">اسم المرض </label>
-                <input type="text" id="special" name="special" value="تسلخات" dir="rtl">
-            </div>
-
             <br>
 
             <div class="form-group">
@@ -84,9 +58,15 @@
             </div>
             <br>
 
+            <div class="form-group">
+                <label for="mobile">رقم الهاتف</label>
+                <input type="tel" id="mobile" name="mobile" value="031321">
+            </div>
+            <br>
+
             <div class="button-group">
                 <button type="button" class="cancel" onclick="window.location.href='/'">إلغاء</button>
-                <button type="submit">تحديث المعلومات</button>
+                <button type="submit">تحديث البيانات</button>
             </div>
         </form> 
        </div>
