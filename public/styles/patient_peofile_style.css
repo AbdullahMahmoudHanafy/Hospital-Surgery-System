@@ -147,32 +147,3 @@ body {
 .operation p strong {
     color: #333;
 }
-
-
-body{
-    /* background-image: url("../images/hospitalSystem.jpg"); */
-    background-color:azure;
-    margin: 0px;
-}
-
-body.night{
-    background-color: #111827;
-    margin: 0px;
-}
-
-h1.night{
-    color: white;
-}
-
-.Admin-data{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.Admin-img{
-    width: 42px;
-    height: 42px;
-    border-radius: 30px;
-    margin: 10px;
-}
