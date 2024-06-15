@@ -1,17 +1,31 @@
-var addButton1 = document.querySelector('.addButton1')
-var addButton2 = document.querySelector('.addButton2')
+//select overlay pages 
+let editOverlay = document.querySelector('.edit-overlay');
+// let deleteOverlay = document.querySelector('.delete-overlay')
 
-addButton1.addEventListener('click', function(){
-    overlay1.style.display = "flex"
-})
-addButton2.addEventListener('click', function(){
-    overlay2.style.display = "flex"
-})
+//select cancel buttons in edit and delete overlay
+// var cancelDeletion = document.querySelector('.cancel-deletion')
+// var cancelEdit = document.querySelector('.cancel-edit')
 
-var cancelAdding = document.querySelectorAll('.cancel')
-cancelAdding.forEach((cancelButton) => {
-    cancelButton.addEventListener('click', function(){
-        overlay1.style.display = "none"
-        overlay2.style.display = "none"
+//make overlays dissapears when cancel buttons are been clicked
+// cancelDeletion.addEventListener('click',function(){
+//     deleteOverlay.style.display = 'none'
+// })
+// cancelEdit.addEventListener('click',function(){
+//     editOverlay.style.display = 'none'
+// })
+
+// select all delete and edit buttons in all 3Dots menus
+let editButtons  = document.querySelectorAll('.edit-btn')
+// let deleteButtons = document.querySelectorAll('.delete-btn')
+
+// make them open edit or delete overlay pages when be clicked
+editButtons.forEach((editButton)=>{
+    editButton.addEventListener('click',function(){
+        editOverlay.style.display = 'flex'
     })
 })
+// deleteButtons.forEach((deleteButton)=>{
+//     deleteButton.addEventListener('click',function(){
+//         deleteOverlay.style.display = 'flex'
+//     })
+// })

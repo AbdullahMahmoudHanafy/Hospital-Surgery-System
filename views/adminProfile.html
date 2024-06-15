@@ -13,11 +13,11 @@
 
 <body>
 
-    <div class="overlay1" id="overlay1">
-        <div class="editAdmin">
+    <div class="edit-overlay">
+        <div class="edit-overlay-container">
       
         
-            <div class="content">
+            <div class="edit-overlay-content">
              <h1 class="head">  تعديل بيانات المشرف</h1>
              <br>
              
@@ -50,6 +50,16 @@
                  
                      <!-- Submit button and other fields go here -->
                  </div>
+     
+                 <!-- <div class="form-group">
+                     <label>الجنس</label>
+                     <div class="radio-group">
+                         <input type="radio" id="male" name="sex" value="male" checked>
+                         <label for="male" ><strong class="sexVal">ذكر</strong></label>
+                         <input type="radio" id="female" name="sex" value="female" >
+                         <label for="female"><strong class="sexVal">أنثى</strong></label>
+                     </div>
+                 </div> -->
                  <br>
      
                  <div class="form-group">
@@ -78,8 +88,7 @@
                      <input type="text" id="address" name="address" value="شارع علي علوكة">
                  </div>
                  <br>
-     
-     
+    
                  <div class="form-group">
                      <label for="password">كلمة المرور</label>
                      <input type="text" id="password" name="password" value="Drop Table">
@@ -90,19 +99,14 @@
                      <input type="text" id="confirmPassword" name="password" value="Drop Table">
                  </div>
                  <br>
-     
-     
-     
-     
-                
                  <div class="button-group">
-                     <button type="button" class="edit-btn cancel">إلغاء</button>
-                     <button type="submit" class="edit-btn">تحديث المعلومات</button>
+                     <button type="button" class="cancel-edit">إلغاء</button>
+                     <button type="submit">تحديث المعلومات</button>
                  </div>
              </form> 
             </div>
          </div>
-    </div>
+     </div>
     <div class="overlay2" id="overlay2"></div>
     <div class = "Nav-bar">
         
@@ -138,8 +142,8 @@
             <h1>الملف الشخصي للمشرف</h1>
         </div>
         <div class="buttons">
-            <button class="edit-btn addButton1">تعديل</button>
-            <button class="delete-btn addButton2">حذف</button>
+            <button class="edit-btn">تعديل</button>
+            <button class="delete-btn">حذف</button>
         </div>
         <div class="profile">
             <img src="../public/images/admin.jpeg" alt="صورة المشرف" class="profile-img">
