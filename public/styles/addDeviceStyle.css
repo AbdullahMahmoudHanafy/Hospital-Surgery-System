@@ -8,8 +8,15 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+input[type = "date"]{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: left;
+}
+
 input[type="serial"],
-input[type="date"],
 input[type="warranty"],
 input[type="status"],
 input[type="company"],
@@ -21,8 +28,4 @@ input[type="price"]
     border-radius: 3px;
     display: flex;
     align-items: flex-end;
-}
-
-input[type="date"]{
-    padding-left: 275px;
 }

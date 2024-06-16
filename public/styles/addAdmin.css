@@ -10,6 +10,8 @@
 .addAdmin {
     z-index: 101;
     width: 400px;
+    height: 600px;
+    overflow-y: scroll;
     margin: 0 auto;
     padding-left: 20px;
     padding-right: 20px;

@@ -78,9 +78,7 @@ input[type="time"]
 
 input[type="date"]
 {
-    text-align: right;
     direction: rtl;
-    padding-left: 270px;
     color:#767676e8;
 }
 
