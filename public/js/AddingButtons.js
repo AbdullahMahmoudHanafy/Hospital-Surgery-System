@@ -39,5 +39,7 @@ cancelAdding.forEach((cancelButton) => {
         overlay4.style.display = "none"
         overlay5.style.display = "none"
         overlay6.style.display = "none"
+
+        event.preventDefault()
     })
 })

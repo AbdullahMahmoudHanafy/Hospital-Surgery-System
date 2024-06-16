@@ -106,10 +106,6 @@ label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
 }
 
 
-input[type="radio"]{
-    margin-left: 90px;
-}
-
 .custom-file-input {
     display: flex;
     align-items: center;

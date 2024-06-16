@@ -3,6 +3,7 @@ import path from 'path';
 import multer from 'multer';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import  pool  from "./database.js"
 
 const port = 3000;
 
@@ -44,6 +45,15 @@ app.get("/operations", (req, res) => {
 
 app.get("/patients", (req, res) => {
     res.render("./patients.ejs");
+})
+
+
+
+
+
+app.post("/addAdmin", (req, res) => {
+    let name = req.body["name"], sex = req.body["sex"]
+    console.log(sex)
 })
 
 

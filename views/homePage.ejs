@@ -36,14 +36,8 @@
                     <!-- Submit button and other fields go here -->
                 </div>
 
-                <label for="avatar">صورة الجراح</label>
-                <div class="form-group">
-                    <div class="custom-file-input">
-                        <input type="file" name="avatar">
-                        <label for="avatar">اختر ملف</label>
-                        <span class="file-chosen">لا يوجد ملف مختار</span>
-                    </div>
-                </div>
+                <label for="image">صورة الجراح</label>
+                <input type="file" name="image">
     
                 <label for="address" dir='rtl' lang='ar'>عنوان الجراح</label>
                 <input type="address" name="address" placeholder="ادخل العنوان" dir='rtl' lang='ar' required>
@@ -80,14 +74,9 @@
                     <!-- Submit button and other fields go here -->
                 </div>
 
-                <label for="avatar">صورة المريض</label>
-                <div class="form-group">
-                    <div class="custom-file-input">
-                        <input type="file" name="avatar">
-                        <label for="avatar">اختر ملف</label>
-                        <span class="file-chosen">لا يوجد ملف مختار</span>
-                    </div>
-                </div>
+                <label for="image">صورة المريض</label>
+                <input type="file" name="image">
+
                 <label for="address" dir='rtl' lang='ar'>عنوان المريض</label>
                 <input type="address" name="address" placeholder="ادخل عنوان المريض" dir='rtl' lang='ar' required>
                 <label for="phone" dir='rtl' lang='ar'>رقم هاتف المريض</label>
@@ -102,29 +91,24 @@
     <div class="overlay3" >
         <div class="container addAdmin">
             <h5> تسجيل مشرف جديد</h5>
-            <form>
+            <form action="addAdmin" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم المشرف</label>
                 <input type="name" name="name" placeholder="ادخل اسم المستخدم" dir='rtl' lang='ar' required>
                 <label for="birthDate">تاريخ الميلاد</label>
                 <input type="date" name="birthDate" >
-                <label for="gender">جنس الجراح</label>
+                <label for="gender">جنس المشرف</label>
                 <div class="form-group">
                     <!-- Other form fields (name, email, password, etc.) -->
                 
+                    
+                    <input type="radio" name="sex" value="Female" required/><span class = "sexVal">أنثى</span>
                     <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
-                    <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
                 
                     <!-- Submit button and other fields go here -->
                 </div>
 
-                <label for="avatar">صورة الجراح</label>
-                <div class="form-group">
-                    <div class="custom-file-input">
-                        <input type="file" name="avatar">
-                        <label for="avatar">اختر ملف</label>
-                        <span class="file-chosen">لا يوجد ملف مختار</span>
-                    </div>
-                </div>
+                <label for="image">صورة المشرف</label>
+                <input type="file" name="image">
                 <label for="email" dir='rtl' lang='ar'>البريد الاكتروني</label>
                 <input type="email" name="ID" placeholder="ادخل ال Email" dir='rtl' lang='ar' required>
                 <label for="password" dir='rtl' lang='ar'>كلمة المرور</label>
@@ -140,6 +124,7 @@
                     <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
                 </div>
             </form>
+            
         </div>
     </div>
     <div class = "overlay4" ></div>
