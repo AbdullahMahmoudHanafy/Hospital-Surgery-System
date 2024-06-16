@@ -24,7 +24,7 @@ top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 background: #fff;
-width: 700px;
+width: 400px;
 margin: 0 auto;
 padding: 20px;
 border-radius: 8px;
@@ -53,6 +53,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
+    text-align: center;
 }
 .edit-overlay .form-group {
     display: flex;
@@ -66,10 +67,11 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .edit-overlay input[type="text"],
 .edit-overlay input[type="date"],
-.edit-overlay input[type="tel"] {
-    width: 40%;
+.edit-overlay input[type="tel"],
+.edit-overlay input[type="time"] {
+    width: 100%;
     padding: 5px;
-    height: 25px;
+    height: 35px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -145,16 +147,12 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-left: 10px;
     height: 35px;
 }
-.edit-overlay button.cancel {
+.edit-overlay button.cancel-edit {
     background-color: #bbb;
 }
 .edit-overlay button:hover {
     background-color: #3700b3;
 }
-.edit-overlay button.cancel:hover {
+.edit-overlay button.cancel-edit:hover {
     background-color: #999;
-}
- 
-.edit-overlay .head{
-    margin-right: 40%;
 }
