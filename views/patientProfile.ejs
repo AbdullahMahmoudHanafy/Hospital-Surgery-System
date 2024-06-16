@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي للمريض</title>
+    <link rel="stylesheet" href="./styles/partial css/overlay.css">
+    <link rel="stylesheet" href="./styles/patient_peofile_style.css">
+    <link rel="stylesheet" href="./styles/partial css/navigationBar.css">
+    <link rel="stylesheet" href="./styles/editPatient_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./styles/deleteOverlay.css">
+</head>
+
+<body>
+    <div class="edit-overlay" id="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
+             <h1 class="head"> تعديل بيانات المريض</h1>
+             <br>
+            
+             
+             <form action="editPatient" method="POST">
+                 <div class="form-group">
+                     <label for="name">الاسم</label>
+                     <input type="text" id="name" name="name" value="احمد">
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="nationalID">الرقم القومي</label>
+                     <input type="text" id="nationalID" name="nationalID" value="3030630">
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="birthDate">تاريخ الميلاد</label>
+                     <input type="date" id="birthDate" name="birthDate" >
+                 </div>
+                 <br>
+     
+                 
+                 <div class="form-group">
+                     <!-- Other form fields (name, email, password, etc.) -->
+                 
+                     <label for="gender">الجنس</label>
+                     <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
+                     <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                 
+                     <!-- Submit button and other fields go here -->
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="avatar">صورة المريض</label>
+                     <div class="custom-file-input">
+                         <input type="file" id="avatar" name="avatar">
+                         <label for="avatar">اختر ملف</label>
+                         <span class="file-chosen">لا يوجد ملف مختار</span>
+                     </div>
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="mobile">رقم الهاتف</label>
+                     <input type="tel" id="mobile" name="mobile" value="031321">
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="address">العنوان</label>
+                     <input type="text" id="address" name="address" value="شارع علي علوكة">
+                 </div>
+                 <br>
+     
+                 <div class="button-group">
+                     <button type="button" class="cancel-edit">إلغاء</button>
+                     <button type="submit">تحديث البيانات</button>
+                 </div>
+             </form> 
+            </div>
+         </div>
+    </div>
+    <div class="delete-overlay" dir="rtl">
+        <div class="delete-overlay-container">
+            <header>تأكيد عملية الحذف</header>
+            <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت
+                متأكد من عملية الحذف؟</h3>
+            <div class="buttons-container">
+                <button class="cancel-deletion">إغلاق</button>
+                <button class="confirm-deletion">تأكيد</button>
+            </div>
+        </div>
+    </div>
+    <div class = "Nav-bar">
+        
+            
+        <div class = "Left-nav">
+            <button class = "Nav-bar-btn">الصفحة الرئيسية</button>
+            <button class = "Nav-bar-btn">المواعيد</button>
+            <button class = "Nav-bar-btn">المرضى</button>
+            <button class = "Nav-bar-btn">الجراحون</button>
+            <button class = "Nav-bar-btn">غرف العمليات</button>
+            <button class = "Nav-bar-btn">العمليات</button>
+            <button class = "Nav-bar-btn">المعدات</button>
+        </div>
+        <div class = "Right-nav">
+            <div class = "Admin-data">
+                <img src="./images/myImage.jpg" alt="An admin's image" class = "Admin-img">
+                <div class="navbar-name">عبدالله محمود</div>
+
+            </div>
+            <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
+            <button class = "Nav-bar-icon-btn" id = "Dark-mode"><i class="fa-solid fa-moon"></i></button>
+            <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button>
+
+
+        </div>
+
+    </div>
+    <div class="container">
+       
+    <div class="upperdiv">
+        
+        <div class="title">
+            <h1>الملف الشخصي للمريض</h1>
+        </div>
+        <div class="buttons">
+            <button class="edit-btn addButton1">تعديل</button>
+            <button class="delete-btn addButton2">حذف</button>
+        </div>
+        <div class="profile">
+            <img src="./images/patient.jpeg" alt="صورة المريض" class="profile-img">
+            <div class="info">
+                <h2 >سعيد خالد</h2>
+            </div>
+        </div>
+        <div class="details">
+            <p><i class="fas fa-id-card"></i> الرقم القومي: 19851234567890</p>
+            <p><i class="fas fa-phone-alt"></i> رقم الهاتف:01095123128</p>
+            <p><i class="fas fa-birthday-cake"></i> العمر: 44 سنة</p>
+            <p><i class="fas fa-calendar-alt"></i> تاريخ الميلاد: 1980-05-25</p>
+            <p><i class="fas fa-mars"></i> الجنس: ذكر</p>
+        </div>
+    </div>
+        <div class="operations">
+            <h3>آخر العمليات:</h3>
+            <div class="operation">
+                <div class="column c1">
+                    <h4 > نوع العملية</h4>
+                    <p>تبديل  صمام القلب </p>
+                    <p> إزالة ورم دماغي </p>
+                    <p> زراعة الكلى  </p>
+                </div>
+                <div class="column c2">
+                    <h4>اسم الجراح</h4>
+                    <p>أحمد حسن</p>
+                    <p>يوسف محمد</p>
+                    <p>فاطمة علي</p>
+                </div>
+                <div class="column c3">
+                    <h4>الرقم القومي</h4>
+                    <p>19850312345678</p>
+                    <p>19900321458974</p>
+                    <p>19851234567890</p>
+                </div>
+                <div class="column c4">
+                    <h4>التاريخ</h4>
+                    <p>2022-01-18</p>
+                    <p>2018-07-28 </p>
+                    <p> 2012-11-02</p>
+                </div>
+            </div>
+       
+        </div>
+    </div>
+    <script src="./js/edit&deleteButtons.js"></script>
+</body>
+</html>

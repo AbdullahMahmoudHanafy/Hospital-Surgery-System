@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المرضي</title>
+    <link rel="stylesheet" href="./styles/patients.css">
+    <link rel="stylesheet" href="./styles/editPatient_style.css">
+    <link rel="stylesheet" href="./styles/deleteOverlay.css">
+    <link rel="stylesheet" href="./styles/addPatient.css">
+    <link rel="stylesheet" href="./styles/partial css/overlay.css">
+    <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="Nav-bar">
+        <div id="Right-nav">
+            <button class="Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button>
+            <button class="Nav-bar-icon-btn"><i class="fa-solid fa-moon"></i></button>
+            <button class="Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
+            <div id="Admin-data">
+                <div class="navbar-name">عبدالله محمود</div>
+                <img src="./images/myImage.jpg" alt="An admin's image" id="Admin-img">
+            </div>
+        </div>
+        <div id="Left-nav">
+            <button class="Nav-bar-btn active">المعدات</button>
+            <button class="Nav-bar-btn">العمليات</button>
+            <button class="Nav-bar-btn">غرف العمليات</button>
+            <button class="Nav-bar-btn">الجراحون</button>
+            <button class="Nav-bar-btn">المرضى</button>
+            <button class="Nav-bar-btn">المواعيد</button>
+            <button class="Nav-bar-btn">الصفحة الرئيسية</button>
+        </div>
+    </div>
+
+    <div class="main" dir="rtl" lang="ar">
+        <div class="container">
+            <div class="upper-div">
+                <div class="title">المرضي</div>
+                <div class="search">
+                    <div class="buttons">
+                        <button class="all">الكل</button>
+                        <button class="active">ذكر</button>
+                        <button class="inactive">أنثي</button>
+                    </div>
+                    <select class="combobox">
+                        <option value="purchaseDate-asc">الترتيب حسب الاسم (من ألألف الي الياء)</option>
+                        <option value="purchaseDate-desc">الترتيب حسب الاسم (من الياء الي الألف)</option>
+                        <option value="name-asc">الترتيب حسب العمر (تصاعديا)</option>
+                        <option value="name-desc">الترتيب حسب العمر (تنازليا)</option>
+                    </select>
+                    <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
+                </div>
+            </div>
+            <div class="lowerdiv">
+                <header class="table-header">
+                    <div class="header-col"><div class="header-top">الاسم</div><div class="header-bottom">البريد الالكتروني</div></div>
+                    <div class="header-col">الجنس</div>
+                    <div class="header-col"><div class="header-top">العمر</div><div class="header-bottom">تاريخ الميلاد</div></div>
+                    <div class="header-col"><div class="header-top">التشخيص</div><div class="header-bottom">ICD-11</div></div>
+                </header>
+
+                <div class="patients">
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top">علي معلول</div><div class="bottom">ali.maaloul@ahahly.com</div></div><div class="patient-col"><div class="patient-gender">ذكر</div></div><div class="patient-col"><div class="top">34 عاما</div><div class="bottom">1/1/1990</div></div><div class="patient-col"><div class="top">رباط صليبي</div><div class="bottom">S83.50</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="edit-overlay" id="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
+             <h1 class="head"> تعديل بيانات المريض</h1>
+             <br>
+            
+             
+             <form action="editPatient" method="POST">
+                 <div class="form-group">
+                     <label for="name">الاسم</label>
+                     <input type="text" id="name" name="name" value="احمد">
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="nationalID">الرقم القومي</label>
+                     <input type="text" id="nationalID" name="nationalID" value="3030630">
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="birthDate">تاريخ الميلاد</label>
+                     <input type="date" id="birthDate" name="birthDate" >
+                 </div>
+                 <br>
+     
+                 
+                 <div class="form-group">
+                     <!-- Other form fields (name, email, password, etc.) -->
+                 
+                     <label for="gender">الجنس</label>
+                     <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
+                     <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                 
+                     <!-- Submit button and other fields go here -->
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="avatar">صورة المريض</label>
+                     <div class="custom-file-input">
+                         <input type="file" id="avatar" name="avatar">
+                         <label for="avatar">اختر ملف</label>
+                         <span class="file-chosen">لا يوجد ملف مختار</span>
+                     </div>
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="mobile">رقم الهاتف</label>
+                     <input type="tel" id="mobile" name="mobile" value="031321">
+                 </div>
+                 <br>
+     
+                 <div class="form-group">
+                     <label for="address">العنوان</label>
+                     <input type="text" id="address" name="address" value="شارع علي علوكة">
+                 </div>
+                 <br>
+     
+                 <div class="button-group">
+                     <button type="button" class="cancel-edit">إلغاء</button>
+                     <button type="submit">تحديث البيانات</button>
+                 </div>
+             </form> 
+            </div>
+         </div>
+    </div>
+    <div class="delete-overlay" dir="rtl">
+        <div class="delete-overlay-container">
+            <header>تأكيد عملية الحذف</header>
+            <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت
+                متأكد من عملية الحذف؟</h3>
+            <div class="buttons-container">
+                <button class="cancel-deletion">إغلاق</button>
+                <button class="confirm-deletion">تأكيد</button>
+            </div>
+        </div>
+    </div>
+
+    <div class = "overlay2 overlay">
+        <div class="addPatient">
+            <h5> إضافة مريض</h5>
+            <form>
+                <label for="name" dir='rtl' lang='ar'>اسم المريض</label>
+                <input type="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
+                <label for="ID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
+                <input type="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <label for="birthDate">تاريخ الميلاد</label>
+                <input type="date" name="birthDate" >
+                <label for="gender">جنس المريض</label>
+                <div class="form-group">
+                    <!-- Other form fields (name, email, password, etc.) -->
+                
+                    <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
+                    <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                
+                    <!-- Submit button and other fields go here -->
+                </div>
+
+                <label for="avatar">صورة المريض</label>
+                <div class="form-group">
+                    <div class="custom-file-input">
+                        <input type="file" name="avatar">
+                        <label for="avatar">اختر ملف</label>
+                        <span class="file-chosen">لا يوجد ملف مختار</span>
+                    </div>
+                </div>
+                <label for="address" dir='rtl' lang='ar'>عنوان المريض</label>
+                <input type="address" name="address" placeholder="ادخل عنوان المريض" dir='rtl' lang='ar' required>
+                <label for="phone" dir='rtl' lang='ar'>رقم هاتف المريض</label>
+                <input type="phone" name="phone" placeholder=" ادخل رقم الهاتف"dir='rtl' lang='ar' required>
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="./js/addbutton.js"></script>
+    <script src="./js/3DotsMenu.js"></script>
+</body>
+
+</html>

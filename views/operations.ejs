@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العمليات</title>
+    <link rel="stylesheet" href="./styles/operations.css">
+    <link rel="stylesheet" href="./styles/deleteOverlay.css">
+    <link rel="stylesheet" href="./styles/editOperation_style.css">
+    <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="Nav-bar">
+        <div id="Right-nav">
+            <button class="Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button>
+            <button class="Nav-bar-icon-btn"><i class="fa-solid fa-moon"></i></button>
+            <button class="Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
+            <div id="Admin-data">
+                <div class="navbar-name">عبدالله محمود</div>
+                <img src="./images/myImage.jpg" alt="An admin's image" id="Admin-img">
+            </div>
+        </div>
+        <div id="Left-nav">
+            <button class="Nav-bar-btn active">المعدات</button>
+            <button class="Nav-bar-btn">العمليات</button>
+            <button class="Nav-bar-btn">غرف العمليات</button>
+            <button class="Nav-bar-btn">الجراحون</button>
+            <button class="Nav-bar-btn">المرضى</button>
+            <button class="Nav-bar-btn">المواعيد</button>
+            <button class="Nav-bar-btn">الصفحة الرئيسية</button>
+        </div>
+    </div>
+
+    <div class="main" dir="rtl" lang="ar">
+        <div class="container">
+            <div class="upper-div">
+                <div class="title">العمليات</div>
+                <div class="search">
+                    <!-- <div class="buttons">
+                        <button class="all">الكل</button>
+                        <button class="active">ذكر</button>
+                        <button class="inactive">أنثي</button>
+                    </div> -->
+                    <select class="combobox">
+                        <option value="purchaseDate-asc">الترتيب حسب الاسم (من ألألف الي الياء)</option>
+                        <option value="purchaseDate-desc">الترتيب حسب الاسم (من الياء الي الألف)</option>
+                        <option value="name-asc">الترتيب حسب العمر (تصاعديا)</option>
+                        <option value="name-desc">الترتيب حسب العمر (تنازليا)</option>
+                    </select>
+                    <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
+                </div>
+            </div>
+            <div class="lowerdiv">
+                <header class="table-header">
+                    <div class="header-col"><div class="header-top">اسم العملية</div><div class="header-bottom">كود العملية</div></div>
+                    <div class="header-col">رقم الغرفة</div>
+                    <div class="header-col">التكلفة</div>
+                    <div class="header-col">الوصف</div>
+                </header>
+
+                <div class="operations">
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="operation-col"><div class=>4</div></div><div class="operation-col"><div>30,000</div></div><div class="operation-col"><div><a href="https://orthopaedic-doctor-germany.com/%D8%AC%D8%B1%D8%A7%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D9%83%D8%A8%D8%A9/%D8%AA%D9%85%D8%B2%D9%82-%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7-%D8%A7%D9%84%D8%B5%D9%84%D9%8A%D8%A8%D9%8A.html">اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add overlay pages -->
+
+    <div class="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
+                <h1 class="head"> تعديل العملية</h1>
+                <br>
+
+                <form action="editOperation" method="POST">
+
+                    <div class="form-group">
+                        <label for="operationName">اسم العملية</label>
+                        <input type="text" id="operationName" name="operationName" value="فتاء">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="operationId">كود العملية</label>
+                        <input type="text" id="operationId" name="operationId" value="3124">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="price">السعر</label>
+                        <input type="text" id="price" name="price" value="3000$">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="duration">المدة</label>
+                        <input type="text" id="duration" name="duration" value="3 ساعات">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="roomNumber">رقم الغرفة</label>
+                        <input type="text" id="roomNumber" name="roomNumber" value="3">
+                    </div>
+                    <br>
+
+                    <label for="roomNumber" id="device-input">الاجهزة المستخدمة</label>
+                    <div id="fieldContainer">
+                        <div class="newField">
+                            <input type="text" name="multiValueField[]">
+                            <button type="button" class="deleteButton">حذف</button>
+                        </div>
+                    </div>
+                    <button type="button" id="add-field-but">أضف خانة</button>
+                    <br>
+                    <div class="form-group">
+                        <label for="description">وصف العملية</label>
+                        <input type="text" id="description" name="description">
+                    </div>
+                    <br>
+
+                    <div class="button-group">
+                        <button type="button" class="cancel-edit">إلغاء</button>
+                        <button type="submit">تحديث المعلومات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="delete-overlay" dir="rtl">
+        <div class="delete-overlay-container">
+            <header>تأكيد عملية الحذف</header>
+            <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت
+                متأكد من عملية الحذف؟</h3>
+            <div class="buttons-container">
+                <button class="cancel-deletion">إغلاق</button>
+                <button class="confirm-deletion">تأكيد</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="./js/3DotsMenu.js"></script>
+    <script src="./js/addbutton.js"></script>
+    <script src="./js/deviceInput.js"></script>
+</body>
+
+</html>
