@@ -19,27 +19,21 @@
 }
 
 .edit-overlay-content {
-    overflow-y: scroll;
+overflow-y: scroll;
 position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 background: #fff;
-
 width: 400px;
 height: 600px;
-
 margin: 0 auto;
 padding: 20px;
 border-radius: 8px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-
-
 }
 .edit-overlay .sexVal{
     margin-right: 10px;
-    
     color: #888;
     font-size: 14px;
 }
@@ -62,7 +56,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #333;
     text-align: center;
 }
-.form-group {
+.edit-overlay .form-group {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
@@ -81,14 +75,14 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-.custom-file-input {
+.edit-overlay .custom-file-input {
     display: flex;
     align-items: center;
 }
-.custom-file-input input[type="file"] {
+.edit-overlay .custom-file-input input[type="file"] {
     display: none;
 }
-.custom-file-input label {
+.edit-overlay .custom-file-input label {
     display: inline-block;
     background-color: #6200ee;
     color: #fff;
@@ -99,20 +93,20 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: auto;
     white-space: nowrap;
 }
-.custom-file-input label:hover {
+.edit-overlay .custom-file-input label:hover {
     background-color: #3700b3;
 }
-.custom-file-input .file-chosen {
+.edit-overlay .custom-file-input .file-chosen {
     margin-right: 10px;
     color: #888;
     font-size: 14px;
 }
-.radio-group {
+.edit-overlay .radio-group {
     display: flex;
     align-items: center;
 }
 
-.radio-group input[type="radio"] {
+.edit-overlay .radio-group input[type="radio"] {
    
     appearance: none;
     background-color: #fff;
@@ -127,7 +121,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: grid;
     place-content: center;
 }
-.radio-group input[type="radio"]::before {
+.edit-overlay .radio-group input[type="radio"]::before {
     content: "";
     width: 0.65em;
     height: 0.65em;
@@ -136,7 +130,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: 120ms transform ease-in-out;
     background-color: #6200ee;
 }
-.radio-group input[type="radio"]:checked::before {
+.edit-overlay .radio-group input[type="radio"]:checked::before {
     transform: scale(1);
 }
 .edit-overlay .button-group {
@@ -178,4 +172,12 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 .edit-overlay #add-field-but{
     margin: 10px;
     margin-bottom: 20px;
+}
+
+.edit-overlay ::-webkit-scrollbar{
+    width: 10px;
+}
+.edit-overlay ::-webkit-scrollbar-thumb{
+    background-color: rgb(61, 116, 255);
+    border-radius: 5px;
 }

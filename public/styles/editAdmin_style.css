@@ -62,7 +62,7 @@
     text-align: center;
 }
 
-.form-group {
+.edit-overlay .form-group {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
@@ -88,16 +88,16 @@
     border-radius: 4px;
 }
 
-.custom-file-input {
+.edit-overlay .custom-file-input {
     display: flex;
     align-items: center;
 }
 
-.custom-file-input input[type="file"] {
+.edit-overlay .custom-file-input input[type="file"] {
     display: none;
 }
 
-.custom-file-input label {
+.edit-overlay .custom-file-input label {
     display: inline-block;
     background-color: rgb(61, 116, 255);
     color: #fff;
@@ -109,22 +109,22 @@
     white-space: nowrap;
 }
 
-.custom-file-input label:hover {
+.edit-overlay .custom-file-input label:hover {
     background-color: #3700b3;
 }
 
-.custom-file-input .file-chosen {
+.edit-overlay .custom-file-input .file-chosen {
     margin-right: 10px;
     color: #888;
     font-size: 14px;
 }
 
-.radio-group {
+.edit-overlay .radio-group {
     display: flex;
     align-items: center;
 }
 
-.radio-group input[type="radio"] {
+.edit-overlay .radio-group input[type="radio"] {
 
     appearance: none;
     background-color: #fff;
@@ -140,7 +140,7 @@
     place-content: center;
 }
 
-.radio-group input[type="radio"]::before {
+.edit-overlay .radio-group input[type="radio"]::before {
     content: "";
     width: 0.65em;
     height: 0.65em;
@@ -150,7 +150,7 @@
     background-color: #6200ee;
 }
 
-.radio-group input[type="radio"]:checked::before {
+.edit-overlay .radio-group input[type="radio"]:checked::before {
     transform: scale(1);
 }
 
@@ -180,4 +180,12 @@
 
 .edit-overlay button.cancel-edit:hover {
     background-color: #999;
+}
+
+.edit-overlay ::-webkit-scrollbar{
+    width: 10px;
+}
+.edit-overlay ::-webkit-scrollbar-thumb{
+    background-color: rgb(61, 116, 255);
+    border-radius: 5px;
 }
