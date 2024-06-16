@@ -102,32 +102,13 @@ body{
     align-items: center;
 }
 
-/* .buttons{
-    background-color: white;
-    border: solid rgb(243, 244, 246) 0.8px;
-    padding: 5px;
-}
-
-.buttons button{
-    font-size: 20px;
-    padding: 5px 6px;
-    border-radius: 7px;
-    background-color: white;
-    margin: 0px 2px;
-    border: none;
-}
-
-.buttons button:hover{
-    background-color:  rgb(61, 116, 255);
-} */
-
 .combobox{
     width: 230px;
     height: 38px;
     border-color: rgb(243, 244, 246);
 }
 
-.add-appointment{
+.addButton{
     height: 38px;
     background-color: white;
     border: solid rgb(243, 244, 246) 0.8px;
@@ -195,7 +176,7 @@ body{
 }
 
 
-.add-appointment:hover{
+.addButton:hover{
     background-color:  rgb(61, 116, 255);
 }
 

@@ -179,7 +179,7 @@ body{
     height: calc(100vh - 260px);
 }
 
-.add-device{
+.addButton{
     height: 38px;
     background-color: white;
     border: solid rgb(243, 244, 246) 0.8px;
@@ -188,7 +188,7 @@ body{
     border-radius: 5px;
 }
 
-.add-device:hover{
+.addButton:hover{
     background-color:  rgb(61, 116, 255);
 }
 

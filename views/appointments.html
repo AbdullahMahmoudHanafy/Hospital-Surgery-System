@@ -53,7 +53,7 @@
                         <option value="name-desc">الترتيب حسب التاريخ (من الأقدم الي الأحدث)</option>
                         <option value="name-desc">الترتيب حسب التاريخ (من الأحدث الي الأقدم)</option>
                     </select>
-                    <button class="add-appointment"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
+                    <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
                 </div>
             </div>
             <div class="lowerdiv">
@@ -152,6 +152,31 @@
             </div>
         </div>
     </div>
+
+    <div class = "overlay6" >
+        <div class="container addAppointment">
+            <h5> عملية الحجز</h5>
+            <form>
+                <label for="patientID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
+                <input type="text" name="patientID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <label for="surgeonID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>
+                <input type="text" name="surgeonID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <label for="operationID" dir='rtl' lang='ar'>رمز تعريف العملية</label>
+                <input type="text" name="operationID" placeholder="ادخل رمز تعريف العملية" dir='rtl' lang='ar' required>
+                <label for="roomNumber" dir='rtl' lang='ar'>رقم الغرفة</label>
+                <input type="text" name="roomNumber" dir='rtl' placeholder="ادخل رقم الغرفة">
+                <label for="date" dir='rtl' lang='ar'>اختر التاريخ المناسب</label>
+                <input type="date" name="date" placeholder=" اختر التاريخ المناسب" dir='rtl' lang='ar' required>
+                <label for="time" dir='rtl' lang='ar'>اختر الميعاد المناسب</label>
+                <input type="time" name="time" placeholder=" اختر التاريخ المناسب" dir='rtl' lang='ar' required>
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>تأكيد الحجز </button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../public/js/addbutton.js"></script>
     <script src="../public/js/3DotsMenu.js"></script>
 </body>
 
