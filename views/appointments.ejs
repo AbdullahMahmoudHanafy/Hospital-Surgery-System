@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المواعيد</title>
-    <link rel="stylesheet" href="../public/styles/appointments.css">
-    <link rel="stylesheet" href="../public/styles/deleteOverlay.css">
-    <link rel="stylesheet" href="../public/styles/editAppointment_style.css">
-    <link rel="stylesheet" href="../public/styles/addAppointment.css">
-    <link rel="stylesheet" href="../public/styles/partial css/overlay.css">
+    <link rel="stylesheet" href="./styles/appointments.css">
+    <link rel="stylesheet" href="./styles/deleteOverlay.css">
+    <link rel="stylesheet" href="./styles/editAppointment_style.css">
+    <link rel="stylesheet" href="./styles/addAppointment.css">
+    <link rel="stylesheet" href="./styles/partial css/overlay.css">
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
 
@@ -21,17 +21,17 @@
             <button class="Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
             <div id="Admin-data">
                 <div class="navbar-name">عبدالله محمود</div>
-                <img src="../public/images/myImage.jpg" alt="An admin's image" id="Admin-img">
+                <img src="./images/myImage.jpg" alt="An admin's image" id="Admin-img">
             </div>
         </div>
         <div id="Left-nav">
-            <button class="Nav-bar-btn active">المعدات</button>
-            <button class="Nav-bar-btn">العمليات</button>
-            <button class="Nav-bar-btn">غرف العمليات</button>
-            <button class="Nav-bar-btn">الجراحون</button>
-            <button class="Nav-bar-btn">المرضى</button>
-            <button class="Nav-bar-btn">المواعيد</button>
-            <button class="Nav-bar-btn">الصفحة الرئيسية</button>
+            <a href="devices" class=""><button class = "Nav-bar-btn">المعدات</button></a>
+            <a href="operations" class=""><button class = "Nav-bar-btn">العمليات</button></a>
+            <a href="admins" class=""><button class = "Nav-bar-btn">المشرفون</button></a>
+            <a href="doctors" class=""><button class = "Nav-bar-btn">الجراحون</button></a>
+            <a href="patients" class=""><button class = "Nav-bar-btn">المرضى</button></a>
+            <a href="appointments" class=""><button class = "Nav-bar-btn">المواعيد</button></a>
+            <a href="homePage" class=""><button class = "Nav-bar-btn">الصفحة الرئيسية</button></a>
         </div>
     </div>
 
@@ -186,8 +186,8 @@
             </form>
         </div>
     </div>
-    <script src="../public/js/addbutton.js"></script>
-    <script src="../public/js/3DotsMenu.js"></script>
+    <script src="./js/addbutton.js"></script>
+    <script src="./js/3DotsMenu.js"></script>
 </body>
 
 </html>

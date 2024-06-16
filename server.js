@@ -18,6 +18,33 @@ app.get("/", (req, res) => {
     res.render("./homePage.ejs",);
 })
 
+app.get("/homePage", (req, res) => {
+    res.render("./homePage.ejs",);
+})
+
+app.get("/devices", (req, res) => {
+    res.render("./devices.ejs");
+})
+
+app.get("/admins", (req, res) => {
+    res.render("./admins.ejs");
+})
+
+app.get("/appointments", (req, res) => {
+    res.render("./appointments.ejs");
+})
+
+app.get("/doctors", (req, res) => {
+    res.render("./doctors.ejs");
+})
+
+app.get("/operations", (req, res) => {
+    res.render("./operations.ejs");
+})
+
+app.get("/patients", (req, res) => {
+    res.render("./patients.ejs");
+})
 
 
 
