@@ -156,10 +156,6 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 .edit-overlay button.cancel-edit:hover {
     background-color: #999;
 }
- 
-.edit-overlay .head{
-    margin-right: 40%;
-}
 
 .edit-overlay ::-webkit-scrollbar{
     width: 10px;
