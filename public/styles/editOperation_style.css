@@ -5,15 +5,15 @@ body {
     direction: rtl;
     text-align: right;
 }
-.container {
+.editOperation {
     
     position: relative;
     width: 100%;
     height: 100vh;
     
-    
 }
 .content {
+    overflow-y: scroll;
 position: absolute;
 top: 50%;
 left: 50%;
@@ -21,6 +21,7 @@ transform: translate(-50%, -50%);
 background: #fff;
 
 width: 400px;
+height: 600px;
 
 margin: 0 auto;
 padding: 20px;
@@ -154,4 +155,21 @@ button:hover {
 }
 button.cancel:hover {
     background-color: #999;
+}
+
+.newField{
+    display: flex;
+}
+
+.deleteButton{
+    margin: 10px;
+}
+
+input[name="multiValueField[]"]{
+    margin: 10px;
+}
+
+#add-field-but{
+    margin: 10px;
+    margin-bottom: 20px;
 }

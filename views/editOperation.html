@@ -9,7 +9,7 @@
    
 </head>
 <body>
-    <div class="container">
+    <div class="editOperation">
       
         
        <div class="content">
@@ -49,12 +49,14 @@
             </div>
             <br>
 
-            <div class="form-group">
-                <label for="requriedEquipments">الاجهزة اللازمة</label>
-                <input type="text" id="requriedEquipments" name="requriedEquipments"val="جهاز بلايستيشن" >
-
-
+            <label for="roomNumber" id = "device-input">الاجهزة المستخدمة</label>
+            <div id="fieldContainer">
+                <div class="newField">
+                    <input type="text" name="multiValueField[]">
+                    <button type="button" class="deleteButton">حذف</button>
+                </div>
             </div>
+              <button type="button" id = "add-field-but">أضف خانة</button>
             <br>
             <div class="form-group">
                 <label for="description">وصف العملية</label>
@@ -76,6 +78,6 @@
     </div>
     
 
-    </script>
+    <script src="../public/js/deviceInput.js"></script>
 </body>
 </html>

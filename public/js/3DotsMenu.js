@@ -1,7 +1,7 @@
 let threeDotsList = document.querySelectorAll(".threeDots");
 
 for (let i = 0;i<threeDotsList.length;i++){
-    threeDotsList[i].addEventListener("click",displayMenu);
+    threeDotsList[i].addEventListener("dblclick",displayMenu);
 }
 
 document.addEventListener("click",hideMenu);
