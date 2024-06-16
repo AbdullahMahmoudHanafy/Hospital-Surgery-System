@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../public/styles/admins.css">
     <link rel="stylesheet" href="../public/styles/editAdmin_style.css">
     <link rel="stylesheet" href="../public/styles/deleteOverlay.css">
+    <link rel="stylesheet" href="../public/styles/addAdmin.css">
+    <link rel="stylesheet" href="../public/styles/partial css/overlay.css">
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
 
@@ -49,7 +51,7 @@
                         <option value="name-asc">الترتيب حسب العمر (تصاعديا)</option>
                         <option value="name-desc">الترتيب حسب العمر (تنازليا)</option>
                     </select>
-                    <button class="add-admin"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
+                    <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
                 </div>
             </div>
             <div class="lowerdiv">
@@ -193,7 +195,50 @@
     </div>
     </div>
 
+    <div class="overlay overlay3">
+        <div class="container addAdmin">
+            <h5> تسجيل مشرف جديد</h5>
+            <form>
+                <label for="name" dir='rtl' lang='ar'>اسم المشرف</label>
+                <input type="name" name="name" placeholder="ادخل اسم المستخدم" dir='rtl' lang='ar' required>
+                <label for="birthDate">تاريخ الميلاد</label>
+                <input type="date" name="birthDate" >
+                <label for="gender">جنس الجراح</label>
+                <div class="form-group">
+                    <!-- Other form fields (name, email, password, etc.) -->
+                
+                    <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
+                    <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                
+                    <!-- Submit button and other fields go here -->
+                </div>
 
+                <label for="avatar">صورة الجراح</label>
+                <div class="form-group">
+                    <div class="custom-file-input">
+                        <input type="file" name="avatar">
+                        <label for="avatar">اختر ملف</label>
+                        <span class="file-chosen">لا يوجد ملف مختار</span>
+                    </div>
+                </div>
+                <label for="email" dir='rtl' lang='ar'>البريد الاكتروني</label>
+                <input type="email" name="ID" placeholder="ادخل ال Email" dir='rtl' lang='ar' required>
+                <label for="password" dir='rtl' lang='ar'>كلمة المرور</label>
+                <input type="password" name="password" placeholder="ادخل ال password" dir='rtl' lang='ar' required>
+                <label for="repassword" dir='rtl' lang='ar'>تأكيد كلمة المرور</label>
+                <input type="password" name="repassword" placeholder="ادخل ال password مرة اخري " dir='rtl' lang='ar' required>
+                <label for="phone" dir='rtl' lang='ar'>رقم الهاتف المحمول</label>
+                <input type="phone" name="phone" placeholder=" ادخل رقم الهاتف المحمول"dir='rtl' lang='ar' required>
+                <label for="address" dir='rtl' lang='ar'>عنوان المشرف</label>
+                <input type="address" name="address" placeholder="ادخل عنوان المستخدم" dir='rtl' lang='ar' required>
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../public/js/addbutton.js"></script>
     <script src="../public/js/3DotsMenu.js"></script>
 </body>
 
