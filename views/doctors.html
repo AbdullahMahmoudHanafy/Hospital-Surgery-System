@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الجراحين</title>
+    <link rel="stylesheet" href="../public/styles/deleteOverlay.css">
+    <link rel="stylesheet" href="../public/styles/editSurgeon.css">
     <link rel="stylesheet" href="../public/styles/doctors.css">
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
@@ -81,6 +83,103 @@
             </div>
         </div>
     </div>
+
+    <div class="edit-overlay">
+        <div class="edit-overlay-container">
+           <div class="edit-overlay-content">
+            <h1 class="head"> تعديل بيانات الجراح</h1>
+            <br>
+           
+            
+            <form action="editSurgeon" method="POST">
+                <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input type="text" id="name" name="name" value=" محمد احمد">
+                </div>
+                <br>
+    
+                <div class="form-group">
+                    <label for="id">الرقم القومي</label>
+                    <input type="text" id="id" name="id" value="3030630">
+                </div>
+                <br>
+    
+                <div class="form-group">
+                    <label for="birthDate">تاريخ الميلاد</label>
+                    <input type="date" id="birthDate" name="birthDate" >
+                </div>
+                <br>
+    
+                
+                <div class="form-group">
+                    <!-- Other form fields (name, email, password, etc.) -->
+                
+                    <label for="gender">الجنس</label>
+                    <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
+                    <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                
+                    <!-- Submit button and other fields go here -->
+                </div>
+                <br>
+    
+                <div class="form-group">
+                    <label for="avatar">صورة الجراح</label>
+                    <div class="custom-file-input">
+                        <input type="file" id="avatar" name="avatar">
+                        <label for="avatar">اختر ملف</label>
+                        <span class="file-chosen">لا يوجد ملف مختار</span>
+                    </div>
+                </div>
+                <br>
+    
+    
+                <div class="form-group">
+                    <label for="email">البريد الالكتروني</label>
+                    <input type="text" id="email" name="email" value="doctor@example">
+                </div>
+                <br>
+                
+    
+    
+                <div class="form-group">
+                    <label for="mobile">رقم الهاتف</label>
+                    <input type="tel" id="mobile" name="mobile" value="031321">
+                </div>
+                <br>
+    
+                <div class="form-group">
+                    <label for="address">العنوان</label>
+                    <input type="text" id="address" name="address" value="شارع علي علوكة">
+                </div>
+                <br>
+    
+    
+                <div class="form-group">
+                    <label for="special">التخصص </label>
+                    <input type="text" id="special" name="special" value="[جراحة العيون]" dir="rtl">
+                </div>
+    
+                <br>
+    
+                <div class="button-group">
+                    <button type="button" class="cancel-edit">إلغاء</button>
+                    <button type="submit">تحديث المعلومات</button>
+                </div>
+            </form> 
+           </div>
+        </div>
+    </div>
+
+    <div class="delete-overlay" dir="rtl">
+        <div class="delete-overlay-container">
+            <header>تأكيد عملية الحذف</header>
+            <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت متأكد من عملية الحذف؟</h3>
+            <div class="buttons-container">
+                <button class="cancel-deletion">إغلاق</button>
+                <button class="confirm-deletion">تأكيد</button>
+            </div>
+        </div>
+        </div>
     <script src="../public/js/3DotsMenu.js"></script>
 </body>
 
