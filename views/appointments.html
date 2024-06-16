@@ -105,25 +105,33 @@
                 <h1 class="head"> تعديل المقابلة</h1>
                 <br>
 
-                <a href="your-other-page.html" class="cancel-button">
-                    <img src="cancel.png" alt="Cancel" />
-                </a>
                 <form action="editAppointments" method="POST">
                     <div class="form-group">
-                        <label for="patientName">اسم المريض</label>
-                        <input type="text" id="patientName" name="patientName" value="احمد">
+                        <label for="patientID">الرقم القومي للمريض</label>
+                        <input type="text" id="patientID" name="patientID" value="3030630">
                     </div>
                     <br>
 
                     <div class="form-group">
-                        <label for="surgeonName">اسم الجراح</label>
-                        <input type="text" id="surgeonName" name="surgeonName" value="حسن">
+                        <label for="surgeonID">الرقم القومي للجراح</label>
+                        <input type="text" id="surgeonID" name="surgeonID" value="3030630">
                     </div>
                     <br>
 
                     <div class="form-group">
-                        <label for="appointmentDate">تاريخ المقابلة</label>
+                        <label for="roomNumber">رقم الغرفة</label>
+                        <input type="text" id="roomNumber" name="roomNumber" value="5">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="appointmentDate">تاريخ العملية</label>
                         <input type="date" id="appointmentDate" name="appointmentDate">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="appointmentTime">ميعاد العملية</label>
+                        <input type="time" id="appointmentTime" name="appointmentTime">
                     </div>
                     <br>
                     <div class="form-group">
