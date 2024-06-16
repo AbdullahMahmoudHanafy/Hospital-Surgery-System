@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المواعيد</title>
     <link rel="stylesheet" href="../public/styles/appointments.css">
+    <link rel="stylesheet" href="../public/styles/deleteOverlay.css">
+    <link rel="stylesheet" href="../public/styles/editAppointment_style.css">
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
 
@@ -91,6 +93,62 @@
                     <div class="appointment-row"><div class="appointment-col"><div>123123</div></div><div class="appointment-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="appointment-col"><div class="top">علي معلول</div><div class="bottom">909012</div></div><div class="appointment-col"><div class="top">متولي</div><div class="bottom">52301</div></div><div class="appointment-col"><div>4</div></div><div class="appointment-col"><div class="top">11-7-2024</div><div class="bottom">13:23:44</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>  
                     <div class="appointment-row"><div class="appointment-col"><div>123123</div></div><div class="appointment-col"><div class="top">رباط صليبي</div><div class="bottom">23</div></div><div class="appointment-col"><div class="top">علي معلول</div><div class="bottom">909012</div></div><div class="appointment-col"><div class="top">متولي</div><div class="bottom">52301</div></div><div class="appointment-col"><div>4</div></div><div class="appointment-col"><div class="top">11-7-2024</div><div class="bottom">13:23:44</div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>  
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add overlay pages -->
+
+    <div class="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
+                <h1 class="head"> تعديل المقابلة</h1>
+                <br>
+
+                <a href="your-other-page.html" class="cancel-button">
+                    <img src="cancel.png" alt="Cancel" />
+                </a>
+                <form action="editAppointments" method="POST">
+                    <div class="form-group">
+                        <label for="patientName">اسم المريض</label>
+                        <input type="text" id="patientName" name="patientName" value="احمد">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="surgeonName">اسم الجراح</label>
+                        <input type="text" id="surgeonName" name="surgeonName" value="حسن">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="appointmentDate">تاريخ المقابلة</label>
+                        <input type="date" id="appointmentDate" name="appointmentDate">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="operationCode">كود العملية</label>
+                        <input type="text" id="operationCode" name="operationCode">
+                    </div>
+                    <br>
+
+                    <div class="button-group">
+                        <button type="button" class="cancel-edit">إلغاء</button>
+                        <button type="submit">تحديث المعلومات</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="delete-overlay" dir="rtl">
+        <div class="delete-overlay-container">
+            <header>تأكيد عملية الحذف</header>
+            <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت
+                متأكد من عملية الحذف؟</h3>
+            <div class="buttons-container">
+                <button class="cancel-deletion">إغلاق</button>
+                <button class="confirm-deletion">تأكيد</button>
             </div>
         </div>
     </div>

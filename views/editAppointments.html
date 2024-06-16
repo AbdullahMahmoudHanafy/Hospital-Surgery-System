@@ -1,61 +1,57 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> تعديل بيانات الادمن</title>
     <link rel="stylesheet" href="../public/styles/editAppointment_style.css">
 
-   
+
 </head>
+
 <body>
-    <div class="container">
-      
-        
-       <div class="content">
-        <h1 class="head"> تعديل المقابلة</h1>
-        <br>
+    <div class="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
+                <h1 class="head"> تعديل المقابلة</h1>
+                <br>
 
-        <a href="your-other-page.html" class="cancel-button">
-            <img src="cancel.png" alt="Cancel" />
-        </a>
-       
-        
-        <form action="editAppointments" method="POST">
-            <div class="form-group">
-                <label for="patientName">اسم المريض</label>
-                <input type="text" id="patientName" name="patientName" value="احمد">
+                <a href="your-other-page.html" class="cancel-button">
+                    <img src="cancel.png" alt="Cancel" />
+                </a>
+                <form action="editAppointments" method="POST">
+                    <div class="form-group">
+                        <label for="patientName">اسم المريض</label>
+                        <input type="text" id="patientName" name="patientName" value="احمد">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="surgeonName">اسم الجراح</label>
+                        <input type="text" id="surgeonName" name="surgeonName" value="حسن">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="appointmentDate">تاريخ المقابلة</label>
+                        <input type="date" id="appointmentDate" name="appointmentDate">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="operationCode">كود العملية</label>
+                        <input type="text" id="operationCode" name="operationCode">
+                    </div>
+                    <br>
+
+                    <div class="button-group">
+                        <button type="button" class="cancel-edit" onclick="window.location.href='/'">إلغاء</button>
+                        <button type="submit">تحديث المعلومات</button>
+                    </div>
             </div>
-            <br>
-
-            <div class="form-group">
-                <label for="surgeonName">اسم الجراح</label>
-                <input type="text" id="surgeonName" name="surgeonName" value="حسن">
-            </div>
-            <br>
-
-            <div class="form-group">
-                <label for="appointmentDate">تاريخ المقابلة</label>
-                <input type="date" id="appointmentDate" name="appointmentDate" >
-            </div>
-            <br>
-            <div class="form-group">
-                <label for="operationCode">كود العملية</label>
-                <input type="text" id="operationCode" name="operationCode" >
-            </div>
-            <br>
-
-    
-
-
-
-           
-            <div class="button-group">
-                <button type="button" class="cancel" onclick="window.location.href='/'">إلغاء</button>
-                <button type="submit">تحديث المعلومات</button>
-            </div>
-        </form> 
-       </div>
+            </form>
+        </div>
     </div>
 </body>
+
 </html>

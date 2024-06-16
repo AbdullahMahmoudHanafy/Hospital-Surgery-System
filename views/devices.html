@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الأجهزة</title>
     <link rel="stylesheet" href="../public/styles/devices.css">
+    <link rel="stylesheet" href="../public/styles/editEquipment_style.css">
+    <link rel="stylesheet" href="../public/styles/deleteOverlay.css">
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
 
@@ -102,6 +104,76 @@
                     <div class="device-row"><div class="device-col"><div class="top">infusion pump</div><div class="bottom">Alaris</div></div><div class="device-col"><div class="top">نشط</div><div class="bottom">5 سنوات</div></div><div class="device-col"><div class="top">3,000,000</div><div class="bottom">123723213123</div></div><div class="device-col">15/4/2023</div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <div class="device-row"><div class="device-col"><div class="top">infusion pump</div><div class="bottom">Alaris</div></div><div class="device-col"><div class="top">نشط</div><div class="bottom">5 سنوات</div></div><div class="device-col"><div class="top">3,000,000</div><div class="bottom">123723213123</div></div><div class="device-col">15/4/2023</div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- overlay pages -->
+
+    <div class="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
+                <h1 class="head"> تعديل بيانات الجهاز</h1>
+                <br>
+    
+                <form action="editEquipment" method="POST">
+                    <div class="form-group">
+                        <label for="equipmentName">اسم الجهاز</label>
+                        <input type="text" id="equipmentName" name="equipmentName" value="رنين مغناطيسي">
+                    </div>
+                    <br>
+    
+                    <div class="form-group">
+                        <label for="serial number">الرقم التسلسلي</label>
+                        <input type="text" id="serialNumber" name="serialNumber" value="12341245243">
+                    </div>
+                    <br>
+    
+                    <div class="form-group">
+                        <label for="price">سعر الجهاز</label>
+                        <input type="text" id="price" name="price" value="نص جنيه">
+                    </div>
+                    <br>
+    
+                    <div class="form-group">
+                        <label for="warrantly">الضمان</label>
+                        <input type="text" id="warrantly" name="warrantly" value="years 2">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="status">حالة الجهاز</label>
+                        <input type="text" id="status" name="status" val="علي ما يرام">
+                    </div>
+                    <br>
+    
+                    <div class="form-group">
+                        <label for="company">اسم الشركة المصنعة</label>
+                        <input type="text" id="company" name="company" val="توشيبا">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="productionDate">تاريخ الانتاج</label>
+                        <input type="date" id="productionDate" name="productionDate">
+                    </div>
+                    <br>
+    
+                    <div class="button-group">
+                        <button type="button" class="cancel-edit">إلغاء</button>
+                        <button type="submit">تحديث المعلومات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="delete-overlay" dir="rtl">
+        <div class="delete-overlay-container">
+            <header>تأكيد عملية الحذف</header>
+            <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت
+                متأكد من عملية الحذف؟</h3>
+            <div class="buttons-container">
+                <button class="cancel-deletion">إغلاق</button>
+                <button class="confirm-deletion">تأكيد</button>
             </div>
         </div>
     </div>

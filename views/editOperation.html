@@ -1,83 +1,79 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> تعديل بيانات العملية</title>
     <link rel="stylesheet" href="../public/styles/editOperation_style.css">
 
-   
+
 </head>
+
 <body>
-    <div class="editOperation">
-      
-        
-       <div class="content">
-        <h1 class="head"> تعديل العملية</h1>
-        <br>
-       
-        
-        <form action="editOperation" method="POST">
+    <div class="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
+                <h1 class="head"> تعديل العملية</h1>
+                <br>
 
-            <div class="form-group">
-                <label for="operationName">اسم العملية</label>
-                <input type="text" id="operationName" name="operationName" value="فتاء">
+                <form action="editOperation" method="POST">
+
+                    <div class="form-group">
+                        <label for="operationName">اسم العملية</label>
+                        <input type="text" id="operationName" name="operationName" value="فتاء">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="operationId">كود العملية</label>
+                        <input type="text" id="operationId" name="operationId" value="3124">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="price">السعر</label>
+                        <input type="text" id="price" name="price" value="3000$">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="duration">المدة</label>
+                        <input type="text" id="duration" name="duration" value="3 ساعات">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="roomNumber">رقم الغرفة</label>
+                        <input type="text" id="roomNumber" name="roomNumber" value="3">
+                    </div>
+                    <br>
+
+                    <label for="roomNumber" id="device-input">الاجهزة المستخدمة</label>
+                    <div id="fieldContainer">
+                        <div class="newField">
+                            <input type="text" name="multiValueField[]">
+                            <button type="button" class="deleteButton">حذف</button>
+                        </div>
+                    </div>
+                    <button type="button" id="add-field-but">أضف خانة</button>
+                    <br>
+                    <div class="form-group">
+                        <label for="description">وصف العملية</label>
+                        <input type="text" id="description" name="description">
+                    </div>
+                    <br>
+
+                    <div class="button-group">
+                        <button type="button" class="cancel-edit">إلغاء</button>
+                        <button type="submit">تحديث المعلومات</button>
+                    </div>
+                </form>
             </div>
-            <br>
-
-            <div class="form-group">
-                <label for="operationId">كود العملية</label>
-                <input type="text" id="operationId" name="operationId" value="3124">
-            </div>
-            <br>
-
-            <div class="form-group">
-                <label for="price">السعر</label>
-                <input type="text" id="price" name="price" value="3000$">
-            </div>
-            <br>
-
-            <div class="form-group">
-                <label for="duration">المدة</label>
-                <input type="text" id="duration" name="duration" value="3 ساعات">
-            </div>
-            <br>
-
-            <div class="form-group">
-                <label for="roomNumber">رقم الغرفة</label>
-                <input type="text" id="roomNumber" name="roomNumber"value="3" >
-            </div>
-            <br>
-
-            <label for="roomNumber" id = "device-input">الاجهزة المستخدمة</label>
-            <div id="fieldContainer">
-                <div class="newField">
-                    <input type="text" name="multiValueField[]">
-                    <button type="button" class="deleteButton">حذف</button>
-                </div>
-            </div>
-              <button type="button" id = "add-field-but">أضف خانة</button>
-            <br>
-            <div class="form-group">
-                <label for="description">وصف العملية</label>
-                <input type="text" id="description" name="description" >
-            </div>
-            <br>
-
-            
-
-
-
-           
-            <div class="button-group">
-                <button type="button" class="cancel">إلغاء</button>
-                <button type="submit">تحديث المعلومات</button>
-            </div>
-        </form> 
-       </div>
+        </div>
     </div>
-    
 
     <script src="../public/js/deviceInput.js"></script>
 </body>
+
 </html>

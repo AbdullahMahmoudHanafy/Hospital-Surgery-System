@@ -9,16 +9,13 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */ /* Initially hidden */
     z-index: 100; /* Ensure it's above other content */
-    direction: rtl;
 }
 
 .edit-overlay-container {
-    
     position: relative;
     width: 100%;
     height: 100vh;
-    
-    
+    direction: rtl;  
 }
 .edit-overlay-content {
 position: absolute;
