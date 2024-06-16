@@ -95,15 +95,24 @@
 
 .overlay2 .form-group{
     margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 40px;
+}
+
+.overlay2 input[type="radio"]{
+    margin-right: 30px;
+}
+
+
+.overlay2 .sexVal{
+    margin-left: -20px;
+    margin-right: 40px;
 }
 
 .overlay2 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
     text-align: right;
-}
-
-
-.overlay2 input[type="radio"]{
-    margin-left: 90px;
 }
 
 .overlay2 .custom-file-input {

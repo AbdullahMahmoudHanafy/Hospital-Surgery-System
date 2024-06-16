@@ -137,10 +137,6 @@
     padding-left: 40px;
 }
 
-.overlay3 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
-    text-align: right;
-}
-
 .overlay3 input[type="radio"]{
     margin-right: 30px;
 }
@@ -149,6 +145,10 @@
 .overlay3 .sexVal{
     margin-left: -20px;
     margin-right: 40px;
+}
+
+.overlay3 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
+    text-align: right;
 }
 
 .overlay3 .custom-file-input {

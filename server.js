@@ -52,7 +52,12 @@ app.get("/patients", (req, res) => {
 
 
 app.post("/addAdmin", (req, res) => {
-    let name = req.body["name"], sex = req.body["sex"]
+    let name = req.body["name"],
+    sex = req.body["sex"], 
+    bdate = req.body["birthDate"], 
+    email = req.body["email"], 
+    password = req.body["password"]
+    repassword = req.body["repassword"]
     console.log(sex)
 })
 

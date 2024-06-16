@@ -106,15 +106,25 @@
 
 .overlay1 .form-group{
     margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 40px;
 }
+
+.overlay1 input[type="radio"]{
+    margin-right: 30px;
+}
+
+
+.overlay1 .sexVal{
+    margin-left: -20px;
+    margin-right: 40px;
+}
+
 
 .overlay1 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
     text-align: right;
-}
-
-
-.overlay1 input[type="radio"]{
-    margin-left: 90px;
 }
 
 .overlay1 .custom-file-input {
