@@ -4,6 +4,7 @@ import multer from 'multer';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import  pool  from "./database.js"
+import { log } from 'console';
 
 const port = 3000;
 
@@ -51,14 +52,34 @@ app.get("/patients", (req, res) => {
 
 
 
-app.post("/addAdmin", (req, res) => {
+app.post("/addAdmin", async (req, res) => {
     let name = req.body["name"],
     sex = req.body["sex"], 
     bdate = req.body["birthDate"], 
     email = req.body["email"], 
-    password = req.body["password"]
-    repassword = req.body["repassword"]
-    console.log(sex)
+    password = req.body["password"],
+    repassword = req.body["repassword"],
+    phone = req.body["phone"],
+    address = req.body["address"],
+    nationalID = req.body["nationalID"],
+    image = "123"
+
+    console.log(bdate)
+
+    if(repassword == password)
+    {
+        await pool.connect();
+        
+        await pool.query("insert into admin (name, email, nationalID, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+            [name, email, nationalID, phone, address, password, sex, image, bdate], (err, res) => {
+                if(err)
+                    console.log(err)
+            }
+        )
+    }
+    else {
+
+    }
 })
 
 
