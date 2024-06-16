@@ -7,7 +7,7 @@
     align-items: center;
 } */
 
-.addAdmin {
+.overlay3 .addAdmin {
     z-index: 101;
     width: 400px;
     height: 600px;
@@ -20,14 +20,14 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.haveAnAccount{
+.overlay3 .haveAnAccount{
     text-align: center;
     margin-top: 0px;
     padding-bottom: 10px;
     font-size:medium;
 }
 
-.logIn{
+.overlay3 .logIn{
     margin-right: 4px;
     color: #164ee6;
     border-style: solid;
@@ -36,11 +36,161 @@
     border-right:none;
 }
 
-.logIn:hover{
+.overlay3 .logIn:hover{
     cursor: pointer;
 }
 
-.logIn:active{
+.overlay3 .logIn:active{
     cursor: pointer;
     color:#123fbb;
 }
+
+.overlay3 .submitt {
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    background-color: #164ee6;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.overlay3 .submitt:hover{
+    background-color: #1547cf;
+}
+
+.overlay3 .submitt:active{
+    background-color: #123fbb;
+}
+
+.overlay3 .cancel{
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    background-color: rgb(212, 211, 211);
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.overlay3 .cancel:hover{
+    background-color: rgb(182, 181, 181);
+}
+
+.overlay3 .cancel:active{
+    background-color: rgb(156, 156, 156);
+}
+
+.overlay3 h5 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.overlay3 form {
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay3 label {
+    margin-bottom: 2px;
+}
+
+.overlay3 input[type="name"],
+.overlay3 input[type="email"],
+.overlay3 input[type="password"],
+.overlay3 input[type="address"],
+.overlay3 input[type="phone"],
+.overlay3 input[type="ID"],
+.overlay3 input[type="speciality"]
+ {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.overlay3 .buttonContainer{
+    margin-top: 5px;
+    margin-right: 0.5px;
+    display: flex;
+    gap: 10px;
+}
+
+.overlay3 .form-group{
+    margin-bottom: 12px;
+}
+
+.overlay3 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
+    text-align: right;
+}
+
+
+.overlay3 input[type="radio"]{
+    margin-left: 90px;
+}
+
+.overlay3 .custom-file-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.overlay3 .custom-file-input input[type="file"] {
+    display: none;
+}
+.overlay3 .custom-file-input label {
+    display: inline-block;
+    background-color: rgb(61, 116, 255);
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+    white-space: nowrap;
+}
+.overlay3 .custom-file-input label:hover {
+    background-color: #3700b3;
+}
+.overlay3 .custom-file-input .file-chosen {
+    margin-right: 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.overlay3 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
+    text-align: right;
+}
+
+.overlay3 input[type="radio"]{
+    margin-left: 90px;
+}
+
+.overlay3 input[type = "date"]{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: left;
+}
+
+.overlay3 ::-webkit-scrollbar{
+    width: 10px;
+}
+.overlay3 ::-webkit-scrollbar-thumb{
+    background-color: rgb(61, 116, 255);
+    border-radius: 5px;
+}
+

@@ -1,4 +1,4 @@
-.addAppointment {
+.overlay6 .addAppointment {
     width: 400px;
     margin: 0 auto;
     padding-left: 20px;
@@ -8,19 +8,19 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h4 {
+.overlay6 h4 {
     text-align: center;
     margin-bottom: 20px;
     font-weight: bold;
     font-size: 30px;
 }
 
-.roomDropdown{
+.overlay6 .roomDropdown{
     display: inline-block;
     position:relative;
 }
 
-.roomNumbers{
+.overlay6 .roomNumbers{
     display: none;
     position: absolute;
     width: 100%;
@@ -28,7 +28,7 @@ h4 {
     box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
     z-index: 70;
 }
-.roomDropdown:hover .roomNumbers{
+.overlay6 .roomDropdown:hover .roomNumbers{
     display: block;
     background-color: white;
     border-radius: 6px;
@@ -38,7 +38,7 @@ h4 {
     border-top-style: none;
     margin-left: 0px;
 }
-.number{
+.overlay6 .number{
     display: block;
     margin-right: 0px;
     margin-left: 0px;
@@ -59,14 +59,14 @@ h4 {
 }
 
 
-.roomNumbers :hover{
+.overlay6 .roomNumbers :hover{
     color: #FFFFFF;
     background-color: #164ee6;
     margin-left: 0px;
     cursor: pointer;
 }
 
-input[type="time"]
+.overlay6 input[type="time"]
 {
     padding: 10px;
     margin-bottom: 15px;
@@ -76,13 +76,13 @@ input[type="time"]
     align-items: flex-end;
 }
 
-input[type="date"]
+.overlay6 input[type="date"]
 {
     direction: rtl;
     color:#767676e8;
 }
 
-input[type="time"]
+.overlay6 input[type="time"]
 {
     text-align: right;
     direction: rtl;
@@ -90,7 +90,7 @@ input[type="time"]
     color:#767676e8;
 }
 
-.roomID{
+.overlay6 .roomID{
     margin-top: 0px;
     font-family: Arial, sans-serif;
     border-style: solid;
@@ -103,4 +103,139 @@ input[type="time"]
     font-weight:100;
     font-size: 13.5px;
     color:#676666e8;
+}
+
+.overlay6 .submitt {
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    background-color: #164ee6;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.overlay6 .submitt:hover{
+    background-color: #1547cf;
+}
+
+.overlay6 .submitt:active{
+    background-color: #123fbb;
+}
+
+.overlay6 .cancel{
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    background-color: rgb(212, 211, 211);
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.overlay6 .cancel:hover{
+    background-color: rgb(182, 181, 181);
+}
+
+.overlay6 .cancel:active{
+    background-color: rgb(156, 156, 156);
+}
+
+.overlay6 h5 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.overlay6 form {
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay6 label {
+    margin-bottom: 2px;
+}
+
+.overlay6 input[type="text"]
+{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.overlay6 .buttonContainer{
+    margin-top: 5px;
+    margin-right: 0.5px;
+    display: flex;
+    gap: 10px;
+}
+
+.overlay6 .form-group{
+    margin-bottom: 12px;
+}
+
+.overlay6 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
+    text-align: right;
+}
+
+
+.overlay6 input[type="radio"]{
+    margin-left: 90px;
+}
+
+.overlay6 .custom-file-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.overlay6 .custom-file-input input[type="file"] {
+    display: none;
+}
+.overlay6 .custom-file-input label {
+    display: inline-block;
+    background-color: rgb(61, 116, 255);
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+    white-space: nowrap;
+}
+.overlay6 .custom-file-input label:hover {
+    background-color: #3700b3;
+}
+.overlay6 .custom-file-input .file-chosen {
+    margin-right: 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.overlay6 input[type = "date"]{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: left;
+}
+
+.overlay6 ::-webkit-scrollbar{
+    width: 10px;
+}
+.overlay6 ::-webkit-scrollbar-thumb{
+    background-color: rgb(61, 116, 255);
+    border-radius: 5px;
 }

@@ -7,7 +7,7 @@
     align-items: center;
 } */
 
-.addSurgeon {
+.overlay1 .addSurgeon {
     z-index: 101;
     width: 400px;
     height: 600px;
@@ -20,7 +20,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h5 {
+.overlay1 h5 {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -28,22 +28,22 @@ h5 {
     font-size: 30px;
 }
 
-form {
+.overlay1 form {
     display: flex;
     flex-direction: column;
 }
 
-label {
+.overlay1 label {
     margin-bottom: 2px;
 }
 
-input[type="name"],
-input[type="email"],
-input[type="password"],
-input[type="address"],
-input[type="phone"],
-input[type="ID"],
-input[type="speciality"]
+.overlay1 input[type="name"],
+.overlay1 input[type="email"],
+.overlay1 input[type="password"],
+.overlay1 input[type="address"],
+.overlay1 input[type="phone"],
+.overlay1 input[type="ID"],
+.overlay1 input[type="speciality"]
  {
     padding: 10px;
     margin-bottom: 15px;
@@ -53,14 +53,14 @@ input[type="speciality"]
     align-items: flex-end;
 }
 
-.buttonContainer{
+.overlay1 .buttonContainer{
     margin-top: 5px;
     margin-right: 0.5px;
     display: flex;
     gap: 10px;
 }
 
-.submitt {
+.overlay1 .submitt {
     text-align: center;
     display: inline-block;
     width: 200px;
@@ -74,15 +74,15 @@ input[type="speciality"]
     margin-bottom: 25px;
 }
 
-.submitt:hover{
+.overlay1 .submitt:hover{
     background-color: #1547cf;
 }
 
-.submitt:active{
+.overlay1 .submitt:active{
     background-color: #123fbb;
 }
 
-.cancel{
+.overlay1 .cancel{
     text-align: center;
     display: inline-block;
     width: 200px;
@@ -96,10 +96,67 @@ input[type="speciality"]
     margin-bottom: 25px;
 }
 
-.cancel:hover{
+.overlay1 .cancel:hover{
     background-color: rgb(182, 181, 181);
 }
 
-.cancel:active{
+.overlay1 .cancel:active{
     background-color: rgb(156, 156, 156);
+}
+
+.overlay1 .form-group{
+    margin-bottom: 12px;
+}
+
+.overlay1 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
+    text-align: right;
+}
+
+
+.overlay1 input[type="radio"]{
+    margin-left: 90px;
+}
+
+.overlay1 .custom-file-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.overlay1 .custom-file-input input[type="file"] {
+    display: none;
+}
+.overlay1 .custom-file-input label {
+    display: inline-block;
+    background-color: rgb(61, 116, 255);
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+    white-space: nowrap;
+}
+.overlay1 .custom-file-input label:hover {
+    background-color: #3700b3;
+}
+.overlay1 .custom-file-input .file-chosen {
+    margin-right: 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.overlay1 input[type = "date"]{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: left;
+}
+
+.overlay1 ::-webkit-scrollbar{
+    width: 10px;
+}
+.overlay1 ::-webkit-scrollbar-thumb{
+    background-color: rgb(61, 116, 255);
+    border-radius: 5px;
 }

@@ -1,4 +1,4 @@
-.addDevice {
+.overlay5 .addDevice {
     width: 400px;
     margin: 0 auto;
     padding-left: 20px;
@@ -8,7 +8,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type = "date"]{
+.overlay5 input[type = "date"]{
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -16,11 +16,11 @@ input[type = "date"]{
     text-align: left;
 }
 
-input[type="serial"],
-input[type="warranty"],
-input[type="status"],
-input[type="company"],
-input[type="price"]
+.overlay5 input[type="serial"],
+.overlay5 input[type="warranty"],
+.overlay5 input[type="status"],
+.overlay5 input[type="company"],
+.overlay5 input[type="price"]
  {
     padding: 10px;
     margin-bottom: 15px;
@@ -28,4 +28,137 @@ input[type="price"]
     border-radius: 3px;
     display: flex;
     align-items: flex-end;
+}
+
+.overlay5 .submitt {
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    background-color: #164ee6;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.overlay5 .submitt:hover{
+    background-color: #1547cf;
+}
+
+.overlay5 .submitt:active{
+    background-color: #123fbb;
+}
+
+.overlay5 .cancel{
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    background-color: rgb(212, 211, 211);
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.overlay5 .cancel:hover{
+    background-color: rgb(182, 181, 181);
+}
+
+.overlay5 .cancel:active{
+    background-color: rgb(156, 156, 156);
+}
+
+.overlay5 h5 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.overlay5 form {
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay5 label {
+    margin-bottom: 2px;
+}
+
+.overlay5 input[type="name"],
+.overlay5 input[type="email"],
+.overlay5 input[type="password"],
+.overlay5 input[type="address"],
+.overlay5 input[type="phone"],
+.overlay5 input[type="ID"],
+.overlay5 input[type="speciality"]
+ {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.overlay5 .buttonContainer{
+    margin-top: 5px;
+    margin-right: 0.5px;
+    display: flex;
+    gap: 10px;
+}
+
+.overlay5 .form-group{
+    margin-bottom: 12px;
+}
+
+.overlay5 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
+    text-align: right;
+}
+
+
+.overlay5 input[type="radio"]{
+    margin-left: 90px;
+}
+
+.overlay5 .custom-file-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.overlay5 .custom-file-input input[type="file"] {
+    display: none;
+}
+.overlay5 .custom-file-input label {
+    display: inline-block;
+    background-color: rgb(61, 116, 255);
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+    white-space: nowrap;
+}
+.overlay5 .custom-file-input label:hover {
+    background-color: #3700b3;
+}
+.overlay5 .custom-file-input .file-chosen {
+    margin-right: 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.overlay5 ::-webkit-scrollbar{
+    width: 10px;
+}
+.overlay5 ::-webkit-scrollbar-thumb{
+    background-color: rgb(61, 116, 255);
+    border-radius: 5px;
 }
