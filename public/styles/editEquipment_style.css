@@ -84,7 +84,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .edit-overlay .custom-file-input label {
     display: inline-block;
-    background-color: #6200ee;
+    background-color: rgb(61, 116, 255);
     color: #fff;
     padding: 5px 20px;
     border-radius: 4px;
@@ -138,7 +138,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     justify-content: flex-end;
 }
 .edit-overlay button {
-    background-color: #6200ee;
+    background-color: rgb(61, 116, 255);
     color: #fff;
     padding: 5px 20px;
     border: none;
@@ -147,13 +147,13 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-left: 10px;
     height: 35px;
 }
-.edit-overlay button.cancel {
+.edit-overlay button.cancel-edit {
     background-color: #bbb;
 }
 .edit-overlay button:hover {
     background-color: #3700b3;
 }
-.edit-overlay button.cancel:hover {
+.edit-overlay button.cancel-edit:hover {
     background-color: #999;
 }
 

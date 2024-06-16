@@ -138,7 +138,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     justify-content: flex-end;
 }
 .edit-overlay button {
-    background-color: #6200ee;
+    background-color: rgb(61, 116, 255);
     color: #fff;
     padding: 5px 20px;
     border: none;
