@@ -15,12 +15,16 @@
 <body>
 
     <div class="edit-overlay">
+       
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
              <h1 class="head">  تعديل بيانات المشرف</h1>
              <br>
-             
+            <div class="errormessageadminprofile">
+                <%= errormessageadmin %>
+            </div>
              <form action="editAdmin" method="POST">
+                <input type="hidden" name="oldid" value= <%= id %>>
                  <div class="form-group">
                      <label for="name">الاسم</label>
                      <input type="text" id="name" name="name" value="احمد محمد">
@@ -91,7 +95,7 @@
                  <br>
                  <div class="form-group">
                      <label for="confirmPassword">تأكيد كلمة المرور</label>
-                     <input type="text" id="confirmPassword" name="password" value="Drop Table">
+                     <input type="text" id="confirmPassword" name="confirmPassword" value="Drop Table">
                  </div>
                  <br>
                  <div class="button-group">
@@ -154,16 +158,16 @@
         <div class="profile">
             <img src="./images/admin.jpeg" alt="صورة المشرف" class="profile-img">
             <div class="info">
-                <h2>خالد أيمن </h2>
-                <p>khalid.ayman@example.com</p>
+                <h2><%= name %>  </h2>
+                <p><%= email %></p>
             </div>
         </div>
         <div class="details">
-            <p><i class="fas fa-id-card"></i> رقم القومي: 19870325456789</p>
-            <p><i class="fas fa-phone-alt"></i> رقم الهاتف: 01234567890</p>
-            <p><i class="fas fa-birthday-cake"></i> العمر: 45 سنة</p>
-            <p><i class="fas fa-calendar-alt"></i> تاريخ الميلاد: 1979-03-25</p>
-            <p><i class="fas fa-mars"></i> الجنس: ذكر</p>
+            <p><i class="fas fa-id-card" ></i> رقم القومي: <%= id %></p>
+            <p><i class="fas fa-phone-alt"></i> رقم الهاتف: <%= mobile %></p>
+            <!-- <p><i class="fas fa-birthday-cake"></i> العمر: 45 سنة</p> -->
+            <p><i class="fas fa-calendar-alt"></i> تاريخ الميلاد: <%= birthDate %></p>
+            <p><i class="fas fa-mars"></i> الجنس: <%= sex %></p>
         </div>
     </div>
         
