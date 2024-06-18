@@ -90,7 +90,7 @@ app.post("/editAdmin", async (req, res) => {
     id = req.body["id"],
     sex = req.body["sex"],
     email = req.body["email"],
-    birthDate = req.body["birthdate"],
+    birthDate = req.body["birthDate"],
     mobile = req.body["mobile"],
     address = req.body["address"],
     password = req.body["password"],
@@ -156,11 +156,11 @@ app.post("/editAdmin", async (req, res) => {
         else {
           pool.connect();
           pool.query(
-            `update admin set name=$1 email=$2 ,nationalid=$3, phone=$4 ,sex=$5,birthDate=$6 ,image=$7, adress=$8,password=$9 where id=$10`,
+            "UPDATE admin SET name = $1, email = $2, nationalid = $3, phone = $4, sex = $5, birthdate = $6, image = $7, address = $8, password = $9 WHERE nationalid = $10",
             [name, email, id, mobile, sex, birthDate, image,address,password,oldid],
             (err2, respond2) => {
               res.render("adminProfile.ejs", {
-                errormessageadmin: "invaild id",
+                errormessageadmin: null,
                 name: name,
                 email: email,
                 id: id,
