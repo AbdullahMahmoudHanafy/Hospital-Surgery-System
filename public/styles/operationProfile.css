@@ -1,0 +1,123 @@
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 60%;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.upperdiv{
+    height: 350px;
+}
+
+.details{
+    margin: 20px 0;
+    align-items: center;
+    padding-top:40px ;
+    justify-content: center;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    float: left;
+    margin-left: 20px;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: -50 px;
+    border: 3px solid #007bff;
+    justify-content: flex-end;
+
+}
+
+.info {
+    text-align: center;
+
+}
+
+.info h2 {
+    margin: 0;
+    color: #007bff;
+    font-size: 24px;
+}
+
+.info p {
+    margin: 5px 0;
+    color: #6c757d;
+}
+
+.details p {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    
+}
+
+.details i {
+    margin-left: 10px;
+    color: #007bff;
+}
+
+.buttons {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin-top: 20px;
+}
+
+.buttons button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.buttons .edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.buttons .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+body{
+    background-color:azure;
+    margin: 0px;
+}
+
+body.night{
+    background-color: #111827;
+    margin: 0px;
+}
+
+h1.night{
+    color: white;
+}

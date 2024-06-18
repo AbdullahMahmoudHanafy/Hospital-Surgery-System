@@ -24,28 +24,77 @@ app.get("/homePage", (req, res) => {
     res.render("./homePage.ejs",);
 })
 
-app.get("/devices", (req, res) => {
-    res.render("./devices.ejs");
+app.get("/devices", async (req, data) => {
+
+    await pool.connect()
+
+    await pool.query("select * from device", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {allDevices: res.rows});
+        }
+    })
 })
 
-app.get("/admins", (req, res) => {
-    res.render("./admins.ejs");
+app.get("/admins", async (req, data) => {
+    await pool.connect()
+
+    await pool.query("select * from admin", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {allAdmins: res.rows});
+        }
+    })
 })
 
-app.get("/appointments", (req, res) => {
-    res.render("./appointments.ejs");
+app.get("/appointments", async (req, data) => {
+    await pool.connect()
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{allAppointments: appointments.rows});
+        }
+    })
 })
 
-app.get("/doctors", (req, res) => {
-    res.render("./doctors.ejs");
+app.get("/doctors", async (req, data) => {
+    await pool.connect()
+
+    await pool.query("select * from surgeon", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {allDoctors: res.rows});
+        }
+    })
 })
 
-app.get("/operations", (req, res) => {
-    res.render("./operations.ejs");
+app.get("/operations", async (req, data) => {
+    await pool.connect()
+
+    await pool.query("select * from operation", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {allOperations: res.rows});
+        }
+    })
 })
 
-app.get("/patients", (req, res) => {
-    res.render("./patients.ejs");
+app.get("/patients", async (req, data) => {
+    await pool.connect()
+
+    await pool.query("select * from patient", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {allPatients: res.rows});
+        }
+    })
 })
 
 
@@ -63,8 +112,6 @@ app.post("/addAdmin", async (req, res) => {
     address = req.body["address"],
     nationalID = req.body["nationalID"],
     image = "123"
-
-    console.log(bdate)
 
     if(repassword == password)
     {

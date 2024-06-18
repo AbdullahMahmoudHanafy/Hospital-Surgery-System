@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملف عملية</title>
+    <link rel="stylesheet" href="./styles/partial css/overlay.css">
+    <link rel="stylesheet" href="./styles/editOperation_style.css">
+    <link rel="stylesheet" href="./styles/operationProfile.css">
+    <link rel="stylesheet" href="./styles/partial css/navigationBar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../styles/deleteOverlay.css">
+</head>
+
+<body>
+
+    <div class="edit-overlay">
+        <div class="edit-overlay-container">
+            <div class="edit-overlay-content">
+                <h1 class="head"> تعديل العملية</h1>
+                <br>
+
+                <form action="editOperation" method="POST">
+
+                    <div class="form-group">
+                        <label for="operationName">اسم العملية</label>
+                        <input type="text" id="operationName" name="operationName" value="فتاء">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="operationId">كود العملية</label>
+                        <input type="text" id="operationId" name="operationId" value="3124">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="price">السعر</label>
+                        <input type="text" id="price" name="price" value="3000$">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="duration">المدة</label>
+                        <input type="text" id="duration" name="duration" value="3 ساعات">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="roomNumber">رقم الغرفة</label>
+                        <input type="text" id="roomNumber" name="roomNumber" value="3">
+                    </div>
+                    <br>
+
+                    <label for="roomNumber" id="device-input">الاجهزة المستخدمة</label>
+                    <div id="fieldContainer">
+                        <div class="newField">
+                            <input type="text" name="multiValueField[]">
+                            <button type="button" class="deleteButton">حذف</button>
+                        </div>
+                    </div>
+                    <button type="button" id="add-field-but">أضف خانة</button>
+                    <br>
+                    <div class="form-group">
+                        <label for="description">وصف العملية</label>
+                        <input type="text" id="description" name="description">
+                    </div>
+                    <br>
+
+                    <div class="button-group">
+                        <button type="button" class="cancel-edit">إلغاء</button>
+                        <button type="submit">تحديث المعلومات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+     <div class="delete-overlay" dir="rtl">
+        <div class="delete-overlay-container">
+            <header>تأكيد عملية الحذف</header>
+            <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت متأكد من عملية الحذف؟</h3>
+            <div class="buttons-container">
+                <button class="cancel-deletion">إغلاق</button>
+                <button class="confirm-deletion">تأكيد</button>
+            </div>
+        </div>
+     </div>
+
+    <div class = "Nav-bar">
+        
+            
+        <div class = "Left-nav">
+            <button class = "Nav-bar-btn">الصفحة الرئيسية</button>
+            <button class = "Nav-bar-btn">المواعيد</button>
+            <button class = "Nav-bar-btn">المرضى</button>
+            <button class = "Nav-bar-btn">الجراحون</button>
+            <button class = "Nav-bar-btn">غرف العمليات</button>
+            <button class = "Nav-bar-btn">العمليات</button>
+            <button class = "Nav-bar-btn">المعدات</button>
+        </div>
+        <div class = "Right-nav">
+            <div class = "Admin-data">
+                <img src="./images/myImage.jpg" alt="An admin's image" class = "Admin-img">
+                <div class="navbar-name">عبدالله محمود</div>
+
+            </div>
+            <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
+            <button class = "Nav-bar-icon-btn" id = "Dark-mode"><i class="fa-solid fa-moon"></i></button>
+            <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button>
+
+
+        </div>
+
+    </div>
+    <div class="container">
+       
+    <div class="upperdiv">
+        
+        <div class="title">
+            <h1>ملف العملية الجراحية</h1>
+        </div>
+        <div class="buttons">
+            <button class="edit-btn">تعديل</button>
+            <button class="delete-btn">حذف</button>
+        </div>
+       
+        <div class="details">
+            <p><i class="fas fa-file-medical-alt"></i> اسم العملية: استئصال الزائدة الدودية</p>
+            <p><i class="fas fa-id-badge"></i> كود العملية: 12345</p>
+            <p><i class="fas fa-dollar-sign"></i> التكلفة : $3000</p>
+            <p><i class="fas fa-clock"></i> المدة : 3 ساعات</p>
+            <p><i class="fas fa-stethoscope"></i> الأجهزة المستخدمة: مشرط، مناظير، مقصات جراحية</p>
+            <p><i class="fas fa-procedures"></i> رقم الغرفة: A123</p>
+            <p><i class="fas fa-notes-medical"></i> الوصف:  عملية جراحية لإزالة الزائدة الدودية</p>
+
+
+        </div>
+    </div>
+        
+    </div>
+    <script src=".js/edit&deleteButtons.js"></script>
+    <script src=".js/deviceInput.js"></script>
+</body>
+</html>
