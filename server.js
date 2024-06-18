@@ -54,7 +54,14 @@ app.get("/operations", (req, res) => {
 });
 
 app.get("/patients", (req, res) => {
-  res.render("./patientProfile.ejs");
+  res.render("./patientProfile.ejs", {
+    errormessagepatient: null,
+    name: "ابراهيم الابيض",
+    id: "123456789101213",
+    phone: "01123456789",
+    sex: "ذكر",
+    birthdate: "1990-05-24",
+  });
 });
 
 app.post("/addAdmin", async (req, res) => {
@@ -134,7 +141,7 @@ app.post("/editAdmin", async (req, res) => {
               });
             }
           );
-        } 
+        }
         // else if (req.body["id"].length() <= 1) {
         //   pool.connect();
         //   console.log(req.body["id"].length());
@@ -152,12 +159,23 @@ app.post("/editAdmin", async (req, res) => {
         //       });
         //     }
         //   );
-        // } 
+        // }
         else {
           pool.connect();
           pool.query(
             "UPDATE admin SET name = $1, email = $2, nationalid = $3, phone = $4, sex = $5, birthdate = $6, image = $7, address = $8, password = $9 WHERE nationalid = $10",
-            [name, email, id, mobile, sex, birthDate, image,address,password,oldid],
+            [
+              name,
+              email,
+              id,
+              mobile,
+              sex,
+              birthDate,
+              image,
+              address,
+              password,
+              oldid,
+            ],
             (err2, respond2) => {
               res.render("adminProfile.ejs", {
                 errormessageadmin: null,
@@ -170,6 +188,60 @@ app.post("/editAdmin", async (req, res) => {
               });
             }
           );
+        }
+      } else console.log(err);
+    }
+  );
+});
+
+
+
+app.post("/editPatient", async (req, res) => {
+  let name = req.body["name"],
+    id = req.body["nationalID"],
+    birthdate = req.body["birthDate"],
+    sex = req.body["sex"],
+    image = "123",
+    phone = req.body["mobile"],
+    address = req.body["address"],
+    oldid = req.body["oldid"];
+  console.log(name, id, birthdate,sex,image,phone,address,oldid)
+  await pool.connect();
+  await pool.query(
+    `SELECT * from patient WHERE nationalid = '${id}'`,
+    (err, respond) => {
+      if (!err) {
+        if (respond.rows.length === 1) {
+          pool.connect();
+          pool.query(
+            `SELECT * FROM patient WHERE nationalid = '${oldid}'`,
+            (err2, respond2) => {
+              res.render("patientProfile.ejs", {
+                errormessagepatient: "this id has already been registered",
+                name: respond2.name,
+                id: respond2.id,
+                birthdate: respond2.birthdate,
+                sex: respond2.sex,
+                phone: respond2.phone,
+              });
+            }
+          );
+        } else {
+          pool.connect();
+          pool.query(
+            "update patient SET name = $1, nationalid = $2, address = $3, phone = $4, sex = $5, image = $6, birthdate = $7 where nationalid = $8",
+          
+            [name, id, address, phone, sex, image, birthdate, oldid],
+            (err2, respond2) => {
+              res.render("patientProfile.ejs", {
+                errormessagepatient: null,
+                name: name,
+                id: id,
+                phone: phone,
+                birthdate: birthdate,
+                sex: sex,
+              });
+            });
         }
       } else console.log(err);
     }
