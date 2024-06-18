@@ -1,0 +1,187 @@
+
+.overlay4 .addOperation {
+    z-index: 101;
+    width: 400px;
+    height: 600px;
+    overflow-y: scroll;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.overlay4 .submitt {
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    background-color: #164ee6;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.overlay4 .submitt:hover{
+    background-color: #1547cf;
+}
+
+.overlay4 .submitt:active{
+    background-color: #123fbb;
+}
+
+.overlay4 .cancel{
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    background-color: rgb(212, 211, 211);
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.overlay4 .cancel:hover{
+    background-color: rgb(182, 181, 181);
+}
+
+.overlay4 .cancel:active{
+    background-color: rgb(156, 156, 156);
+}
+
+.overlay4 h5 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.overlay4 form {
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay4 label {
+    margin-bottom: 2px;
+}
+
+.overlay4 input[type="text"]
+ {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.overlay4 .buttonContainer{
+    margin-top: 5px;
+    margin-right: 0.5px;
+    display: flex;
+    gap: 10px;
+}
+
+.overlay4 .custom-file-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.overlay4 .custom-file-input input[type="file"] {
+    display: none;
+}
+.overlay4 .custom-file-input label {
+    display: inline-block;
+    background-color: rgb(61, 116, 255);
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+    white-space: nowrap;
+}
+.overlay4 .custom-file-input label:hover {
+    background-color: #3700b3;
+}
+.overlay4 .custom-file-input .file-chosen {
+    margin-right: 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.overlay4 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
+    text-align: right;
+}
+.overlay4 input[type = "date"]{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: left;
+}
+
+.overlay4 ::-webkit-scrollbar{
+    width: 10px;
+}
+.overlay4 ::-webkit-scrollbar-thumb{
+    background-color: rgb(61, 116, 255);
+    border-radius: 5px;
+}
+
+.overlay4 .newField{
+    display: flex;
+    align-items: center;
+}
+
+.overlay4 .deleteButton{
+    margin: 10px;
+    height: 36px;
+}
+
+.overlay4 input[name="multiValueField[]"]{
+    margin: 10px;
+    width: 100%;
+}
+
+.overlay4 #add-field-but{
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+.overlay4 ::-webkit-scrollbar{
+    width: 10px;
+}
+.overlay4 ::-webkit-scrollbar-thumb{
+    background-color: rgb(61, 116, 255);
+    border-radius: 5px;
+}
+
+.overlay4 button {
+    background-color: rgb(61, 116, 255);
+    color: #fff;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    height: 35px;
+}
+.overlay4 button:hover {
+    background-color: #3700b3;
+}
+
+
+.overlay4 #add-field-but{
+    width: 100px;
+    margin: 10px;
+    margin-bottom: 20px;
+}

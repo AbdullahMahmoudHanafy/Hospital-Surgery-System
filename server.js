@@ -125,7 +125,6 @@ app.post("/addAdmin", async (req, res) => {
         )
     }
     else {
-
     }
 })
 
