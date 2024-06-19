@@ -89,7 +89,7 @@ app.get("/doctors", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./doctors.ejs", {allDoctors: res.rows});
+            data.render("./doctors.ejs", {allDoctors: res.rows, show: null, errorMessage : null});
         }
     })
 })
@@ -191,7 +191,7 @@ app.post("/doctorsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from surgeon where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from surgeon", (err, respond) => {
-            res.render("./doctors.ejs", {allDoctors: respond.rows});
+            res.render("./doctors.ejs", {allDoctors: respond.rows, show: null, errorMessage : null});
         })
     })
 })
@@ -307,6 +307,44 @@ app.post("/patientsPageAdd",async(req,res)=>{
         }
     })
 })
+
+
+app.post("/doctorsPageAdd",async(req,res)=>{
+    let name = req.body["name"],
+    sex = req.body["sex"], 
+    bdate = req.body["birthDate"], 
+    email = req.body["email"], 
+    speciality = req.body["speciality"],
+    phone = req.body["phone"],
+    address = req.body["address"],
+    nationalID = req.body["nationalID"],
+    image = "123"
+
+        await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
+            if(data.rows.length != 0){
+                await pool.query("select * from surgeon", async(err, newdata) => {
+                    res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم"});
+                })
+                }
+            else{
+                await pool.query("select * from surgeon where email = $1",[email], async(err, emaildata) => {
+                    if(emaildata.rows.length != 0){
+                        await pool.query("select * from surgeon", async(err, newdata) => {
+                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم"});
+                        })
+                    }
+                    else
+                    await pool.query("insert into surgeon (name, email, nationalid, phone, address, sex, image, birthdate, speciality) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                    [name, email, nationalID, phone, address, sex, image, bdate,speciality], async(err, respond) => {
+                        await pool.query("select * from surgeon", async(err, newdata) => {
+                        res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null, errorMessage : null});
+                    })
+                    })
+                })
+            }
+        })
+})
+
 
 app.listen(port, (req, res) => {
     console.log(`server is running on port number ${port}`);
