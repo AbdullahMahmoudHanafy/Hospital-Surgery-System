@@ -38,9 +38,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 20px;
     float: left;
+    margin-left: 20px;
 }
 
 .profile-img {
@@ -48,7 +49,7 @@ body {
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    margin-left: 20px;
+    margin-left: -50 px;
     border: 3px solid #007bff;
     justify-content: flex-end;
 
@@ -149,4 +150,13 @@ body {
 
 .operation p strong {
     color: #333;
+}
+
+.errormessagedoctorprofile{
+    padding: 0;
+    color: rgb(182,38,38);
+    font-family: Arial,sans-serif;
+    font-size: .75rem;
+    text-align: center;
+    margin-bottom: 10px;
 }

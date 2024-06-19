@@ -47,8 +47,8 @@
                      <!-- Other form fields (name, email, password, etc.) -->
                  
                      <label for="gender">الجنس</label>
-                     <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
-                     <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                     <input type="radio" name="sex" value="ذكر" required /><span class="sexVal">ذكر</span>
+                     <input type="radio" name="sex" value="أنثى" required /><span class = "sexVal">أنثى</span>
                  
                      <!-- Submit button and other fields go here -->
                  </div>
@@ -95,13 +95,13 @@
         
             
         <div class = "Left-nav">
-            <a href="devices" class=""><button class = "Nav-bar-btn">المعدات</button></a>
-            <a href="operations" class=""><button class = "Nav-bar-btn">العمليات</button></a>
-            <a href="admins" class=""><button class = "Nav-bar-btn">المشرفون</button></a>
-            <a href="doctors" class=""><button class = "Nav-bar-btn">الجراحون</button></a>
-            <a href="patients" class=""><button class = "Nav-bar-btn">المرضى</button></a>
-            <a href="appointments" class=""><button class = "Nav-bar-btn">المواعيد</button></a>
             <a href="homePage" class=""><button class = "Nav-bar-btn">الصفحة الرئيسية</button></a>
+            <a href="appointments" class=""><button class = "Nav-bar-btn">المواعيد</button></a>
+            <a href="patients" class=""><button class = "Nav-bar-btn">المرضى</button></a>
+            <a href="doctors" class=""><button class = "Nav-bar-btn">الجراحون</button></a>
+            <a href="admins" class=""><button class = "Nav-bar-btn">المشرفون</button></a>
+            <a href="operations" class=""><button class = "Nav-bar-btn">العمليات</button></a>
+            <a href="devices" class=""><button class = "Nav-bar-btn">المعدات</button></a>
         </div>
         <div class = "Right-nav">
             <div class = "Admin-data">
@@ -137,7 +137,7 @@
         <div class="details">
             <p><i class="fas fa-id-card"></i> الرقم القومي: <%= id %></p>
             <p><i class="fas fa-phone-alt"></i> رقم الهاتف: <%= phone %></p>
-            <!-- <p><i class="fas fa-birthday-cake"></i> العمر: 44 سنة</p> -->
+            <p><i class="fas fa-birthday-cake"></i> العمر: <%= age %> سنة</p>
             <p><i class="fas fa-calendar-alt"></i> تاريخ الميلاد: <%= birthdate %></p>
             <p><i class="fas fa-mars"></i> الجنس: <%= sex %></p>
         </div>
