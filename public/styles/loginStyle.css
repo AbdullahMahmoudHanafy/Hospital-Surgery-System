@@ -14,7 +14,7 @@ body, html {
     align-items: center;
 }
 
-.container {
+.login-container {
     width: 400px;
     margin: 0 auto;
     padding-left: 20px;
@@ -22,6 +22,15 @@ body, html {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.errorMessage{
+    display: flex;
+    color: red;
+    font-size: 20px;
+    text-align: center;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 h1 {
