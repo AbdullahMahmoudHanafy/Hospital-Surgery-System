@@ -177,6 +177,35 @@ async function getNumbers (req, res){
     return dataNumbers
 }
 
+
+app.post("/adminsPageDeleteAdmin",async(req,res)=>{
+    let id = req.body.deletetionID
+    await pool.query("delete from admin where nationalid = $1",[id], async(err, rp) => {
+        await pool.query("select * from admin", (err, respond) => {
+            res.render("./admins.ejs", {allAdmins: respond.rows});
+        })
+    })
+})
+
+app.post("/doctorsPageDeleteAdmin",async(req,res)=>{
+    let id = req.body.deletetionID
+    await pool.query("delete from surgeon where nationalid = $1",[id], async(err, rp) => {
+        await pool.query("select * from surgeon", (err, respond) => {
+            res.render("./doctors.ejs", {allDoctors: respond.rows});
+        })
+    })
+})
+
+app.post("/patientsPageDeleteAdmin",async(req,res)=>{
+    let id = req.body.deletetionID
+    await pool.query("delete from patient where nationalid = $1",[id], async(err, rp) => {
+        await pool.query("select * from patient", (err, respond) => {
+            res.render("./patients.ejs", {allPatients: respond.rows});
+        })
+    })
+})
+
+
 app.listen(port, (req, res) => {
     console.log(`server is running on port number ${port}`);
 })
