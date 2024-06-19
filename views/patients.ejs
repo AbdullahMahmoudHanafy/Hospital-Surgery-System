@@ -153,22 +153,23 @@
         </div>
     </div>
 
-    <div class = "overlay2 overlay">
+    <div class = "overlay2 overlay <%= show %>">
         <div class="addPatient">
             <h5> إضافة مريض</h5>
-            <form>
+            <div class="errorMessage"><%= errorMessage %></div>
+            <form action = "patientsPageAdd" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم المريض</label>
                 <input type="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
                 <label for="ID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
-                <input type="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <input type="ID" name="nationalID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
                 <label for="birthDate">تاريخ الميلاد</label>
                 <input type="date" name="birthDate" >
                 <label for="gender">جنس المريض</label>
                 <div class="form-group">
                     <!-- Other form fields (name, email, password, etc.) -->
                 
-                    <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
-                    <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                    <input type="radio" name="sex" value="ذكر" required /><span class="sexVal">ذكر</span>
+                    <input type="radio" name="sex" value="أنثي" required /><span class = "sexVal">أنثى</span>
                 
                     <!-- Submit button and other fields go here -->
                 </div>

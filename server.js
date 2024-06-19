@@ -111,7 +111,7 @@ app.get("/patients", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./patients.ejs", {allPatients: res.rows});
+            data.render("./patients.ejs", {allPatients: res.rows, show: null, errorMessage : null});
         }
     })
 })
@@ -200,7 +200,7 @@ app.post("/patientsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from patient where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from patient", (err, respond) => {
-            res.render("./patients.ejs", {allPatients: respond.rows});
+            res.render("./patients.ejs", {allPatients: respond.rows,show: null, errorMessage : null});
         })
     })
 })
@@ -248,8 +248,6 @@ app.post("/adminsPageAdd",async(req,res)=>{
     nationalID = req.body["nationalID"],
     image = "123"
 
-    console.log(nationalID)
-
     if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
             res.render("./admins.ejs", {allAdmins: data.rows, show: "show", errorMessage : "كلمات المرور غير متطابقة"});
@@ -274,6 +272,33 @@ app.post("/adminsPageAdd",async(req,res)=>{
     }
 })
 
+app.post("/patientsPageAdd",async(req,res)=>{
+    let name = req.body["name"],
+    sex = req.body["sex"], 
+    bdate = req.body["birthDate"], 
+    phone = req.body["phone"],
+    address = req.body["address"],
+    nationalID = req.body["nationalID"],
+    image = "123"
+
+    await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
+        if(data.rows.length != 0){
+            await pool.query("select * from patient", async(err, newdata) => {
+                res.render("./patients.ejs", {allPatients: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم"});
+            })
+            }
+        else{
+            await pool.query("insert into patient (name, nationalid, phone, address, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7)",
+                [name, nationalID, phone, address, sex, image, bdate], async(err, respond) => {
+                    if(err)
+                        console.log(err)
+                    await pool.query("select * from patient", async(err, newdata) => {
+                    res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null});
+                })
+                })
+        }
+    })
+})
 
 app.listen(port, (req, res) => {
     console.log(`server is running on port number ${port}`);
