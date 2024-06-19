@@ -65,7 +65,7 @@
 
                 <div class="operations">
                     <% for( var i = 0 ; i < allOperations.length ; i++ ){%>
-                    <div class="operation-row"><div class="operation-col"><div class="top"><%= allOperations[i]["name"] %></div><div class="bottom">23</div></div><div class="operation-col"><div class=><%= allOperations[i]["roomnumber"] %></div></div><div class="operation-col"><div class=><%= allOperations[i]["duration"] %></div></div><div class="operation-col"><div><%= allOperations[i]["price"] %></div></div><div class="operation-col"><div><a href=<%= allOperations[i]["description"] %>>اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top"><%= allOperations[i]["name"] %></div><div class="bottom id"><%= allOperations[i]["code"]%></div></div><div class="operation-col"><div class=><%= allOperations[i]["roomnumber"] %></div></div><div class="operation-col"><div class=><%= allOperations[i]["duration"] %></div></div><div class="operation-col"><div><%= allOperations[i]["price"] %></div></div><div class="operation-col"><div><a href=<%= allOperations[i]["description"] %>>اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <% } %>
                 </div>
             </div>
@@ -143,7 +143,10 @@
                 متأكد من عملية الحذف؟</h3>
             <div class="buttons-container">
                 <button class="cancel-deletion">إغلاق</button>
-                <button class="confirm-deletion">تأكيد</button>
+                <form action="operationsPageDelete" method="post">
+                    <input type="hidden" name="deletetionCode" value="" class="DeletionHiddenID">
+                    <button class="confirm-deletion">تأكيد</button>
+                </form>
             </div>
         </div>
     </div>

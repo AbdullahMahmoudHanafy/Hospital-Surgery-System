@@ -187,7 +187,7 @@ app.post("/adminsPageDeleteAdmin",async(req,res)=>{
     })
 })
 
-app.post("/doctorsPageDeleteAdmin",async(req,res)=>{
+app.post("/doctorsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from surgeon where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from surgeon", (err, respond) => {
@@ -196,11 +196,42 @@ app.post("/doctorsPageDeleteAdmin",async(req,res)=>{
     })
 })
 
-app.post("/patientsPageDeleteAdmin",async(req,res)=>{
+app.post("/patientsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from patient where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from patient", (err, respond) => {
             res.render("./patients.ejs", {allPatients: respond.rows});
+        })
+    })
+})
+
+app.post("/operationsPageDelete",async(req,res)=>{
+    let code = req.body.deletetionCode
+    await pool.query("delete from operation where code = $1",[code], async(err, rp) => {
+        await pool.query("select * from operation", (err, respond) => {
+            res.render("./operations.ejs", {allOperations: respond.rows});
+        })
+    })
+})
+
+app.post("/devicesPageDelete",async(req,res)=>{
+    let Serial = req.body.deletetionSerial
+    await pool.query("delete from device where serialnumber = $1",[Serial], async(err, rp) => {
+        await pool.query("select * from device", (err, respond) => {
+            res.render("./devices.ejs", {allDevices: respond.rows});
+        })
+    })
+})
+
+app.post("/appointmentsPageDelete",async(req,res)=>{
+    let id = req.body.deletetionID
+    await pool.query("delete from appointment where appointmentid = $1",[id], async(err, rp) => {
+        await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+            if(err)
+                console.log(err);
+            else {
+                res.render("./appointments.ejs",{allAppointments: appointments.rows});
+            }
         })
     })
 })

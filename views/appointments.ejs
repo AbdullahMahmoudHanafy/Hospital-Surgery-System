@@ -70,7 +70,7 @@
 
                 <div class="appointments">
                     <% for( var i = 0 ; i < allAppointments.length ; i++ ){%>
-                    <div class="appointment-row"><div class="appointment-col"><div><%= allAppointments[i]["appointmentid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["operationname"] %></div><div class="bottom"><%= allAppointments[i]["operationid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["patientname"] %></div><div class="bottom"><%= allAppointments[i]["patientid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["surgeonname"] %></div><div class="bottom"><%= allAppointments[i]["surgeonid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["roomnumber"] %></div><div class="bottom"><%= allAppointments[i]["operationduration"]%></div></div><div class="appointment-col"><div class="top"><%= `${new Date(allAppointments[i]["date"]).getDate()}-${new Date(allAppointments[i]["date"]).getMonth() + 1}-${new Date(allAppointments[i]["date"]).getFullYear()}` %></div><div class="bottom"><%= allAppointments[i]["time"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>  
+                    <div class="appointment-row"><div class="appointment-col id"><div><%= allAppointments[i]["appointmentid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["operationname"] %></div><div class="bottom"><%= allAppointments[i]["operationid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["patientname"] %></div><div class="bottom"><%= allAppointments[i]["patientid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["surgeonname"] %></div><div class="bottom"><%= allAppointments[i]["surgeonid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["roomnumber"] %></div><div class="bottom"><%= allAppointments[i]["operationduration"]%></div></div><div class="appointment-col"><div class="top"><%= `${new Date(allAppointments[i]["date"]).getDate()}-${new Date(allAppointments[i]["date"]).getMonth() + 1}-${new Date(allAppointments[i]["date"]).getFullYear()}` %></div><div class="bottom"><%= allAppointments[i]["time"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>  
                     <% } %>
                 </div>
             </div>
@@ -136,7 +136,10 @@
                 متأكد من عملية الحذف؟</h3>
             <div class="buttons-container">
                 <button class="cancel-deletion">إغلاق</button>
-                <button class="confirm-deletion">تأكيد</button>
+                <form action="appointmentsPageDelete" method="post">
+                    <input type="hidden" name="deletetionID" value="" class="DeletionHiddenID">
+                    <button class="confirm-deletion">تأكيد</button>
+                </form>
             </div>
         </div>
     </div>
