@@ -261,12 +261,20 @@ app.post("/adminsPageAdd",async(req,res)=>{
                 })
                 }
             else{
-                await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                await pool.query("select * from admin where email = $1",[email], async(err, emaildata) => {
+                    if(emaildata.rows.length != 0){
+                        await pool.query("select * from admin", async(err, newdata) => {
+                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم"});
+                        })
+                    }
+                    else
+                    await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, password, sex, image, bdate], async(err, respond) => {
                         await pool.query("select * from admin", async(err, newdata) => {
                         res.render("./admins.ejs", {allAdmins: newdata.rows, show: null, errorMessage : null});
                     })
                     })
+                })
             }
         })
     }
