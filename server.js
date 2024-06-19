@@ -239,20 +239,35 @@ app.post("/addAppointment", async (req, respond) => {
     time = req.body["time"]
 
     await pool.connect();
-    await pool.query(`select * from appointment where operationid = '${operationID}'`, (err, res) => {
-        if(res.rows.length == 0)
-            { 
-            pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time) values ($1, $2, $3, $4, $5, $6)",
-                [patientID, surgeonID, operationID, roomNumber, date, time], (err, res) => {
-                    if(err)
-                        console.log(err)
+    await pool.query(`select * from patient where nationalid = '${patientID}'`, (err, resp) => {
+        if(resp.rows.length != 0)
+            {pool.query(`select * from surgeon where nationalid = '${surgeonID}'`, (err, ress) => {
+                if(ress.rows.length != 0){
+                    pool.query(`select * from operation where code = '${operationID}'`, (err, reso) => {
+                        if(reso.rows.length != 0){
+                            pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time) values ($1, $2, $3, $4, $5, $6)",
+                                [patientID, surgeonID, operationID, roomNumber, date, time], (err, res) => {
+                                    if(err)
+                                        console.log(err)
+                                }
+                            )
+                            respond.render("./homePage.ejs")
+                        }
+                        else{
+                            //"this operation doesn't exist"
+                            console.log("this operation doesn't exist")
+                        }
+                    })
                 }
-            )
-            respond.render("./homePage.ejs")
+                else{
+                    //"this surgeon doesn't exist"
+                    console.log("this surgeon doesn't exist")
+                }
+            })
         }
         else{ 
-            //"this appointment is booked"
-            console.log("this appointment is booked")
+            //"this patient doesn't exist"
+            console.log("this patient doesn't exist")
         }
     })
 })
