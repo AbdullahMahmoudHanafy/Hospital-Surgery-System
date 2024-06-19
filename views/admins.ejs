@@ -181,8 +181,9 @@
     </div>
     </div>
 
-    <div class="overlay overlay3">
+    <div class="overlay overlay3 <%= show %>">
         <div class="addAdmin">
+            <div class="errorMessage"><%= errorMessage %></div>
             <h5> تسجيل مشرف جديد</h5>
             <form>
                 <label for="name" dir='rtl' lang='ar'>اسم المشرف</label>
@@ -212,7 +213,9 @@
                 <label for="address" dir='rtl' lang='ar'>عنوان المشرف</label>
                 <input type="address" name="address" placeholder="ادخل عنوان المستخدم" dir='rtl' lang='ar' required>
                 <div class="buttonContainer" dir='rtl' lang='ar' >
-                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <!-- <form action="adminsPageAdd" method="post"> -->
+                        <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <!-- </form> -->
                     <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
                 </div>
             </form>

@@ -67,7 +67,7 @@ app.get("/admins", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./admins.ejs", {allAdmins: res.rows});
+            data.render("./admins.ejs", {allAdmins: res.rows, show: null, errorMessage : null});
         }
     })
 })
