@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="./styles/operations.css">
     <link rel="stylesheet" href="./styles/deleteOverlay.css">
     <link rel="stylesheet" href="./styles/editOperation_style.css">
+    <link rel="stylesheet" href="./styles/addOperation.css">
+    <link rel="stylesheet" href="./styles/partial css/overlay.css">
     <script src="https://kit.fontawesome.com/011f0557e4.js" crossorigin="anonymous"></script>
 </head>
 
@@ -56,13 +58,14 @@
                 <header class="table-header">
                     <div class="header-col"><div class="header-top">اسم العملية</div><div class="header-bottom">كود العملية</div></div>
                     <div class="header-col">رقم الغرفة</div>
+                    <div class="header-col">المدة</div>
                     <div class="header-col">التكلفة</div>
                     <div class="header-col">الوصف</div>
                 </header>
 
                 <div class="operations">
                     <% for( var i = 0 ; i < allOperations.length ; i++ ){%>
-                    <div class="operation-row"><div class="operation-col"><div class="top"><%= allOperations[i]["name"] %></div><div class="bottom">23</div></div><div class="operation-col"><div class=><%= allOperations[i]["roomnumber"] %></div></div><div class="operation-col"><div><%= allOperations[i]["price"] %></div></div><div class="operation-col"><div><a href=<%= allOperations[i]["description"] %>>اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="operation-row"><div class="operation-col"><div class="top"><%= allOperations[i]["name"] %></div><div class="bottom">23</div></div><div class="operation-col"><div class=><%= allOperations[i]["roomnumber"] %></div></div><div class="operation-col"><div class=><%= allOperations[i]["duration"] %></div></div><div class="operation-col"><div><%= allOperations[i]["price"] %></div></div><div class="operation-col"><div><a href=<%= allOperations[i]["description"] %>>اضغط هنا</a></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <% } %>
                 </div>
             </div>
@@ -142,6 +145,40 @@
                 <button class="cancel-deletion">إغلاق</button>
                 <button class="confirm-deletion">تأكيد</button>
             </div>
+        </div>
+    </div>
+
+    <div class = "overlay4 overlay" >
+        <div class="container addOperation">
+            <h5> إضافة عملية</h5>
+            <form dir='rtl'>
+                <label for="name" dir='rtl' lang='ar'>اسم العملية</label>
+                <input type="text" name="name" placeholder="ادخل اسم العملية" dir='rtl' lang='ar' required>
+                <label for="code" dir='rtl' lang='ar'>كود العملية</label>
+                <input type="text" name="code" placeholder="ادخل كود العملية" dir='rtl' lang='ar' required>
+                <label for="price" dir='rtl' lang='ar'>سعر العملية</label>
+                <input type="text" name="price" placeholder="ادخل سعر العملية" dir='rtl' lang='ar' required>
+                <label for="duration" dir='rtl' lang='ar'>مدة العملية</label>
+                <input type="text" name="duration" placeholder="ادخل مدة العملية" dir='rtl' lang='ar' required>
+                <label for="roomnumber" dir='rtl' lang='ar'>رقم غرفة العملية</label>
+                <input type="text" name="roomnumber" placeholder="ادخل رقم الغرفة" dir='rtl' lang='ar' required>
+
+                <label for="usedDevices" id="device-input" dir='rtl'>الاجهزة المستخدمة</label>
+                    <div id="fieldContainer" dir='rtl'>
+                        <div class="newField">
+                            <input type="text" name="multiValueField[]" placeholder="ادخل الرقم التسلسلي للجهاز">
+                            <button type="button" class="deleteButton">حذف</button>
+                        </div>
+                    </div>
+                <button type="button" id="add-field-but" dir='rtl'>أضف خانة</button>
+                <label for="description" dir='rtl' lang='ar'>رابط وصف العملية</label>
+                <input type="text" name="description" placeholder="ادخل رابط لوصف العملية" dir='rtl' lang='ar' required>
+
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
         </div>
     </div>
 
