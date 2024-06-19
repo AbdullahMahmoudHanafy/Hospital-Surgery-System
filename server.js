@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { text } from 'express';
 import path from 'path';
 import multer from 'multer';
 import { dirname } from "path";
@@ -12,7 +12,6 @@ const port = 3000;
 const app = express();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -37,7 +36,7 @@ app.post("/loginAdmin", async (req, login) => {
                 login.render("./loginPage.ejs", {loginError: "كلمة المرور خاطئة"})
             else {
                 let dataNumbers = await getNumbers()
-                login.render("./homePage.ejs", {dataNumbers: dataNumbers})
+                login.render("./homePage.ejs", {dataNumbers: dataNumbers, condition:  false})
             }
         }
     })
@@ -45,7 +44,7 @@ app.post("/loginAdmin", async (req, login) => {
 
 app.get("/homePage", async (req, res) => {
     let dataNumbers = await getNumbers()
-    res.render("./homePage.ejs",{dataNumbers: dataNumbers});
+    res.render("./homePage.ejs",{dataNumbers: dataNumbers, text: ""});
 })
 
 app.get("/devices", async (req, data) => {
@@ -145,6 +144,35 @@ app.post("/addAdmin", async (req, res) => {
     else {
     }
 })
+
+app.post("/addPatient", async(req,respond) => {
+    let name = req.body["name"], 
+    ID = req.body["ID"], 
+    birthdate = req.body["birthDate"], 
+    sex = req.body["sex"], 
+    address = req.body["address"], 
+    phone = req.body["phone"], 
+    image = "123"
+
+    await pool.query(`select * from patient where nationalid = '${ID}'`, async (err, res) => {
+        if(res.rows.length != 0)
+            {
+                let dataNumbers = await getNumbers()
+                let message = "هذا المريض موجود بالفعل"
+                respond.send("هذا المريض موجود بالفعل")
+            }
+        else{
+            pool.query("insert into patient (name,  nationalid, birthdate, sex, address, phone, image) values ($1, $2, $3, $4, $5, $6, $7)",[name, ID, birthdate, sex, address, phone, image], (err, res) => {
+                if(err)
+                    console.log(err)
+            })
+        }
+    } )
+})
+
+
+
+
 
 async function getNumbers (req, res){
     let dataNumbers = ["", "", "", "", "", ""]

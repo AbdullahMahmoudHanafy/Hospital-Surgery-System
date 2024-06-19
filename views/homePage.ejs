@@ -57,8 +57,11 @@
     </div>
     <div class = "overlay2">
         <div class="container addPatient">
+            <div class="addPatientErrorDiv">
+                <h4>هذا المريض موجود بالفعل</h4>
+            </div>
             <h5> إضافة مريض</h5>
-            <form>
+            <form action="addPatient" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم المريض</label>
                 <input type="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
                 <label for="ID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
@@ -83,7 +86,7 @@
                 <label for="phone" dir='rtl' lang='ar'>رقم هاتف المريض</label>
                 <input type="phone" name="phone" placeholder=" ادخل رقم الهاتف"dir='rtl' lang='ar' required>
                 <div class="buttonContainer" dir='rtl' lang='ar' >
-                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="submitt" type="submit" dir='rtl' lang='ar'>حفظ</button>
                     <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
                 </div>
             </form>
@@ -312,5 +315,6 @@
     <script src="./js/darkMode.js"></script>
     <script src="./js/AddingButtons.js"></script>
     <script src="./js/deviceInput.js"></script>
+    <script src="./js/errorMessages"></script>
 </body>
 </html>
