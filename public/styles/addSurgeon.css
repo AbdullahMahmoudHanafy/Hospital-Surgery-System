@@ -123,7 +123,7 @@
 }
 
 
-.overlay1 label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
+.overlay1 label[for="gender"], label[for = "avatar"], label[for="birthdate"]{
     text-align: right;
 }
 

@@ -17,11 +17,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "Public")));
 
 app.get("/", (req, res) => {
-    res.render("./homePage.ejs",);
+    res.render("./homePage.ejs");
 })
 
 app.get("/homePage", (req, res) => {
-    res.render("./homePage.ejs",);
+    res.render("./homePage.ejs");
+
 })
 
 app.get("/devices", async (req, data) => {
@@ -101,7 +102,7 @@ app.get("/patients", async (req, data) => {
 
 
 
-app.post("/addAdmin", async (req, res) => {
+app.post("/addAdmin", async (req, respond) => {
     let name = req.body["name"],
     sex = req.body["sex"], 
     bdate = req.body["birthDate"], 
@@ -116,20 +117,145 @@ app.post("/addAdmin", async (req, res) => {
     if(repassword == password)
     {
         await pool.connect();
-        
-        await pool.query("insert into admin (name, email, nationalID, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
-            [name, email, nationalID, phone, address, password, sex, image, bdate], (err, res) => {
-                if(err)
-                    console.log(err)
+
+        await pool.query(`select * from admin where nationalid = '${nationalID}' OR email='${email}'`, (err, res) => {
+            if(res.rows.length == 0){
+                pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                    [name, email, nationalID, phone, address, password, sex, image, bdate], (err, res) => {
+                        if(err)
+                            console.log(err)
+                    }
+                )
+                respond.render("./adminProfile.ejs");
             }
-        )
+
+            else{
+                //the admin already exists 
+                console.log("the admin already exists")
+            }   
+    }) 
     }
     else {
-
+        //the repassword doesn't match the password 
+        console.log("the repassword doesn't match the password")
     }
 })
 
 
+//malak
+
+app.post("/addPatient", async(req,respond) => {
+    let name = req.body["name"], 
+    ID = req.body["ID"], 
+    birthdate = req.body["birthdate"], 
+    sex = req.body["sex"], 
+    address = req.body["address"], 
+    phone = req.body["phone"], 
+    image = "123"
+
+    await pool.connect();
+
+    await pool.query(`select * from patient where nationalid = '${ID}'`, (err, res) => {
+        if(res.rows.length == 0){
+            pool.query("insert into patient (name, nationalid, birthdate, sex, address, phone, image) values ($1, $2, $3, $4, $5, $6, $7)", 
+                [name, ID, birthdate, sex, address, phone, image], (err, res) => {
+                    if(err)
+                        console.log(err)
+            })
+            respond.render("./patientProfile.ejs" )
+        }
+        else{
+            //the patient already exists
+            console.log("patient already exists")
+        } 
+    })
+})
+
+app.post("/addSurgeon", async(req,respond) => {
+    let name = req.body["name"], 
+    ID = req.body["ID"], 
+    birthdate = req.body["birthdate"], 
+    sex = req.body["sex"], 
+    address = req.body["address"], 
+    phone = req.body["phone"], 
+    email = req.body["email"],
+    speciality = req.body["speciality"],
+    image = "123"
+
+    await pool.connect();
+
+    await pool.query(`select * from surgeon where nationalid = '${ID}' OR email = '${email}'`, (err, res) => {
+        if(res.rows.length == 0)
+            {
+            pool.query("insert into surgeon (name, nationalid, birthdate, sex, address, phone, email, speciality, image) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                [name, ID, birthdate, sex, address, phone, email, speciality, image], (err, res) => {
+            if(err)
+                console.log(err)
+            })
+            respond.render("./doctorProfile.ejs" )
+            }
+        else{
+            //the surgeon already exixts 
+            console.log("the surgeon already exists")
+        }
+    } )
+})
+
+app.post("/addDevice", async (req, respond) => {
+    let name = req.body["name"],
+    serial = req.body["serial"], 
+    price = req.body["price"], 
+    warranty = req.body["warranty"], 
+    status = req.body["status"],
+    company = req.body["company"],
+    date = req.body["date"]
+
+    await pool.connect();
+
+    await pool.query(`select * from device where serial = '${serial}'`, (err, res) => {
+        if(res.rows.length == 0)
+            {    
+            pool.query("insert into device (name, serial, price, warranty, status, company, date) values ($1, $2, $3, $4, $5, $6, $7)",
+                [name, serial, price, warranty, status, company, date], (err, res) => {
+                    if(err)
+                        console.log(err)
+                    }
+                )
+            respond.render("./homePage.ejs")
+            }
+        else{
+            //the device already exists 
+            console.log("the device already exists")
+        }
+    })
+})
+
+app.post("/addAppointment", async (req, respond) => {
+    let patientID = req.body["patientID"],
+    surgeonID = req.body["surgeonID"], 
+    operationID = req.body["operationID"], 
+    roomNumber = req.body["roomNumber"], 
+    date = req.body["date"],
+    time = req.body["time"]
+
+    await pool.connect();
+    await pool.query(`select * from appointment where operationid = '${operationID}'`, (err, res) => {
+        if(res.rows.length == 0)
+            { 
+            pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time) values ($1, $2, $3, $4, $5, $6)",
+                [patientID, surgeonID, operationID, roomNumber, date, time], (err, res) => {
+                    if(err)
+                        console.log(err)
+                }
+            )
+            respond.render("./homePage.ejs")
+        }
+        else{ 
+            //"this appointment is booked"
+            console.log("this appointment is booked")
+        }
+    })
+})
 
 app.listen(port, (req, res) => {
     console.log(`server is running on port number ${port}`);

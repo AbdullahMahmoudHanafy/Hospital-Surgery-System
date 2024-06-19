@@ -19,13 +19,13 @@
         <div class="overlay1">
         <div class="container addSurgeon">
             <h5>إضافة جراح </h5>
-            <form>
+            <form action="addSurgeon" method="post" >
                 <label for="name" dir='rtl' lang='ar'>اسم الجراح</label>
                 <input type="name" name="name" placeholder="ادخل الاسم" dir='rtl' lang='ar' required>
                 <label for="ID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>
                 <input type="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
-                <label for="birthDate">تاريخ الميلاد</label>
-                <input type="date" name="birthDate" >
+                <label for="birthdate">تاريخ الميلاد</label>
+                <input type="date" name="birthdate" >
                 <label for="gender">جنس الجراح</label>
                 <div class="form-group">
                     <!-- Other form fields (name, email, password, etc.) -->
@@ -42,7 +42,7 @@
                 <label for="address" dir='rtl' lang='ar'>عنوان الجراح</label>
                 <input type="address" name="address" placeholder="ادخل العنوان" dir='rtl' lang='ar' required>
                 <label for="email" dir='rtl' lang='ar'>البريد الالكتروني للجراح</label>
-                <input type="email" name="ID" placeholder="ادخل البريد الاكتروني" dir='rtl' lang='ar' required>
+                <input type="email" name="email" placeholder="ادخل البريد الاكتروني" dir='rtl' lang='ar' required>
                 <label for="phone" dir='rtl' lang='ar'>رقم هاتف الجراح</label>
                 <input type="phone" name="phone" placeholder=" ادخل رقم الهاتف"dir='rtl' lang='ar' required>
                 <label for="speciality" dir='rtl' lang='ar'>تخصص الجراح</label>
@@ -57,13 +57,13 @@
     <div class = "overlay2">
         <div class="container addPatient">
             <h5> إضافة مريض</h5>
-            <form>
+            <form action="addPatient" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم المريض</label>
                 <input type="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
                 <label for="ID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
                 <input type="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
-                <label for="birthDate">تاريخ الميلاد</label>
-                <input type="date" name="birthDate" >
+                <label for="birthdate">تاريخ الميلاد</label>
+                <input type="date" name="birthdate" >
                 <label for="gender">جنس المريض</label>
                 <div class="form-group">
                     <!-- Other form fields (name, email, password, etc.) -->
@@ -132,13 +132,13 @@
     <div class = "overlay5" >
         <div class="container addDevice">
             <h5> إضافة جهاز</h5>
-            <form>
+            <form action="addDevice" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم الجهاز</label>
-                <input type="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
+                <input type="name" name="name" placeholder="ادخل اسم الجهاز" dir='rtl' lang='ar' required>
                 <label for="serial" dir='rtl' lang='ar'>الرقم التسلسلي</label>
                 <input type="serial" name="serial" placeholder="ادخل serial number" dir='rtl' lang='ar' required>
                 <label for="price" dir='rtl' lang='ar'>سعر الجهاز</label>
-                <input type="price" name="address" placeholder="ادخل سعر الجهاز" dir='rtl' lang='ar' required>
+                <input type="price" name="price" placeholder="ادخل سعر الجهاز" dir='rtl' lang='ar' required>
                 <label for="warranty" dir='rtl' lang='ar'>الضمان</label>
                 <input type="warranty" name="warranty" placeholder="ادخل ال warranty" dir='rtl' lang='ar' required>
                 <label for="status" dir='rtl' lang='ar'>حالة الجهاز</label>
@@ -157,7 +157,7 @@
     <div class = "overlay6" >
         <div class="container addAppointment">
             <h5> عملية الحجز</h5>
-            <form>
+            <form action="addAppointment" method="post">
                 <label for="patientID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
                 <input type="text" name="patientID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
                 <label for="surgeonID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>
