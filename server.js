@@ -55,7 +55,7 @@ app.get("/devices", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./devices.ejs", {allDevices: res.rows});
+            data.render("./devices.ejs", {allDevices: res.rows, show: null, errorMessage : null});
         }
     })
 
@@ -218,7 +218,7 @@ app.post("/devicesPageDelete",async(req,res)=>{
     let Serial = req.body.deletetionSerial
     await pool.query("delete from device where serialnumber = $1",[Serial], async(err, rp) => {
         await pool.query("select * from device", (err, respond) => {
-            res.render("./devices.ejs", {allDevices: respond.rows});
+            res.render("./devices.ejs", {allDevices: respond.rows, show: null, errorMessage : null});
         })
     })
 })
@@ -343,6 +343,34 @@ app.post("/doctorsPageAdd",async(req,res)=>{
                 })
             }
         })
+})
+
+app.post("/devicesPageAdd",async(req,res)=>{
+    let name = req.body.name,
+    serial = req.body.serial,
+    price = req.body.price,
+    warranty = req.body.warranty,
+    stat = req.body.status,
+    company = req.body.company,
+    date = req.body.date;
+
+    await pool.query("select * from device where serialnumber = $1",[serial],async(err,data)=>{
+        if(data.rows.length != 0){
+            await pool.query("select * from device",(req,newdata)=>{
+                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show", errorMessage : "الرقم التسلسلي مستخدم"})
+            })
+        }
+        else{
+            await pool.query("insert into device (name, serialnumber, company, status, warranty, price, date) values ($1, $2, $3, $4, $5, $6, $7)",
+                [name,serial,company,stat,warranty,price,date],async(err,respond)=>{
+                    await pool.query("select * from device",(err,newdata)=>{
+                        res.render("devices.ejs",{allDevices:newdata.rows,show:null,errorMessage:null})
+                    })
+                })
+        }
+    })
+    
+
 })
 
 
