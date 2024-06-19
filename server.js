@@ -182,7 +182,7 @@ app.post("/adminsPageDeleteAdmin",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from admin where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from admin", (err, respond) => {
-            res.render("./admins.ejs", {allAdmins: respond.rows});
+            res.render("./admins.ejs", {allAdmins: respond.rows,show: null, errorMessage : null});
         })
     })
 })
@@ -234,6 +234,44 @@ app.post("/appointmentsPageDelete",async(req,res)=>{
             }
         })
     })
+})
+
+app.post("/adminsPageAdd",async(req,res)=>{
+    let name = req.body["name"],
+    sex = req.body["sex"], 
+    bdate = req.body["birthDate"], 
+    email = req.body["email"], 
+    password = req.body["password"],
+    repassword = req.body["repassword"],
+    phone = req.body["phone"],
+    address = req.body["address"],
+    nationalID = req.body["nationalID"],
+    image = "123"
+
+    console.log(nationalID)
+
+    if(repassword != password){
+        await pool.query("select * from admin", (err, data) => {
+            res.render("./admins.ejs", {allAdmins: data.rows, show: "show", errorMessage : "كلمات المرور غير متطابقة"});
+        })
+    }
+    else{
+        await pool.query("select * from admin where nationalid = $1",[nationalID], async(err, data) => {
+            if(data.rows.length != 0){
+                await pool.query("select * from admin", async(err, newdata) => {
+                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم"});
+                })
+                }
+            else{
+                await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                    [name, email, nationalID, phone, address, password, sex, image, bdate], async(err, respond) => {
+                        await pool.query("select * from admin", async(err, newdata) => {
+                        res.render("./admins.ejs", {allAdmins: newdata.rows, show: null, errorMessage : null});
+                    })
+                    })
+            }
+        })
+    }
 })
 
 
