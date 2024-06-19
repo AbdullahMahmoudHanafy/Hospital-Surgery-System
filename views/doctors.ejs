@@ -59,11 +59,12 @@
                     <div class="header-col"><div class="header-top">الاسم</div><div class="header-bottom">الرقم القومي</div></div>
                     <div class="header-col">الجنس</div>
                     <div class="header-col"><div class="header-top">العمر</div><div class="header-bottom">تاريخ الميلاد</div></div>
+                    <div class="header-col">التخصص</div>
                 </header>
 
                 <div class="doctors">
                     <% for( var i = 0 ; i < allDoctors.length ; i++ ){%>
-                    <div class="doctor-row"><div class="doctor-col"><div class="top"><%= allDoctors[i]["name"] %></div><div class="bottom"><%= allDoctors[i]["nationalid"] %></div></div><div class="doctor-col"><div class="doctor-gender"><%= allDoctors[i]["sex"] %></div></div><div class="doctor-col"><div class="top"><%= new Date().getFullYear() - new Date(allDoctors[i]["birthdate"]).getFullYear() %>عاما </div><div class="bottom"><%= `${new Date(allDoctors[i]["birthdate"]).getDate()}-${new Date(allDoctors[i]["birthdate"]).getMonth() + 1}-${new Date(allDoctors[i]["birthdate"]).getFullYear()}` %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="doctor-row"><div class="doctor-col"><div class="top"><%= allDoctors[i]["name"] %></div><div class="bottom id"><%= allDoctors[i]["nationalid"] %></div></div><div class="doctor-col"><div class="doctor-gender"><%= allDoctors[i]["sex"] %></div></div><div class="doctor-col"><div class="top"><%= new Date().getFullYear() - new Date(allDoctors[i]["birthdate"]).getFullYear() %>عاما </div><div class="bottom"><%= `${new Date(allDoctors[i]["birthdate"]).getDate()}-${new Date(allDoctors[i]["birthdate"]).getMonth() + 1}-${new Date(allDoctors[i]["birthdate"]).getFullYear()}` %></div></div><div class="doctor-col"><div class="top"><%= allDoctors[i]["speciality"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <% } %>
                 </div>
             </div>
@@ -101,8 +102,8 @@
                     <!-- Other form fields (name, email, password, etc.) -->
                 
                     <label for="gender">الجنس</label>
-                    <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
-                    <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                    <input type="radio" name="sex" value="ذكر" required /><span class="sexVal">ذكر</span>
+                    <input type="radio" name="sex" value="أنثي" required /><span class = "sexVal">أنثى</span>
                 
                     <!-- Submit button and other fields go here -->
                 </div>
@@ -163,7 +164,10 @@
             <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت متأكد من عملية الحذف؟</h3>
             <div class="buttons-container">
                 <button class="cancel-deletion">إغلاق</button>
-                <button class="confirm-deletion">تأكيد</button>
+                <form action="doctorsPageDelete" method="post">
+                    <input type="hidden" name="deletetionID" value="" class="DeletionHiddenID">
+                    <button class="confirm-deletion">تأكيد</button>
+                </form>
             </div>
         </div>
         </div>
@@ -182,8 +186,8 @@
                     <div class="form-group">
                         <!-- Other form fields (name, email, password, etc.) -->
                     
-                        <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
-                        <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                        <input type="radio" name="sex" value="ذكر" required /><span class="sexVal">ذكر</span>
+                        <input type="radio" name="sex" value="أنثي" required /><span class = "sexVal">أنثى</span>
                     
                         <!-- Submit button and other fields go here -->
                     </div>

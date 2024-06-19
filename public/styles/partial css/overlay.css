@@ -10,3 +10,7 @@
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */ /* Initially hidden */
     z-index: 100; /* Ensure it's above other content */
 }
+
+.show{
+    display: flex;
+}

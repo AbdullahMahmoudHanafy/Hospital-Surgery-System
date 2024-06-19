@@ -63,7 +63,7 @@
 
                 <div class="admins">
                     <% for( var i = 0 ; i < allAdmins.length ; i++ ){%>
-                        <div class="admin-row"><div class="admin-col"><div class="top"><%= allAdmins[i]["name"] %></div><div class="bottom"><%= allAdmins[i]["nationalid"] %></div></div><div class="admin-col"><div class="admin-gender"><%= allAdmins[i]["sex"] %></div></div><div class="admin-col"><div class="top"><%= new Date().getFullYear() - new Date(allAdmins[i]["birthdate"]).getFullYear() %> عاما</div><div class="bottom"><%= `${new Date(allAdmins[i]["birthdate"]).getDate()}-${new Date(allAdmins[i]["birthdate"]).getMonth() + 1}-${new Date(allAdmins[i]["birthdate"]).getFullYear()}` %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                        <div class="admin-row"><div class="admin-col"><div class="top"><%= allAdmins[i]["name"] %></div><div class="bottom id"><%= allAdmins[i]["nationalid"] %></div></div><div class="admin-col"><div class="admin-gender"><%= allAdmins[i]["sex"] %></div></div><div class="admin-col"><div class="top"><%= new Date().getFullYear() - new Date(allAdmins[i]["birthdate"]).getFullYear() %> عاما</div><div class="bottom"><%= `${new Date(allAdmins[i]["birthdate"]).getDate()}-${new Date(allAdmins[i]["birthdate"]).getMonth() + 1}-${new Date(allAdmins[i]["birthdate"]).getFullYear()}` %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <% } %>
                 </div>
             </div>
@@ -173,13 +173,17 @@
         <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت متأكد من عملية الحذف؟</h3>
         <div class="buttons-container">
             <button class="cancel-deletion">إغلاق</button>
+            <form action="adminsPageDeleteAdmin" method="post">
+            <input type="hidden" name="deletetionID" value="" class="DeletionHiddenID">
             <button class="confirm-deletion">تأكيد</button>
+            </form>
         </div>
     </div>
     </div>
 
-    <div class="overlay overlay3">
+    <div class="overlay overlay3 <%= show %>">
         <div class="addAdmin">
+            <div class="errorMessage"><%= errorMessage %></div>
             <h5> تسجيل مشرف جديد</h5>
             <form>
                 <label for="name" dir='rtl' lang='ar'>اسم المشرف</label>
@@ -209,7 +213,9 @@
                 <label for="address" dir='rtl' lang='ar'>عنوان المشرف</label>
                 <input type="address" name="address" placeholder="ادخل عنوان المستخدم" dir='rtl' lang='ar' required>
                 <div class="buttonContainer" dir='rtl' lang='ar' >
-                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <!-- <form action="adminsPageAdd" method="post"> -->
+                        <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <!-- </form> -->
                     <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
                 </div>
             </form>

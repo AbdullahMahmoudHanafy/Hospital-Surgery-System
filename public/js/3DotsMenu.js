@@ -53,7 +53,9 @@ editButtons.forEach((editButton)=>{
     })
 })
 deleteButtons.forEach((deleteButton)=>{
-    deleteButton.addEventListener('click',function(){
+    deleteButton.addEventListener('click',function(event){
         deleteOverlay.style.display = 'flex'
+        var id = event.target.parentElement.parentElement.parentElement.querySelector(".id").textContent
+        document.querySelector(".DeletionHiddenID").value = id
     })
 })
