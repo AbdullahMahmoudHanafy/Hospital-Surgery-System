@@ -75,6 +75,7 @@ app.post("/loginAdmin", async (req, login) => {
                     login.render("./homePage.ejs",
                         {
                             name: req.session.user["username"],
+                            image: req.session.user["image"],
                             dataNumbers: dataNumbers,
                             show:  null, error: "",
                             show1:  null, addSurgeonError: "",
@@ -95,6 +96,7 @@ app.get("/homePage", async (req, res) => {
     res.render("./homePage.ejs",
         {
             name: req.session.user["username"],
+            image: req.session.user["image"],
             dataNumbers: dataNumbers,
             show:  null, error: "",
             show1:  null, addSurgeonError: "",
@@ -123,7 +125,7 @@ app.get("/admins", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./admins.ejs", {allAdmins: res.rows, show: null, errorMessage : null,editErrorMessage:null});
+            data.render("./admins.ejs", {allAdmins: res.rows, show: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -134,7 +136,7 @@ app.get("/appointments", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./appointments.ejs",{allAppointments: appointments.rows});
+            data.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -145,7 +147,7 @@ app.get("/doctors", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./doctors.ejs", {allDoctors: res.rows, show: null, errorMessage : null});
+            data.render("./doctors.ejs", {allDoctors: res.rows, show: null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -156,7 +158,7 @@ app.get("/operations", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./operations.ejs", {allOperations: res.rows,show:null,errorMessage:null});
+            data.render("./operations.ejs", {allOperations: res.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -167,7 +169,7 @@ app.get("/patients", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./patients.ejs", {allPatients: res.rows, show: null, errorMessage : null});
+            data.render("./patients.ejs", {allPatients: res.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -201,6 +203,7 @@ app.post("/addAdmin", async (req, respond) => {
                         respond.render("./homePage.ejs",
                             {
                                 name: req.session.user["username"],
+                                image: req.session.user["image"],
                                 dataNumbers: dataNumbers,
                                 show:  null, error: "",
                                 show1:  null, addSurgeonError: "",
@@ -222,6 +225,7 @@ app.post("/addAdmin", async (req, respond) => {
                                         respond.render("./homePage.ejs",
                                             {
                                                 name: req.session.user["username"],
+                                                image: req.session.user["image"],
                                                 dataNumbers: dataNumbers,
                                                 show:  null, error: "",
                                                 show1:  null, addSurgeonError: "",
@@ -241,6 +245,7 @@ app.post("/addAdmin", async (req, respond) => {
                                                     respond.render("./homePage.ejs",
                                                         {
                                                             name: req.session.user["username"],
+                                                            image: req.session.user["image"],
                                                             dataNumbers: dataNumbers,
                                                             show:  null, error: "",
                                                             show1:  null, addSurgeonError: "",
@@ -265,6 +270,7 @@ app.post("/addAdmin", async (req, respond) => {
         respond.render("./homePage.ejs",
             {
                 name: req.session.user["username"],
+                image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
                 show1:  null, addSurgeonError: "",
@@ -293,6 +299,7 @@ app.post("/addPatient", async(req,respond) => {
                 respond.render("./homePage.ejs",
                     {
                         name: req.session.user["username"],
+                        image: req.session.user["image"],
                         dataNumbers: dataNumbers,
                         show:  null, error: "",
                         show1:  null, addSurgeonError: "",
@@ -312,6 +319,7 @@ app.post("/addPatient", async(req,respond) => {
                     respond.render("./homePage.ejs",
                         {
                             name: req.session.user["username"],
+                            image: req.session.user["image"],
                             dataNumbers: dataNumbers,
                             show:  null, error: "",
                             show1:  null, addSurgeonError: "",
@@ -351,6 +359,7 @@ app.post("/addSurgeon", async(req,respond) => {
                     let dataNumbers = await getNumbers()
                     respond.render("./homePage.ejs", {
                         name: req.session.user["username"],
+                        image: req.session.user["image"],
                         dataNumbers: dataNumbers,
                         show:  null, error: "",
                         show1:  null, addSurgeonError: "",
@@ -366,6 +375,7 @@ app.post("/addSurgeon", async(req,respond) => {
             let dataNumbers = await getNumbers()
             respond.render("./homePage.ejs", {
                 name: req.session.user["username"],
+                image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
                 show1:  "show", addSurgeonError: "هذا الطبيب مسجل بالفعل",
@@ -402,6 +412,7 @@ app.post("/addDevice", async (req, respond) => {
                 let dataNumbers = await getNumbers()
                     respond.render("./homePage.ejs", {
                         name: req.session.user["username"],
+                        image: req.session.user["image"],
                         dataNumbers: dataNumbers,
                         show:  null, error: "",
                         show1:  null, addSurgeonError: "",
@@ -417,6 +428,7 @@ app.post("/addDevice", async (req, respond) => {
             let dataNumbers = await getNumbers()
             respond.render("./homePage.ejs", {
                 name: req.session.user["username"],
+                image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
                 show1:  null, addSurgeonError: "",
@@ -470,7 +482,7 @@ app.post("/adminsPageDeleteAdmin",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from admin where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from admin", (err, respond) => {
-            res.render("./admins.ejs", {allAdmins: respond.rows,show: null, errorMessage : null,editErrorMessage:null});
+            res.render("./admins.ejs", {allAdmins: respond.rows,show: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -479,7 +491,7 @@ app.post("/doctorsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from surgeon where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from surgeon", (err, respond) => {
-            res.render("./doctors.ejs", {allDoctors: respond.rows, show: null, errorMessage : null});
+            res.render("./doctors.ejs", {allDoctors: respond.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -488,7 +500,7 @@ app.post("/patientsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from patient where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from patient", (err, respond) => {
-            res.render("./patients.ejs", {allPatients: respond.rows,show: null, errorMessage : null});
+            res.render("./patients.ejs", {allPatients: respond.rows,show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -497,7 +509,7 @@ app.post("/operationsPageDelete",async(req,res)=>{
     let code = req.body.deletetionCode
     await pool.query("delete from operation where code = $1",[code], async(err, rp) => {
         await pool.query("select * from operation", (err, respond) => {
-            res.render("./operations.ejs", {allOperations: respond.rows,show:null,errorMessage:null});
+            res.render("./operations.ejs", {allOperations: respond.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -506,7 +518,7 @@ app.post("/devicesPageDelete",async(req,res)=>{
     let Serial = req.body.deletetionSerial
     await pool.query("delete from device where serialnumber = $1",[Serial], async(err, rp) => {
         await pool.query("select * from device", (err, respond) => {
-            res.render("./devices.ejs", {allDevices: respond.rows, show: null, errorMessage : null, name:req.session.user["username"]});
+            res.render("./devices.ejs", {allDevices: respond.rows, show: null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -518,7 +530,7 @@ app.post("/appointmentsPageDelete",async(req,res)=>{
             if(err)
                 console.log(err);
             else {
-                res.render("./appointments.ejs",{allAppointments: appointments.rows,show:null,errorMessage:null});
+                res.render("./appointments.ejs",{allAppointments: appointments.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
             }
         })
     })
@@ -538,28 +550,28 @@ app.post("/adminsPageAdd",async(req,res)=>{
 
     if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
-            res.render("./admins.ejs", {allAdmins: data.rows, show: "show", errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null});
+            res.render("./admins.ejs", {allAdmins: data.rows, show: "show", errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     }
     else{
         await pool.query("select * from admin where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from admin", async(err, newdata) => {
-                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم",editErrorMessage:null});
+                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from admin where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from admin", async(err, newdata) => {
-                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null});
+                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
                     else
                     await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, password, sex, image, bdate], async(err, respond) => {
                         await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows, show: null, errorMessage : null,editErrorMessage:null});
+                        res.render("./admins.ejs", {allAdmins: newdata.rows, show: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
                     })
                 })
@@ -580,7 +592,7 @@ app.post("/patientsPageAdd",async(req,res)=>{
     await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
         if(data.rows.length != 0){
             await pool.query("select * from patient", async(err, newdata) => {
-                res.render("./patients.ejs", {allPatients: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم"});
+                res.render("./patients.ejs", {allPatients: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
             })
             }
         else{
@@ -589,7 +601,7 @@ app.post("/patientsPageAdd",async(req,res)=>{
                     if(err)
                         console.log(err)
                     await pool.query("select * from patient", async(err, newdata) => {
-                    res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null});
+                    res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 })
         }
@@ -611,21 +623,21 @@ app.post("/doctorsPageAdd",async(req,res)=>{
         await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from surgeon", async(err, newdata) => {
-                    res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم"});
+                    res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from surgeon where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم"});
+                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
                     else
                     await pool.query("insert into surgeon (name, email, nationalid, phone, address, sex, image, birthdate, speciality) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, sex, image, bdate,speciality], async(err, respond) => {
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                        res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null, errorMessage : null});
+                        res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
                     })
                 })
@@ -645,14 +657,14 @@ app.post("/devicesPageAdd",async(req,res)=>{
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,data)=>{
         if(data.rows.length != 0){
             await pool.query("select * from device",(req,newdata)=>{
-                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show", errorMessage : "الرقم التسلسلي مستخدم", name:req.session.user["username"]})
+                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show", errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
             })
         }
         else{
             await pool.query("insert into device (name, serialnumber, company, status, warranty, price, date) values ($1, $2, $3, $4, $5, $6, $7)",
                 [name,serial,company,stat,warranty,price,date],async(err,respond)=>{
                     await pool.query("select * from device",(err,newdata)=>{
-                        res.render("devices.ejs",{allDevices:newdata.rows,show:null,errorMessage:null, name:req.session.user["username"]})
+                        res.render("devices.ejs",{allDevices:newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
                     })
                 })
         }
@@ -674,7 +686,7 @@ app.post("/operationsPageAdd",async(req,res)=>{
     await pool.query("select * from operation where code = $1",[code],async(err,data)=>{
         if(data.rows.length != 0){
             await pool.query("select * from operation",(req,newdata)=>{
-                res.render("./operations.ejs",{allOperations: newdata.rows,show: "show", errorMessage : "كود العملية مستخدم"})
+                res.render("./operations.ejs",{allOperations: newdata.rows,show: "show", errorMessage : "كود العملية مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
             })}
         else{ 
             usedDevices.forEach(async (deviceSerialNumber)=>{
@@ -685,7 +697,7 @@ app.post("/operationsPageAdd",async(req,res)=>{
             await pool.query("insert into operation (name, code, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5, $6)",
                 [name,code,duration,price,roomnumber,description], async(err, respond) => {
                     await pool.query("select * from operation",async (err, newdata) => {
-                        res.render("./operations.ejs", {allOperations: newdata.rows,show:null,errorMessage:null});
+                        res.render("./operations.ejs", {allOperations: newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                     })   
             })      
             }
@@ -714,6 +726,8 @@ app.post("/editAdmin", async (req, res) => {
                         `select * from admin where nationalid ='${oldid}'`,
                         (err2, respond2) => {
                             res.render("adminProfile.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
                                 errormessageadmin: "this id has already been registered",
                                 name: respond2.rows[0].name,
                                 email: respond2.rows[0].email,
@@ -730,6 +744,8 @@ app.post("/editAdmin", async (req, res) => {
                         `select * from admin where nationalid ='${oldid}'`,
                         (err2, respond2) => {
                             res.render("adminProfile.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
                                 errormessageadmin: "the passwords do not match",
                                 name: respond2.rows[0].name,
                                 email: respond2.rows[0].email,
@@ -796,6 +812,8 @@ app.post("/editPatient", async (req, res) => {
                         `SELECT * FROM patient WHERE nationalid = '${oldid}'`,
                         (err2, respond2) => {
                             res.render("patientProfile.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
                                 errormessagepatient: "this id has already been registered",
                                 name: respond2.rows[0].name,
                                 id: respond2.rows[0].nationalid,
@@ -813,6 +831,8 @@ app.post("/editPatient", async (req, res) => {
                         [name, id, address, phone, sex, image, birthdate, oldid],
                         (err2, respond2) => {
                             res.render("patientProfile.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
                                 errormessagepatient: null,
                                 name: name,
                                 id: id,
@@ -850,6 +870,8 @@ app.post("/editSurgeon", async (req, res) => {
                         `select * from surgeon where nationalid ='${oldid}'`,
                         (err2, respond2) => {
                             res.render("doctorProfile.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
                                 errormessagedoctor: "this id has already been registered",
                                 name: respond2.rows[0].name,
                                 email: respond2.rows[0].email,
@@ -880,6 +902,8 @@ app.post("/editSurgeon", async (req, res) => {
 
                         (err2, respond2) => {
                             res.render("doctorProfile.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
                                 errormessagedoctor: null,
                                 name: name,
                                 id: id,
