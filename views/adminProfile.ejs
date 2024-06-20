@@ -134,7 +134,7 @@
                 <div class="navbar-name"><%= name %></div>
     
             </div>
-            <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
+            <a href="currentAdminProfile"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button></a>
             <button class = "Nav-bar-icon-btn" id = "Dark-mode"><i class="fa-solid fa-moon"></i></button>
             <a href="/"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button></a>
     
@@ -156,16 +156,17 @@
         <div class="profile">
             <img src="./images/admin.jpeg" alt="صورة المشرف" class="profile-img">
             <div class="info">
-                <h2><%= name %>  </h2>
+                <h2><%= adminName %>  </h2>
                 <p><%= email %></p>
             </div>
         </div>
         <div class="details">
-            <p><i class="fas fa-id-card" ></i> رقم القومي: <%= id %></p>
+            <p><i class="fas fa-id-card" ></i> الرقم القومي: <%= id %></p>
             <p><i class="fas fa-phone-alt"></i> رقم الهاتف: <%= mobile %></p>
             <p><i class="fas fa-birthday-cake"></i> العمر: <%= age %> سنة</p>
             <p><i class="fas fa-calendar-alt"></i> تاريخ الميلاد: <%= birthDate %></p>
             <p><i class="fas fa-mars"></i> الجنس: <%= sex %></p>
+            <p><i class="fas fa-map-marker-alt"></i> العنوان: <%= address %></p>
         </div>
     </div>
         

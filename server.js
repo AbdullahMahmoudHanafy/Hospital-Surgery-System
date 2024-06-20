@@ -33,6 +33,14 @@ function calculateAge(birthdate) {
   return age;
 }
 
+function formatDate(date) {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 
 
 app.use(session({
@@ -169,6 +177,25 @@ app.get("/patients", async (req, data) => {
             console.log(err);
         else {
             data.render("./patients.ejs", {allPatients: res.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/currentAdminProfile", async (req, res) => {
+    await pool.query(`select * from admin where nationalid = '${req.session.user["userId"]}'`, (err, adminUser) => {
+        if(err)
+            console.log(err)
+        else {
+            let name = req.session.user["username"],
+            id = req.session.user["userId"],
+            email = adminUser.rows[0]["email"],
+            mobile = adminUser.rows[0]["phone"],
+            birthdate = adminUser.rows[0]["birthdate"].toLocaleDateString('en-GB'),
+            sex = adminUser.rows[0]["sex"],
+            address = adminUser.rows[0]["address"],
+            age = calculateAge(formatDate(adminUser.rows[0]["birthdate"]))
+
+            res.render("./adminProfile.ejs", {name: name, adminName: name, id: id, email: email, address: address, mobile: mobile, birthDate: birthdate, sex: sex, address: address, age: age, image: req.session.user["image"],errormessageadmin: ""})
         }
     })
 })
