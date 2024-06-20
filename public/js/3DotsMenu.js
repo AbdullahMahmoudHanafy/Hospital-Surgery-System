@@ -52,11 +52,11 @@ editButtons.forEach((editButton)=>{
     editButton.addEventListener('click',function(event){
         editOverlay.style.display = 'flex'
         let id = event.target.parentElement.parentElement.parentElement.querySelector(".id").textContent
-        let email = event.target.parentElement.parentElement.parentElement.querySelector(".email").value
-        console.log(email)
-        console.log(id)
         editOverlay.querySelector(".editHiddenID").value = id
+        if(editOverlay.classList.contains("editAdminInAdminsPage")){
+        let email = event.target.parentElement.parentElement.parentElement.querySelector(".email").value
         editOverlay.querySelector(".editHiddenEmail").value = email
+        }
     })
 })
 
