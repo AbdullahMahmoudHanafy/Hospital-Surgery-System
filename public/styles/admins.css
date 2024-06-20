@@ -229,14 +229,12 @@ body{
     width: 110px;
     background-color: rgba(255, 255, 255, 0.655);
     transform: translateX(80px) translateY(5px);
-    /* no height assiggned ######################## */
 }
 
 
 .content button{
     background-color:#f9fafb;
     border: solid rgb(243, 244, 246) 0.8px;
-    /* ############################################# */
     height: 30px;  
     width: 100%;
     display: flex;

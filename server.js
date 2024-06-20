@@ -26,9 +26,9 @@ function calculateAge(birthdate) {
   const monthDifference = today.getMonth() - birthDate.getMonth();
 
   // Adjust age if the current month and day are before the birth date
-  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-  }
+//   if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+//       age--;
+//   }
 
   return age;
 }
@@ -966,6 +966,31 @@ app.post("/previewAdminProfile",async(req,res)=>{
             }); 
     })
 })
+
+app.post("/previewDoctorProfile",async(req,res)=>{
+    let id = req.body.hiddenPreviewID
+    await pool.query(
+        `select * from surgeon where nationalid ='${id}'`,
+        (err2, respond2) => {
+            res.render("doctorProfile.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                errormessagedoctor: "this id has already been registered",
+                name: respond2.rows[0].name,
+                email: respond2.rows[0].email,
+                id: respond2.rows[0].nationalid,
+                phone: respond2.rows[0].phone,
+                sex: respond2.rows[0].sex,
+                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                specialization: respond2.rows[0].speciality,
+                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                address:respond2.rows[0].address
+            });
+        }
+    );
+})
+
+
 
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
