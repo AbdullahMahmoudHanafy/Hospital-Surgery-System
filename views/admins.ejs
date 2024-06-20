@@ -63,7 +63,7 @@
 
                 <div class="admins">
                     <% for( var i = 0 ; i < allAdmins.length ; i++ ){%>
-                        <div class="admin-row"><div class="admin-col"><div class="top"><%= allAdmins[i]["name"] %></div><div class="bottom id"><%= allAdmins[i]["nationalid"] %></div></div><div class="admin-col"><div class="admin-gender"><%= allAdmins[i]["sex"] %></div></div><div class="admin-col"><div class="top"><%= new Date().getFullYear() - new Date(allAdmins[i]["birthdate"]).getFullYear() %> عاما</div><div class="bottom"><%= `${new Date(allAdmins[i]["birthdate"]).getDate()}-${new Date(allAdmins[i]["birthdate"]).getMonth() + 1}-${new Date(allAdmins[i]["birthdate"]).getFullYear()}` %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><form action="previewAdminProfile" method="post"><input type="hidden" value="<%= allAdmins[i]["nationalid"] %>" name="hiddenPreviewID"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button></form><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                        <div class="admin-row"><input type="hidden" value="<%=allAdmins[i]["email"]%>" class="email"><div class="admin-col"><div class="top"><%= allAdmins[i]["name"] %></div><div class="bottom id"><%= allAdmins[i]["nationalid"] %></div></div><div class="admin-col"><div class="admin-gender"><%= allAdmins[i]["sex"] %></div></div><div class="admin-col"><div class="top"><%= new Date().getFullYear() - new Date(allAdmins[i]["birthdate"]).getFullYear() %> عاما</div><div class="bottom"><%= `${new Date(allAdmins[i]["birthdate"]).getDate()}-${new Date(allAdmins[i]["birthdate"]).getMonth() + 1}-${new Date(allAdmins[i]["birthdate"]).getFullYear()}` %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><form action="previewAdminProfile" method="post"><input type="hidden" value="<%= allAdmins[i]["nationalid"] %>" name="hiddenPreviewID"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button></form><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <% } %>
                 </div>
             </div>
@@ -72,7 +72,7 @@
 
 
     <!-- add overlay pages -->
-     <div class="edit-overlay">
+     <div class="edit-overlay <%=showEdit%>">
         <div class="edit-overlay-container">
       
         
@@ -82,21 +82,23 @@
              <br>
              
              <form action="adminsPageEdit" method="POST">
+                <input type="hidden" name="oldID" value="<%=savedID%>" class="editHiddenID">
+                <input type="hidden" name="oldEmail" value="<%=savedEmail%>" class="editHiddenEmail">
                  <div class="form-group">
                      <label for="name">الاسم</label>
-                     <input type="text" id="name" name="name" value="احمد محمد">
+                     <input type="text" id="name" name="name" value="احمد محمد" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="id">الرقم القومي</label>
-                     <input type="text" id="id" name="id" value="303060">
+                     <input type="text" id="id" name="id" value="303060" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="birthDate">تاريخ الميلاد</label>
-                     <input type="date" id="birthDate" name="birthDate" >
+                     <input type="date" id="birthDate" name="birthDate" required>
                  </div>
                  <br>
      
@@ -105,8 +107,8 @@
                      <!-- Other form fields (name, email, password, etc.) -->
                  
                      <label for="gender">الجنس</label>
-                     <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
-                     <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                     <input type="radio" name="sex" value="ذكر" required /><span class="sexVal">ذكر</span>
+                     <input type="radio" name="sex" value="أنثي" required /><span class = "sexVal">أنثى</span>
                  
                      <!-- Submit button and other fields go here -->
                  </div>
@@ -129,41 +131,40 @@
                     <input type="file" name="image">
                 
                     <!-- Submit button and other fields go here -->
-                </div>
+                 </div>
                  <br>
                  <div class="form-group">
                      <label for="email">البريد الالكتروني</label>
-                     <input type="tel" id="email" name="email" value="admin@example">
+                     <input type="tel" id="email" name="email" value="admin@example" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="mobile">رقم الهاتف</label>
-                     <input type="tel" id="mobile" name="mobile" value="031321">
+                     <input type="tel" id="mobile" name="mobile" value="031321" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="address">العنوان</label>
-                     <input type="text" id="address" name="address" value="شارع علي علوكة">
+                     <input type="text" id="address" name="address" value="شارع علي علوكة" required>
                  </div>
                  <br>
     
                  <div class="form-group">
                      <label for="password">كلمة المرور</label>
-                     <input type="text" id="password" name="password" value="Drop Table">
+                     <input type="text" id="password" name="password" value="Drop Table" required>
                  </div>
                  <br>
                  <div class="form-group">
                      <label for="confirmPassword">تأكيد كلمة المرور</label>
-                     <input type="text" id="confirmPassword" name="password" value="Drop Table">
+                     <input type="text" id="confirmPassword" name="confirmPassword" value="Drop Table" required>
                  </div>
                  <br>
                  <div class="button-group">
                      <button type="button" class="cancel-edit">إلغاء</button>
                      <button type="submit">تحديث المعلومات</button>
                  </div>
-                 <input type="hidden" name="editID" value="" class="editHiddenID">
              </form> 
             </div>
          </div>
