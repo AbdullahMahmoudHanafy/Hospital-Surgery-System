@@ -54,6 +54,7 @@ editButtons.forEach((editButton)=>{
         document.querySelector(".editHiddenID").value = id
     })
 })
+
 deleteButtons.forEach((deleteButton)=>{
     deleteButton.addEventListener('click',function(event){
         deleteOverlay.style.display = 'flex'

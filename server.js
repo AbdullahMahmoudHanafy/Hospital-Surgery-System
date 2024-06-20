@@ -948,6 +948,25 @@ app.post("/editSurgeon", async (req, res) => {
     );
 });
 
+app.post("/previewAdminProfile",async(req,res)=>{
+    let id = req.body.hiddenPreviewID
+    await pool.query("select * from admin where nationalid = $1",[id],(err,respond2)=>{
+        res.render("adminProfile.ejs", {
+                adminName: req.session.user["username"],
+                image: req.session.user["image"],
+                errormessageadmin: "this id has already been registered",
+                name: respond2.rows[0].name,
+                email: respond2.rows[0].email,
+                id: respond2.rows[0].nationalid,
+                mobile: respond2.rows[0].phone,
+                sex: respond2.rows[0].sex,
+                birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                address : respond2.rows[0].address
+            }); 
+    })
+})
+
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
 });
