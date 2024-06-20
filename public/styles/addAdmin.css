@@ -199,3 +199,11 @@
 }
 
 .show{display : flex}
+
+.overlay3 .addAdminError{
+    color: red;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

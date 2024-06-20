@@ -17,16 +17,19 @@
 </head>
 <body>
     <div class = "Nav-bar">
-        <div class="overlay1">
+        <div class="overlay1 <%= show1 %>">
         <div class="container addSurgeon">
+            <% if(show1 != null){ %>
+                <div class="addSurgeonError"><%= addSurgeonError %></div>
+                <% } %>
             <h5>إضافة جراح </h5>
-            <form>
+            <form action="addSurgeon" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم الجراح</label>
                 <input type="name" name="name" placeholder="ادخل الاسم" dir='rtl' lang='ar' required>
                 <label for="ID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>
                 <input type="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
                 <label for="birthDate">تاريخ الميلاد</label>
-                <input type="date" name="birthDate" >
+                <input type="date" name="birthdate" >
                 <label for="gender">جنس الجراح</label>
                 <div class="form-group">
                     <!-- Other form fields (name, email, password, etc.) -->
@@ -43,7 +46,7 @@
                 <label for="address" dir='rtl' lang='ar'>عنوان الجراح</label>
                 <input type="address" name="address" placeholder="ادخل العنوان" dir='rtl' lang='ar' required>
                 <label for="email" dir='rtl' lang='ar'>البريد الالكتروني للجراح</label>
-                <input type="email" name="ID" placeholder="ادخل البريد الاكتروني" dir='rtl' lang='ar' required>
+                <input type="email" name="email" placeholder="ادخل البريد الاكتروني" dir='rtl' lang='ar' required>
                 <label for="phone" dir='rtl' lang='ar'>رقم هاتف الجراح</label>
                 <input type="phone" name="phone" placeholder=" ادخل رقم الهاتف"dir='rtl' lang='ar' required>
                 <label for="speciality" dir='rtl' lang='ar'>تخصص الجراح</label>
@@ -55,11 +58,11 @@
             </form>
         </div>
     </div>
-    <div class = "overlay2">
+    <div class = "overlay2 <%= show2 %>">
         <div class="container addPatient">
-            <div class="addPatientErrorDiv">
-                <h4>هذا المريض موجود بالفعل</h4>
-            </div>
+            <% if(show2 != null){ %>
+            <div class="addPatientError"><%= addPatientError %></div>
+            <% } %>
             <h5> إضافة مريض</h5>
             <form action="addPatient" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم المريض</label>
@@ -92,8 +95,11 @@
             </form>
         </div>
     </div>
-    <div class="overlay3" >
+    <div class="overlay3 <%= show3 %>" >
         <div class="container addAdmin">
+            <% if(show3 != null){ %>
+            <div class="addAdminError"><%= addAdminError %></div>
+            <% } %>
             <h5> تسجيل مشرف جديد</h5>
             <form action="addAdmin" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم المشرف</label>
@@ -165,18 +171,21 @@
             </form>
         </div>
     </div>
-    <div class = "overlay5" >
+    <div class = "overlay5 <%= show5 %>" >
         <div class="container addDevice">
+            <% if(show5 != null){ %>
+                <div class="addDeviceError"><%= addDeviceError %></div>
+                <% } %>
             <h5> إضافة جهاز</h5>
-            <form>
+            <form action="addDevice" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم الجهاز</label>
-                <input type="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
+                <input type="name" name="name" placeholder="ادخل اسم الجهاز" dir='rtl' lang='ar' required>
                 <label for="serial" dir='rtl' lang='ar'>الرقم التسلسلي</label>
-                <input type="serial" name="serial" placeholder="ادخل serial number" dir='rtl' lang='ar' required>
+                <input type="serial" name="serial" placeholder="ادخل الرقم التسلسلي للجهاز" dir='rtl' lang='ar' required>
                 <label for="price" dir='rtl' lang='ar'>سعر الجهاز</label>
-                <input type="price" name="address" placeholder="ادخل سعر الجهاز" dir='rtl' lang='ar' required>
+                <input type="price" name="price" placeholder="ادخل سعر الجهاز" dir='rtl' lang='ar' required>
                 <label for="warranty" dir='rtl' lang='ar'>الضمان</label>
-                <input type="warranty" name="warranty" placeholder="ادخل ال warranty" dir='rtl' lang='ar' required>
+                <input type="warranty" name="warranty" placeholder="ادخل مدة ضمان الجهاز" dir='rtl' lang='ar' required>
                 <label for="status" dir='rtl' lang='ar'>حالة الجهاز</label>
                 <input type="status" name="status" placeholder="ادخل حالة الجهاز" dir='rtl' lang='ar' required>
                 <label for="company" dir='rtl' lang='ar'>اسم الشركة المصنعة</label>
@@ -218,7 +227,7 @@
             <button class = "Nav-bar-icon-btn" id = "Dark-mode"><i class="fa-solid fa-moon"></i></button>
             <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
             <div class = "Admin-data">
-                <div class="navbar-name">عبدالله محمود</div>
+                <div class="navbar-name"><%= name %></div>
                 <img src="./images/myImage.jpg" alt="An admin's image" class = "Admin-img">
             </div>
         </div>

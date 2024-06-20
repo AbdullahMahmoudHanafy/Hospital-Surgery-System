@@ -11,6 +11,6 @@
     z-index: 100; /* Ensure it's above other content */
 }
 
-.show{
+.show, .show1, .show2, .show3, .show4, .show5, .show6{
     display: flex;
 }

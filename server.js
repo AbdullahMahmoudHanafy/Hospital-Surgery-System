@@ -1,11 +1,10 @@
-import express, { text } from 'express';
+import express from 'express';
 import path from 'path';
 import multer from 'multer';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import  pool  from "./database.js"
-import { log } from 'console';
-import { get } from 'http';
+import session from 'express-session';
 
 const port = 3000;
 
@@ -13,9 +12,20 @@ const app = express();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "Public")));
+
+app.use(session({
+    secret: 'secret_key', // Change this to a strong secret
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      maxAge: 60 * 30 * 1000, // Session duration (in milliseconds)
+    },
+}));
 
 app.get("/", (req, res) => {
     res.render("./loginPage.ejs",{loginError: ""});
@@ -26,7 +36,7 @@ app.post("/loginAdmin", async (req, login) => {
     
     await pool.connect()
     
-    await pool.query("select password from admin where email = $1", [email], async (err, res) => {
+    await pool.query("select * from admin where email = $1", [email], async (err, res) => {
         if(err){
             console.log(err)
         }else {
@@ -35,8 +45,29 @@ app.post("/loginAdmin", async (req, login) => {
             else if(res.rows[0]["password"] != password)
                 login.render("./loginPage.ejs", {loginError: "كلمة المرور خاطئة"})
             else {
+
                 let dataNumbers = await getNumbers()
-                login.render("./homePage.ejs", {dataNumbers: dataNumbers, condition:  false})
+                let userId = res.rows[0]["nationalid"],
+                    username = res.rows[0]["name"],
+                    profileImage = res.rows[0]["image"]
+    
+                    req.session.user = {
+                        userId, username, profileImage
+                    }
+
+                    login.render("./homePage.ejs",
+                        {
+                            name: req.session.user["username"],
+                            dataNumbers: dataNumbers,
+                            show:  null, error: "",
+                            show1:  null, addSurgeonError: "",
+                            show2:  null, addPatientError: "",
+                            show3:  null, addAdminError: "",
+                            show4:  null, addOperationError: "",
+                            show5:  null, addDeviceError: "",
+                            show6:  null, addAppointmentError: ""
+                        }
+                    )
             }
         }
     })
@@ -44,20 +75,29 @@ app.post("/loginAdmin", async (req, login) => {
 
 app.get("/homePage", async (req, res) => {
     let dataNumbers = await getNumbers()
-    res.render("./homePage.ejs",{dataNumbers: dataNumbers, text: ""});
+    res.render("./homePage.ejs",
+        {
+            name: req.session.user["username"],
+            dataNumbers: dataNumbers,
+            show:  null, error: "",
+            show1:  null, addSurgeonError: "",
+            show2:  null, addPatientError: "",
+            show3:  null, addAdminError: "",
+            show4:  null, addOperationError: "",
+            show5:  null, addDeviceError: "",
+            show6:  null, addAppointmentError: ""
+        })
 })
 
 app.get("/devices", async (req, data) => {
-
 
     await pool.query("select * from device", (err, res) => {
         if(err)
             console.log(err);
         else {
-            data.render("./devices.ejs", {allDevices: res.rows});
+            data.render("./devices.ejs", {allDevices: res.rows, name: req.session.user["username"]});
         }
     })
-
 })
 
 app.get("/admins", async (req, data) => {
@@ -119,7 +159,7 @@ app.get("/patients", async (req, data) => {
 
 
 
-app.post("/addAdmin", async (req, res) => {
+app.post("/addAdmin", async (req, respond) => {
     let name = req.body["name"],
     sex = req.body["sex"], 
     bdate = req.body["birthDate"], 
@@ -134,14 +174,89 @@ app.post("/addAdmin", async (req, res) => {
     if(repassword == password)
     {
 
-        await pool.query("insert into admin (name, email, nationalID, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
-            [name, email, nationalID, phone, address, password, sex, image, bdate], (err, res) => {
-                if(err)
-                    console.log(err)
+        await pool.query(`select * from admin where nationalid = '${nationalID}'`, async (err, res) => {
+            if(err)
+                console.log(err)
+            else {
+                if(res.rowCount > 0)
+                    {
+                        let dataNumbers = await getNumbers()
+                        respond.render("./homePage.ejs",
+                            {
+                                name: req.session.user["username"],
+                                dataNumbers: dataNumbers,
+                                show:  null, error: "",
+                                show1:  null, addSurgeonError: "",
+                                show2:  null, addPatientError: "",
+                                show3:  "show", addAdminError: "هذا الرقم القومي موجود بالفعل",
+                                show4:  null, addOperationError: "",
+                                show5:  null, addDeviceError: "",
+                                show6:  null, addAppointmentError: ""
+                            })
+                    }
+                    else{
+                        await pool.query(`select * from admin where email = '${email}'`, async (err, res) => {
+                            if(err)
+                                console.log(err)
+                            else {
+                                if(res.rowCount > 0)
+                                    {
+                                        let dataNumbers = await getNumbers()
+                                        respond.render("./homePage.ejs",
+                                            {
+                                                name: req.session.user["username"],
+                                                dataNumbers: dataNumbers,
+                                                show:  null, error: "",
+                                                show1:  null, addSurgeonError: "",
+                                                show2:  null, addPatientError: "",
+                                                show3:  "show", addAdminError: "هذا البريد الالكتروني موجود بالفعل",
+                                                show4:  null, addOperationError: "",
+                                                show5:  null, addDeviceError: "",
+                                                show6:  null, addAppointmentError: ""
+                                            })
+                                    }else{
+                                        await pool.query("insert into admin (name, email, nationalID, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                                            [name, email, nationalID, phone, address, password, sex, image, bdate], async (err, res) => {
+                                                if(err)
+                                                    console.log(err)
+                                                else {
+                                                    let dataNumbers = await getNumbers()
+                                                    respond.render("./homePage.ejs",
+                                                        {
+                                                            name: req.session.user["username"],
+                                                            dataNumbers: dataNumbers,
+                                                            show:  null, error: "",
+                                                            show1:  null, addSurgeonError: "",
+                                                            show2:  null, addPatientError: "",
+                                                            show3:  null, addAdminError: "",
+                                                            show4:  null, addOperationError: "",
+                                                            show5:  null, addDeviceError: "",
+                                                            show6:  null, addAppointmentError: ""
+                                                        })
+                                                }
+                                            }
+                                        )
+                                    }
+                            }
+                        })
+                    }
             }
-        )
+        })
     }
     else {
+        let dataNumbers = await getNumbers()
+        respond.render("./homePage.ejs",
+            {
+                name: req.session.user["username"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                show1:  null, addSurgeonError: "",
+                show2:  null, addPatientError: "",
+                show3:  "show", addAdminError: "كلمة المرور غير متطابقة",
+                show4:  null, addOperationError: "",
+                show5:  null, addDeviceError: "",
+                show6:  null, addAppointmentError: ""
+            })
     }
 })
 
@@ -155,19 +270,147 @@ app.post("/addPatient", async(req,respond) => {
     image = "123"
 
     await pool.query(`select * from patient where nationalid = '${ID}'`, async (err, res) => {
-        if(res.rows.length != 0)
+        if(res.rowCount != 0)
             {
                 let dataNumbers = await getNumbers()
-                let message = "هذا المريض موجود بالفعل"
-                respond.send("هذا المريض موجود بالفعل")
+                respond.render("./homePage.ejs",
+                    {
+                        name: req.session.user["username"],
+                        dataNumbers: dataNumbers,
+                        show:  null, error: "",
+                        show1:  null, addSurgeonError: "",
+                        show2:  "show", addPatientError: "هذا الرقم القومي موجود بالفعل",
+                        show3:  null, addAdminError: "",
+                        show4:  null, addOperationError: "",
+                        show5:  null, addDeviceError: "",
+                        show6:  null, addAppointmentError: ""
+                    })
             }
         else{
-            pool.query("insert into patient (name,  nationalid, birthdate, sex, address, phone, image) values ($1, $2, $3, $4, $5, $6, $7)",[name, ID, birthdate, sex, address, phone, image], (err, res) => {
+            pool.query("insert into patient (name,  nationalid, birthdate, sex, address, phone, image) values ($1, $2, $3, $4, $5, $6, $7)",[name, ID, birthdate, sex, address, phone, image], async (err, res) => {
                 if(err)
                     console.log(err)
+                else {
+                    let dataNumbers = await getNumbers()
+                    respond.render("./homePage.ejs",
+                        {
+                            name: req.session.user["username"],
+                            dataNumbers: dataNumbers,
+                            show:  null, error: "",
+                            show1:  null, addSurgeonError: "",
+                            show2:  null, addPatientError: "",
+                            show3:  null, addAdminError: "",
+                            show4:  null, addOperationError: "",
+                            show5:  null, addDeviceError: "",
+                            show6:  null, addAppointmentError: ""
+                        })
+                }
             })
         }
     } )
+})
+
+app.post("/addSurgeon", async(req,respond) => {
+    let name = req.body["name"], 
+    ID = req.body["ID"], 
+    birthdate = req.body["birthdate"], 
+    sex = req.body["sex"], 
+    address = req.body["address"], 
+    phone = req.body["phone"], 
+    email = req.body["email"],
+    speciality = req.body["speciality"],
+    image = "123"
+
+    await pool.connect();
+
+    await pool.query(`select * from surgeon where nationalid = '${ID}' OR email = '${email}'`,async (err, res) => {
+        if(res.rows.length == 0)
+            {
+                pool.query("insert into surgeon (name, nationalid, birthdate, sex, address, phone, email, speciality, image) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                    [name, ID, birthdate, sex, address, phone, email, speciality, image], (err, res) => {
+                        if(err)
+                        console.log(err)
+                    })
+                    let dataNumbers = await getNumbers()
+                    respond.render("./homePage.ejs", {
+                        name: req.session.user["username"],
+                        dataNumbers: dataNumbers,
+                        show:  null, error: "",
+                        show1:  null, addSurgeonError: "",
+                        show2:  null, addPatientError: "",
+                        show3:  null, addAdminError: "",
+                        show4:  null, addOperationError: "",
+                        show5:  null, addDeviceError: "",
+                        show6:  null, addAppointmentError: ""
+                    })
+            }
+        else{
+            //the surgeon already exixts 
+            let dataNumbers = await getNumbers()
+            respond.render("./homePage.ejs", {
+                name: req.session.user["username"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                show1:  "show", addSurgeonError: "هذا الطبيب مسجل بالفعل",
+                show2:  null, addPatientError: "",
+                show3:  null, addAdminError: "",
+                show4:  null, addOperationError: "",
+                show5:  null, addDeviceError: "",
+                show6:  null, addAppointmentError: ""
+            })
+        }
+    } )
+})
+
+app.post("/addDevice", async (req, respond) => {
+    let name = req.body["name"],
+    serial = req.body["serial"], 
+    price = req.body["price"], 
+    warranty = req.body["warranty"], 
+    status = req.body["status"],
+    company = req.body["company"],
+    date = req.body["date"]
+
+    await pool.connect();
+
+    await pool.query(`select * from device where serialnumber = '${serial}'`, async (err, res) => {
+        if(res.rows.length == 0)
+            {    
+            await pool.query("insert into device (name, serialnumber, price, warranty, status, company, date) values ($1, $2, $3, $4, $5, $6, $7)",
+                [name, serial, price, warranty, status, company, date], async (err, res) => {
+                    if(err)
+                        console.log(err)
+                    }
+                )
+                let dataNumbers = await getNumbers()
+                    respond.render("./homePage.ejs", {
+                        name: req.session.user["username"],
+                        dataNumbers: dataNumbers,
+                        show:  null, error: "",
+                        show1:  null, addSurgeonError: "",
+                        show2:  null, addPatientError: "",
+                        show3:  null, addAdminError: "",
+                        show4:  null, addOperationError: "",
+                        show5:  null, addDeviceError: "",
+                        show6:  null, addAppointmentError: ""
+                    })
+            }
+        else{
+            //the device already exists
+            let dataNumbers = await getNumbers()
+            respond.render("./homePage.ejs", {
+                name: req.session.user["username"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                show1:  null, addSurgeonError: "",
+                show2:  null, addPatientError: "",
+                show3:  null, addAdminError: "",
+                show4:  null, addOperationError: "",
+                show5:  "show", addDeviceError: "هذا الجهاز مسجل بالفعل",
+                show6:  null, addAppointmentError: ""
+            })
+        }
+    })
 })
 
 

@@ -162,3 +162,11 @@
     background-color: rgb(61, 116, 255);
     border-radius: 5px;
 }
+
+.overlay5 .addDeviceError{
+    color: red;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
