@@ -67,7 +67,7 @@ app.get("/admins", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./admins.ejs", {allAdmins: res.rows, show: null, errorMessage : null});
+            data.render("./admins.ejs", {allAdmins: res.rows, show: null, errorMessage : null,editErrorMessage:null});
         }
     })
 })
@@ -182,7 +182,7 @@ app.post("/adminsPageDeleteAdmin",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from admin where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from admin", (err, respond) => {
-            res.render("./admins.ejs", {allAdmins: respond.rows,show: null, errorMessage : null});
+            res.render("./admins.ejs", {allAdmins: respond.rows,show: null, errorMessage : null,editErrorMessage:null});
         })
     })
 })
@@ -250,28 +250,28 @@ app.post("/adminsPageAdd",async(req,res)=>{
 
     if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
-            res.render("./admins.ejs", {allAdmins: data.rows, show: "show", errorMessage : "كلمات المرور غير متطابقة"});
+            res.render("./admins.ejs", {allAdmins: data.rows, show: "show", errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null});
         })
     }
     else{
         await pool.query("select * from admin where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from admin", async(err, newdata) => {
-                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم"});
+                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم",editErrorMessage:null});
                 })
                 }
             else{
                 await pool.query("select * from admin where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from admin", async(err, newdata) => {
-                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم"});
+                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null});
                         })
                     }
                     else
                     await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, password, sex, image, bdate], async(err, respond) => {
                         await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows, show: null, errorMessage : null});
+                        res.render("./admins.ejs", {allAdmins: newdata.rows, show: null, errorMessage : null,editErrorMessage:null});
                     })
                     })
                 })
@@ -404,6 +404,10 @@ app.post("/operationsPageAdd",async(req,res)=>{
     })
 })
 
+
+// app,post("/adminsPageEdit",(req,res)=>{
+
+// })
 
 app.listen(port, (req, res) => {
     console.log(`server is running on port number ${port}`);

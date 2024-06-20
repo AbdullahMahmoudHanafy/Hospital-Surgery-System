@@ -78,9 +78,10 @@
         
             <div class="edit-overlay-content">
              <h1 class="head">  تعديل بيانات المشرف</h1>
+             <div class="errorMessage"><%= editErrorMessage %></div>
              <br>
              
-             <form action="editAdmin" method="POST">
+             <form action="adminsPageEdit" method="POST">
                  <div class="form-group">
                      <label for="name">الاسم</label>
                      <input type="text" id="name" name="name" value="احمد محمد">
@@ -162,6 +163,7 @@
                      <button type="button" class="cancel-edit">إلغاء</button>
                      <button type="submit">تحديث المعلومات</button>
                  </div>
+                 <input type="hidden" name="editID" value="" class="editHiddenID">
              </form> 
             </div>
          </div>
