@@ -115,7 +115,7 @@
                     <label for="roomNumber" id="device-input">الاجهزة المستخدمة</label>
                     <div id="fieldContainer">
                         <div class="newField">
-                            <input type="text" name="multiValueField[]" placeholder="ادخل الرقم التسلسلي للجهاز">
+                            <input type="text" name="multiValueField" placeholder="ادخل الرقم التسلسلي للجهاز">
                             <button type="button" class="deleteButton">حذف</button>
                         </div>
                     </div>
@@ -151,10 +151,11 @@
         </div>
     </div>
 
-    <div class = "overlay4 overlay" >
+    <div class = "overlay4 overlay <%= show %>" >
         <div class="container addOperation">
             <h5> إضافة عملية</h5>
-            <form dir='rtl'>
+            <div class="errorMessage"><%= errorMessage %></div>
+            <form dir='rtl' method="post" action="operationsPageAdd">
                 <label for="name" dir='rtl' lang='ar'>اسم العملية</label>
                 <input type="text" name="name" placeholder="ادخل اسم العملية" dir='rtl' lang='ar' required>
                 <label for="code" dir='rtl' lang='ar'>كود العملية</label>
@@ -169,11 +170,11 @@
                 <label for="usedDevices" id="device-input" dir='rtl'>الاجهزة المستخدمة</label>
                     <div id="fieldContainer" dir='rtl'>
                         <div class="newField">
-                            <input type="text" name="multiValueField[]" placeholder="ادخل الرقم التسلسلي للجهاز">
+                            <input type="text" name="multiValueField" placeholder="ادخل الرقم التسلسلي للجهاز">
                             <button type="button" class="deleteButton">حذف</button>
                         </div>
                     </div>
-                <button type="button" id="add-field-but" dir='rtl'>أضف خانة</button>
+                <button id="add-field-but" dir='rtl'>أضف خانة</button>
                 <label for="description" dir='rtl' lang='ar'>رابط وصف العملية</label>
                 <input type="text" name="description" placeholder="ادخل رابط لوصف العملية" dir='rtl' lang='ar' required>
 

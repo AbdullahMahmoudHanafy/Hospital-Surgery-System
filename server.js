@@ -100,7 +100,7 @@ app.get("/operations", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./operations.ejs", {allOperations: res.rows});
+            data.render("./operations.ejs", {allOperations: res.rows,show:null,errorMessage:null});
         }
     })
 })
@@ -209,7 +209,7 @@ app.post("/operationsPageDelete",async(req,res)=>{
     let code = req.body.deletetionCode
     await pool.query("delete from operation where code = $1",[code], async(err, rp) => {
         await pool.query("select * from operation", (err, respond) => {
-            res.render("./operations.ejs", {allOperations: respond.rows});
+            res.render("./operations.ejs", {allOperations: respond.rows,show:null,errorMessage:null});
         })
     })
 })
@@ -230,7 +230,7 @@ app.post("/appointmentsPageDelete",async(req,res)=>{
             if(err)
                 console.log(err);
             else {
-                res.render("./appointments.ejs",{allAppointments: appointments.rows});
+                res.render("./appointments.ejs",{allAppointments: appointments.rows,show:null,errorMessage:null});
             }
         })
     })
@@ -369,8 +369,39 @@ app.post("/devicesPageAdd",async(req,res)=>{
                 })
         }
     })
-    
+})
 
+app.post("/operationsPageAdd",async(req,res)=>{
+    let name = req.body.name,
+    code = req.body.code,
+    price = req.body.price,
+    duration = req.body.duration,
+    roomnumber = req.body.roomnumber,
+    usedDevices = req.body["multiValueField"],
+    description = req.body.description;
+    let missedDevice = false;
+    // if user entered one device typeof used devices will be string and the following algorithm use it as object so there must be a type casting
+    if(typeof usedDevices == "string")
+        usedDevices = [usedDevices];
+    await pool.query("select * from operation where code = $1",[code],async(err,data)=>{
+        if(data.rows.length != 0){
+            await pool.query("select * from operation",(req,newdata)=>{
+                res.render("./operations.ejs",{allOperations: newdata.rows,show: "show", errorMessage : "كود العملية مستخدم"})
+            })}
+        else{ 
+            usedDevices.forEach(async (deviceSerialNumber)=>{
+                await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
+                })
+            })
+
+            await pool.query("insert into operation (name, code, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5, $6)",
+                [name,code,duration,price,roomnumber,description], async(err, respond) => {
+                    await pool.query("select * from operation",async (err, newdata) => {
+                        res.render("./operations.ejs", {allOperations: newdata.rows,show:null,errorMessage:null});
+                    })   
+            })      
+            }
+    })
 })
 
 

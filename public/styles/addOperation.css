@@ -10,6 +10,8 @@
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-top:0px;
+    padding-bottom: 0px;
 }
 
 .overlay4 .submitt {
@@ -144,12 +146,13 @@
 
 .overlay4 .deleteButton{
     margin: 10px;
-    height: 36px;
+    height: 25px;
 }
 
-.overlay4 input[name="multiValueField[]"]{
+.overlay4 input[name="multiValueField"]{
     margin: 10px;
     width: 100%;
+    height: 25px;
 }
 
 .overlay4 #add-field-but{
