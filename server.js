@@ -17,6 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: true }));
 
+await pool.connect()
 
 function calculateAge(birthdate) {
   const birthDate = new Date(birthdate);
@@ -50,8 +51,6 @@ app.get("/", (req, res) => {
 
 app.post("/loginAdmin", async (req, login) => {
     let email = req.body["email"], password = req.body["password"]
-    
-    await pool.connect()
     
     await pool.query("select * from admin where email = $1", [email], async (err, res) => {
         if(err){
