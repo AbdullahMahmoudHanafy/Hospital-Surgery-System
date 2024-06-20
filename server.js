@@ -13,8 +13,9 @@ const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.urlencoded({ extended: true }));
 
 
 function calculateAge(birthdate) {
@@ -691,10 +692,211 @@ app.post("/operationsPageAdd",async(req,res)=>{
     })
 })
 
+app.post("/editAdmin", async (req, res) => {
+    let name = req.body["name"],
+        id = req.body["id"],
+        sex = req.body["sex"],
+        email = req.body["email"],
+        birthDate = req.body["birthDate"],
+        mobile = req.body["mobile"],
+        address = req.body["address"],
+        password = req.body["password"],
+        age = calculateAge(birthDate),
+        confirmPassword = req.body["confirmPassword"],
+        image = "123",
+        oldid = req.body["oldid"];
+    await pool.query(
+        `select * from admin where nationalid='${req.body["id"]}'`,
+        async (err, respond) => {
+            if (!err) {
+                if (respond.rows.length === 1 && id != oldid) {
+                    await pool.query(
+                        `select * from admin where nationalid ='${oldid}'`,
+                        (err2, respond2) => {
+                            res.render("adminProfile.ejs", {
+                                errormessageadmin: "this id has already been registered",
+                                name: respond2.rows[0].name,
+                                email: respond2.rows[0].email,
+                                id: respond2.rows[0].nationalid,
+                                mobile: respond2.rows[0].phone,
+                                sex: respond2.rows[0].sex,
+                                birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB'))
+                            });
+                        }
+                    );
+                } else if (req.body["password"] != req.body["confirmPassword"]) {
+                    await pool.query(
+                        `select * from admin where nationalid ='${oldid}'`,
+                        (err2, respond2) => {
+                            res.render("adminProfile.ejs", {
+                                errormessageadmin: "the passwords do not match",
+                                name: respond2.rows[0].name,
+                                email: respond2.rows[0].email,
+                                id: respond2.rows[0].nationalid,
+                                mobile: respond2.rows[0].phone,
+                                sex: respond2.rows[0].sex,
+                                birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB'))
 
-// app,post("/adminsPageEdit",(req,res)=>{
+                            });
+                        }
+                    );
+                }
+                else {
+                    await pool.query(
+                        "UPDATE admin SET name = $1, email = $2, nationalid = $3, phone = $4, sex = $5, birthdate = $6, image = $7, address = $8, password = $9 WHERE nationalid = $10",
+                        [
+                            name,
+                            email,
+                            id,
+                            mobile,
+                            sex,
+                            birthDate,
+                            image,
+                            address,
+                            password,
+                            oldid,
+                        ],
+                        (err2, respond2) => {
+                            res.render("adminProfile.ejs", {
+                                errormessageadmin: null,
+                                name: name,
+                                email: email,
+                                id: id,
+                                mobile: mobile,
+                                sex: sex,
+                                birthDate: birthDate,
+                                age: calculateAge(birthDate)
+                            });
+                        }
+                    );
+                }
+            } else console.log(err);
+        }
+    );
+});
 
-// })
+app.post("/editPatient", async (req, res) => {
+    let name = req.body["name"],
+        id = req.body["nationalID"],
+        birthdate = req.body["birthDate"],
+        sex = req.body["sex"],
+        image = "123",
+        phone = req.body["mobile"],
+        address = req.body["address"],
+        age = calculateAge(birthdate),
+        oldid = req.body["oldid"];
+    await pool.query(
+        `SELECT * from patient WHERE nationalid = '${id}'`,
+        async (err, respond) => {
+            if (!err) {
+                if (respond.rows.length === 1 && id != oldid) {
+                    await pool.query(
+                        `SELECT * FROM patient WHERE nationalid = '${oldid}'`,
+                        (err2, respond2) => {
+                            res.render("patientProfile.ejs", {
+                                errormessagepatient: "this id has already been registered",
+                                name: respond2.rows[0].name,
+                                id: respond2.rows[0].nationalid,
+                                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                sex: respond2.rows[0].sex,
+                                phone: respond2.rows[0].phone,
+                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                            });
+                        }
+                    );
+                } else {
+                    await pool.query(
+                        "update patient SET name = $1, nationalid = $2, address = $3, phone = $4, sex = $5, image = $6, birthdate = $7 where nationalid = $8",
+
+                        [name, id, address, phone, sex, image, birthdate, oldid],
+                        (err2, respond2) => {
+                            res.render("patientProfile.ejs", {
+                                errormessagepatient: null,
+                                name: name,
+                                id: id,
+                                phone: phone,
+                                birthdate: birthdate,
+                                sex: sex,
+                                age: calculateAge(birthdate),
+                            });
+                        }
+                    );
+                }
+            } else console.log(err);
+        }
+    );
+});
+
+app.post("/editSurgeon", async (req, res) => {
+    let name = req.body["name"],
+        email = req.body["email"],
+        phone = req.body["mobile"],
+        birthdate = req.body["birthDate"],
+        oldid = req.body["oldid"],
+        sex = req.body["sex"],
+        id = req.body["id"],
+        image = "123",
+        address = req.body["address"],
+        specialization = req.body["special"];
+
+    await pool.query(
+        `select * from surgeon where nationalid = '${id}'`,
+        async (err, respond) => {
+            if (!err) {
+                if (respond.rows.length === 1 && id != oldid) {
+                    await pool.query(
+                        `select * from surgeon where nationalid ='${oldid}'`,
+                        (err2, respond2) => {
+                            res.render("doctorProfile.ejs", {
+                                errormessagedoctor: "this id has already been registered",
+                                name: respond2.rows[0].name,
+                                email: respond2.rows[0].email,
+                                id: respond2.rows[0].nationalid,
+                                phone: respond2.rows[0].phone,
+                                sex: respond2.rows[0].sex,
+                                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                specialization: respond2.rows[0].speciality,
+                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                            });
+                        }
+                    );
+                } else {
+                    await pool.query(
+                        `update surgeon set name = $1 , nationalid = $2 ,email = $3 , phone = $4, sex = $5 , birthdate = $6 ,address =$7 , image = $8 , speciality = $9 where nationalid = $10`,
+                        [
+                            name,
+                            id,
+                            email,
+                            phone,
+                            sex,
+                            birthdate,
+                            address,
+                            image,
+                            specialization,
+                            oldid,
+                        ],
+
+                        (err2, respond2) => {
+                            res.render("doctorProfile.ejs", {
+                                errormessagedoctor: null,
+                                name: name,
+                                id: id,
+                                email: email,
+                                phone: phone,
+                                birthdate: birthdate,
+                                sex: sex,
+                                specialization: specialization,
+                                age: calculateAge(birthdate),
+                            });
+                        }
+                    );
+                }
+            } else console.log(err);
+        }
+    );
+});
 
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
