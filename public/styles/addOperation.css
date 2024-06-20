@@ -146,13 +146,13 @@
 
 .overlay4 .deleteButton{
     margin: 10px;
-    height: 25px;
+    height: 36px;
 }
 
 .overlay4 input[name="multiValueField"]{
     margin: 10px;
     width: 100%;
-    height: 25px;
+    height: 36px;
 }
 
 .overlay4 #add-field-but{

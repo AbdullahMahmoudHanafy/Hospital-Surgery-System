@@ -468,6 +468,120 @@ app.post("/addDevice", async (req, respond) => {
     })
 })
 
+app.post("/addOperation",async(req,res)=>{
+    let name = req.body.name,
+    price = req.body.price,
+    duration = req.body.duration,
+    roomnumber = req.body.roomnumber,
+    usedDevices = req.body["multiValueField"],
+    description = req.body.description;
+    // if user entered one device typeof used devices will be string and the following algorithm use it as object so there must be a type casting
+    if(typeof usedDevices == "string")
+        usedDevices = [usedDevices];
+
+    await pool.query("insert into operation (name, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5) returning code",
+        [name,duration,price,roomnumber,description], async(err, respond) => {
+            let code = respond.rows[0]["code"]
+            usedDevices.forEach(async (deviceSerialNumber)=>{
+                            await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
+                            })
+                        })
+            let dataNumbers = await getNumbers()
+            res.render("./homePage.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                show1:  null, addSurgeonError: "",
+                show2:  null, addPatientError: "",
+                show3:  null, addAdminError: "",
+                show4:  null, addOperationError: "",
+                show5:  null, addDeviceError: "",
+                show6:  null, addAppointmentError: ""
+            })
+    })      
+})
+
+app.post("/addAppointment", async (req, respond) => {
+
+    await pool.query(`select * from patient where nationalid = '${patientID}'`, async (err, resPatient) =>{
+        if(resPatient.rows.length != 0){
+            pool.query(`select * from surgeon where nationalid = '${surgeonID}'`, async (err, resSurgeon) =>{
+                if(resSurgeon.rows.length != 0){
+                    pool.query(`select roomnumber, duration from operation where code = '${operationID}'`, async (err, resOperation) =>{
+                        if(resOperation.rows.length != 0){
+                            let operationRoom = resOperation.rows[0]["roomnumber"],
+                            operationDuration = resOperation.rows[0]["duration"]
+
+                            if(roomnumber == operationRoom)
+                                {
+                                    
+                                }else{
+                                    let dataNumbers = await getNumbers()
+                                    respond.render("./homePage.ejs", {
+                                        name: req.session.user["username"],
+                                        image: req.session.user["image"],
+                                        dataNumbers: dataNumbers,
+                                        show:  null, error: "",
+                                        show1:  null, addSurgeonError: "",
+                                        show2:  null, addPatientError: "",
+                                        show3:  null, addAdminError: "",
+                                        show4:  null, addOperationError: "",
+                                        show5:  null, addDeviceError: "",
+                                        show6:  "show", addAppointmentError: "هذه العملية لا تتم في هذه الغرفة"
+                                    })
+                                }
+                        }else {
+                            let dataNumbers = await getNumbers()
+                            respond.render("./homePage.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
+                                dataNumbers: dataNumbers,
+                                show:  null, error: "",
+                                show1:  null, addSurgeonError: "",
+                                show2:  null, addPatientError: "",
+                                show3:  null, addAdminError: "",
+                                show4:  null, addOperationError: "",
+                                show5:  null, addDeviceError: "",
+                                show6:  "show", addAppointmentError: "لا توجد عملية بهذا الكود"
+                            })
+                        }
+                    })
+                }else {
+                    let dataNumbers = await getNumbers()
+                    respond.render("./homePage.ejs", {
+                        name: req.session.user["username"],
+                        image: req.session.user["image"],
+                        dataNumbers: dataNumbers,
+                        show:  null, error: "",
+                        show1:  null, addSurgeonError: "",
+                        show2:  null, addPatientError: "",
+                        show3:  null, addAdminError: "",
+                        show4:  null, addOperationError: "",
+                        show5:  null, addDeviceError: "",
+                        show6:  "show", addAppointmentError: "لا يوجد جراح بهذا الرقم"
+                    })
+                }
+            })
+        }else {
+            let dataNumbers = await getNumbers()
+            respond.render("./homePage.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                show1:  null, addSurgeonError: "",
+                show2:  null, addPatientError: "",
+                show3:  null, addAdminError: "",
+                show4:  null, addOperationError: "",
+                show5:  null, addDeviceError: "",
+                show6:  "show", addAppointmentError: "لا يوجد مريض بهذا الرقم"
+            })
+        }
+    })
+    
+})
+
 
 
 
@@ -709,25 +823,18 @@ app.post("/operationsPageAdd",async(req,res)=>{
     // if user entered one device typeof used devices will be string and the following algorithm use it as object so there must be a type casting
     if(typeof usedDevices == "string")
         usedDevices = [usedDevices];
-    await pool.query("select * from operation where code = $1",[code],async(err,data)=>{
-        if(data.rows.length != 0){
-            await pool.query("select * from operation",(req,newdata)=>{
-                res.render("./operations.ejs",{allOperations: newdata.rows,show: "show", errorMessage : "كود العملية مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
-            })}
-        else{ 
-            usedDevices.forEach(async (deviceSerialNumber)=>{
-                await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
-                })
-            })
 
-            await pool.query("insert into operation (name, code, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5, $6)",
-                [name,code,duration,price,roomnumber,description], async(err, respond) => {
-                    await pool.query("select * from operation",async (err, newdata) => {
-                        res.render("./operations.ejs", {allOperations: newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
-                    })   
-            })      
-            }
-    })
+    await pool.query("insert into operation (name, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5) returning code",
+        [name,duration,price,roomnumber,description], async(err, respond) => {
+            let code = respond.rows[0]["code"]
+            usedDevices.forEach(async (deviceSerialNumber)=>{
+                            await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
+                            })
+                        })
+                        await pool.query("select * from operation",async (err, newdata) => {
+                            res.render("./operations.ejs", {allOperations: newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                        })   
+    })     
 })
 
 app.post("/editAdmin", async (req, res) => {
