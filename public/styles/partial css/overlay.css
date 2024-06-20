@@ -14,3 +14,8 @@
 .show, .show1, .show2, .show3, .show4, .show5, .show6{
     display: flex;
 }
+
+.errorMessage{
+    color:tomato;
+    text-align: center;
+}

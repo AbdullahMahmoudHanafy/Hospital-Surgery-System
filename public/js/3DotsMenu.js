@@ -48,8 +48,10 @@ let deleteButtons = document.querySelectorAll('.delete')
 
 // make them open edit or delete overlay pages when be clicked
 editButtons.forEach((editButton)=>{
-    editButton.addEventListener('click',function(){
+    editButton.addEventListener('click',function(event){
         editOverlay.style.display = 'flex'
+        var id = event.target.parentElement.parentElement.parentElement.querySelector(".id").textContent
+        document.querySelector(".editHiddenID").value = id
     })
 })
 deleteButtons.forEach((deleteButton)=>{

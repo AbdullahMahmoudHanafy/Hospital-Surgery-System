@@ -71,7 +71,6 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 .edit-overlay input[type="tel"] {
     width: 100%;
     padding: 5px;
-    height: 25px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -166,8 +165,9 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     height: 25px;
 }
 
-.edit-overlay input[name="multiValueField[]"]{
-    margin: 10px;
+.edit-overlay input[name="multiValueField"]{
+    margin: 10px;   
+    height: 25px;
 }
 
 .edit-overlay #add-field-but{

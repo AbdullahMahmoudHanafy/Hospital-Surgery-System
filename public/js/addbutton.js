@@ -9,6 +9,8 @@ var cancelAddButton = document.querySelector('.cancel')
 
 cancelAddButton.addEventListener('click',closeAddition)
 
-function closeAddition(){
+function closeAddition(event){
     overlay.style.display = 'none'
+    overlay.querySelector(".errorMessage").innerHTML = '';
+    event.preventDefault()
 }

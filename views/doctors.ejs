@@ -172,14 +172,15 @@
         </div>
         </div>
 
-        <div class="overlay1 overlay">
+        <div class="overlay1 overlay <%= show %>">
             <div class="addSurgeon">
                 <h5>إضافة جراح </h5>
-                <form>
+                <div class="errorMessage"><%= errorMessage %></div>
+                <form action="doctorsPageAdd" method="post">
                     <label for="name" dir='rtl' lang='ar'>اسم الجراح</label>
                     <input type="name" name="name" placeholder="ادخل الاسم" dir='rtl' lang='ar' required>
                     <label for="ID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>
-                    <input type="ID" name="ID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                    <input type="ID" name="nationalID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
                     <label for="birthDate">تاريخ الميلاد</label>
                     <input type="date" name="birthDate" >
                     <label for="gender">جنس الجراح</label>
@@ -198,7 +199,7 @@
                     <label for="address" dir='rtl' lang='ar'>عنوان الجراح</label>
                     <input type="address" name="address" placeholder="ادخل العنوان" dir='rtl' lang='ar' required>
                     <label for="email" dir='rtl' lang='ar'>البريد الالكتروني للجراح</label>
-                    <input type="email" name="ID" placeholder="ادخل البريد الاكتروني" dir='rtl' lang='ar' required>
+                    <input type="email" name="email" placeholder="ادخل البريد الاكتروني" dir='rtl' lang='ar' required>
                     <label for="phone" dir='rtl' lang='ar'>رقم هاتف الجراح</label>
                     <input type="phone" name="phone" placeholder=" ادخل رقم الهاتف"dir='rtl' lang='ar' required>
                     <label for="speciality" dir='rtl' lang='ar'>تخصص الجراح</label>
