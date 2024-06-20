@@ -46,6 +46,14 @@ function calculateAge(birthdate) {
 }
 
 
+function formatDate(date) {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 
 app.get("/", (req, res) => {
   res.render("./homePage.ejs");
@@ -67,8 +75,9 @@ app.get("/admins", (req, res) => {
     id: "30305182103098",
     mobile: "01116022617",
     sex: "ذكر",
-    birthDate: "2003-05-18",
+    birthDate: formatDate("2003-05-18"),
     age: calculateAge("2003-05-18"),
+    address: "الدقي",
 
   });
 });
@@ -84,8 +93,9 @@ app.get("/doctors", (req, res) => {
     email: "ahmed@example",
     id: "15142369874521",
     phone: "01523698741",
-    birthdate: "1978-03-03",
+    birthdate:formatDate ("1978-03-03"),
     sex: "ذكر",
+    address: "القاهرة",
     specialization: "جراحة العيون",
     age: calculateAge("1978-03-03"),
   });
@@ -102,7 +112,8 @@ app.get("/patients", (req, res) => {
     id: "123456789101213",
     phone: "01123456789",
     sex: "ذكر",
-    birthdate: "1974-05-24",
+    address: "الدقي",
+    birthdate: formatDate( "1974-05-24"),
     age: calculateAge("1974-05-24"),
   });
 });
@@ -141,7 +152,7 @@ app.post("/editAdmin", async (req, res) => {
     id = req.body["id"],
     sex = req.body["sex"],
     email = req.body["email"],
-    birthDate = req.body["birthDate"],
+    birthDate = formatDate( req.body["birthDate"]),
     mobile = req.body["mobile"],
     address = req.body["address"],
     password = req.body["password"],
@@ -160,14 +171,15 @@ app.post("/editAdmin", async (req, res) => {
             `select * from admin where nationalid ='${oldid}'`,
             (err2, respond2) => {
               res.render("adminProfile.ejs", {
-                errormessageadmin: "this id has already been registered",
+                errormessageadmin: "هذا الرقم القومي مسجل بالفعل",
                 name: respond2.rows[0].name,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
                 mobile: respond2.rows[0].phone,
                 sex: respond2.rows[0].sex,
-                birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                age : calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB'))
+                address: respond2.rows[0].address,
+                birthDate: formatDate(respond2.rows[0].birthdate),
+                age : calculateAge(formatDate(respond2.rows[0].birthdate))
               });
             }
           );
@@ -177,14 +189,15 @@ app.post("/editAdmin", async (req, res) => {
             `select * from admin where nationalid ='${oldid}'`,
             (err2, respond2) => {
               res.render("adminProfile.ejs", {
-                errormessageadmin: "the passwords do not match",
+                errormessageadmin: "كلمات المرور غير متطابقة",
                 name: respond2.rows[0].name,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
                 mobile: respond2.rows[0].phone,
                 sex: respond2.rows[0].sex,
-                birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                age : calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB'))
+                address: respond2.rows[0].address,
+                birthDate: formatDate(respond2.rows[0].birthdate),
+                age : calculateAge(formatDate(respond2.rows[0].birthdate))
 
               });
             }
@@ -233,6 +246,7 @@ app.post("/editAdmin", async (req, res) => {
                 mobile: mobile,
                 sex: sex,
                 birthDate: birthDate,
+                address: address,
                 age: calculateAge(birthDate)
               });
             }
@@ -246,7 +260,7 @@ app.post("/editAdmin", async (req, res) => {
 app.post("/editPatient", async (req, res) => {
   let name = req.body["name"],
     id = req.body["nationalID"],
-    birthdate = req.body["birthDate"],
+    birthdate = formatDate(req.body["birthDate"]),
     sex = req.body["sex"],
     image = "123",
     phone = req.body["mobile"],
@@ -264,13 +278,14 @@ app.post("/editPatient", async (req, res) => {
             `SELECT * FROM patient WHERE nationalid = '${oldid}'`,
             (err2, respond2) => {
               res.render("patientProfile.ejs", {
-                errormessagepatient: "this id has already been registered",
+                errormessagepatient: "هذا الرقم القومي مسجل بالفعل",
                 name: respond2.rows[0].name,
                 id: respond2.rows[0].nationalid,
-                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                birthdate: formatDate(respond2.rows[0].birthdate),
                 sex: respond2.rows[0].sex,
+                address: respond2.rows[0].address,
                 phone: respond2.rows[0].phone,
-                age : calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                age : calculateAge(formatDate(respond2.rows[0].birthdate)),
               });
             }
           );
@@ -288,6 +303,7 @@ app.post("/editPatient", async (req, res) => {
                 phone: phone,
                 birthdate: birthdate,
                 sex: sex,
+                address: address,
                 age: calculateAge(birthdate),
               });
             }
@@ -302,7 +318,7 @@ app.post("/editSurgeon", async (req, res) => {
   let name = req.body["name"],
     email = req.body["email"],
     phone = req.body["mobile"],
-    birthdate = req.body["birthDate"],
+    birthdate = formatDate(req.body["birthDate"]),
     oldid = req.body["oldid"],
     sex = req.body["sex"],
     id = req.body["id"],
@@ -321,15 +337,16 @@ app.post("/editSurgeon", async (req, res) => {
             `select * from surgeon where nationalid ='${oldid}'`,
             (err2, respond2) => {
               res.render("doctorProfile.ejs", {
-                errormessagedoctor: "this id has already been registered",
+                errormessagedoctor: "هذا الرقم القومي مسجل بالفعل",
                 name: respond2.rows[0].name,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
                 phone: respond2.rows[0].phone,
                 sex: respond2.rows[0].sex,
-                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                address: respond2.rows[0].address,
+                birthdate: formatDate(respond2.rows[0].birthdate),
                 specialization: respond2.rows[0].speciality,
-                age:calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                age:calculateAge(formatDate(respond2.rows[0].birthdate)),
               });
             }
           );
@@ -359,6 +376,7 @@ app.post("/editSurgeon", async (req, res) => {
                 phone: phone,
                 birthdate: birthdate,
                 sex: sex,
+                address: address,
                 specialization: specialization,
                 age: calculateAge(birthdate),
               });
