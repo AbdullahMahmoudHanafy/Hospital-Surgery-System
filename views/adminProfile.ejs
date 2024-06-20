@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -11,16 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./styles/deleteOverlay.css">
 </head>
-
 <body>
 
     <div class="edit-overlay">
+   
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
              <h1 class="head">  تعديل بيانات المشرف</h1>
              <br>
-             
+            <div class="errormessageadminprofile">
+                <%= errormessageadmin %>
+            </div>
              <form action="editAdmin" method="POST">
+                <input type="hidden" name="oldid" value= <%= id %>>
                  <div class="form-group">
                      <label for="name">الاسم</label>
                      <input type="text" id="name" name="name" value="احمد محمد">
@@ -44,8 +46,8 @@
                      <!-- Other form fields (name, email, password, etc.) -->
                  
                      <label for="gender">الجنس</label>
-                     <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
-                     <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                     <input type="radio" name="sex" value="ذكر" required /><span class="sexVal">ذكر</span>
+                     <input type="radio" name="sex" value="أنثى" required /><span class = "sexVal">أنثى</span>
                  
                      <!-- Submit button and other fields go here -->
                  </div>
@@ -60,7 +62,7 @@
                      </div>
                  </div> -->
                  <br>
-
+    
                  <div class="form-group">
                     <label for="image">صورة المشرف</label>
                     <input type="file" name="image">
@@ -91,7 +93,7 @@
                  <br>
                  <div class="form-group">
                      <label for="confirmPassword">تأكيد كلمة المرور</label>
-                     <input type="text" id="confirmPassword" name="password" value="Drop Table">
+                     <input type="text" id="confirmPassword" name="confirmPassword" value="Drop Table">
                  </div>
                  <br>
                  <div class="button-group">
@@ -113,32 +115,32 @@
             </div>
         </div>
      </div>
-
+    
     <div class = "Nav-bar">
         
             
         <div class = "Left-nav">
-            <a href="devices" class=""><button class = "Nav-bar-btn">المعدات</button></a>
-            <a href="operations" class=""><button class = "Nav-bar-btn">العمليات</button></a>
-            <a href="admins" class=""><button class = "Nav-bar-btn">المشرفون</button></a>
-            <a href="doctors" class=""><button class = "Nav-bar-btn">الجراحون</button></a>
-            <a href="patients" class=""><button class = "Nav-bar-btn">المرضى</button></a>
-            <a href="appointments" class=""><button class = "Nav-bar-btn">المواعيد</button></a>
             <a href="homePage" class=""><button class = "Nav-bar-btn">الصفحة الرئيسية</button></a>
+            <a href="appointments" class=""><button class = "Nav-bar-btn">المواعيد</button></a>
+            <a href="patients" class=""><button class = "Nav-bar-btn">المرضى</button></a>
+            <a href="doctors" class=""><button class = "Nav-bar-btn">الجراحون</button></a>
+            <a href="admins" class=""><button class = "Nav-bar-btn">المشرفون</button></a>
+            <a href="operations" class=""><button class = "Nav-bar-btn">العمليات</button></a>
+            <a href="devices" class=""><button class = "Nav-bar-btn">المعدات</button></a>
         </div>
         <div class = "Right-nav">
             <div class = "Admin-data">
                 <img src="./images/myImage.jpg" alt="An admin's image" class = "Admin-img">
                 <div class="navbar-name">عبدالله محمود</div>
-
+    
             </div>
             <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button>
             <button class = "Nav-bar-icon-btn" id = "Dark-mode"><i class="fa-solid fa-moon"></i></button>
             <button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button>
-
-
+    
+    
         </div>
-
+    
     </div>
     <div class="container">
        
@@ -154,20 +156,21 @@
         <div class="profile">
             <img src="./images/admin.jpeg" alt="صورة المشرف" class="profile-img">
             <div class="info">
-                <h2>خالد أيمن </h2>
-                <p>khalid.ayman@example.com</p>
+                <h2><%= name %>  </h2>
+                <p><%= email %></p>
             </div>
         </div>
         <div class="details">
-            <p><i class="fas fa-id-card"></i> رقم القومي: 19870325456789</p>
-            <p><i class="fas fa-phone-alt"></i> رقم الهاتف: 01234567890</p>
-            <p><i class="fas fa-birthday-cake"></i> العمر: 45 سنة</p>
-            <p><i class="fas fa-calendar-alt"></i> تاريخ الميلاد: 1979-03-25</p>
-            <p><i class="fas fa-mars"></i> الجنس: ذكر</p>
+            <p><i class="fas fa-id-card" ></i> رقم القومي: <%= id %></p>
+            <p><i class="fas fa-phone-alt"></i> رقم الهاتف: <%= mobile %></p>
+            <p><i class="fas fa-birthday-cake"></i> العمر: <%= age %> سنة</p>
+            <p><i class="fas fa-calendar-alt"></i> تاريخ الميلاد: <%= birthDate %></p>
+            <p><i class="fas fa-mars"></i> الجنس: <%= sex %></p>
         </div>
     </div>
         
     </div>
     <script src="./js/edit&deleteButtons.js"></script>
+    
 </body>
 </html>

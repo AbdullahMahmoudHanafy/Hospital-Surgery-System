@@ -1,6 +1,6 @@
-import express from 'express';
-import path from 'path';
-import multer from 'multer';
+import express from "express";
+import path from "path";
+import multer from "multer";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import  pool  from "./database.js"
@@ -15,7 +15,23 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, "Public")));
+
+
+function calculateAge(birthdate) {
+  const birthDate = new Date(birthdate);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+
+  // Adjust age if the current month and day are before the birth date
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+  }
+
+  return age;
+}
+
+
 
 app.use(session({
     secret: 'secret_key', // Change this to a strong secret
@@ -681,5 +697,5 @@ app.post("/operationsPageAdd",async(req,res)=>{
 // })
 
 app.listen(port, (req, res) => {
-    console.log(`server is running on port number ${port}`);
-})
+  console.log(`server is running on port number ${port}`);
+});
