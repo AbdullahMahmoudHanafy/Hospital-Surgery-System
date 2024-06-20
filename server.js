@@ -1011,6 +1011,28 @@ app.post("/previewPatientProfile",async(req,res)=>{
     );
 })
 
+app.post("/previewOperationProfile",async(req,res)=>{
+    let code = req.body.hiddenOperationCode
+    await pool.query(
+        `SELECT * FROM operation WHERE code = '${code}'`,
+        (err2, respond2) => {
+            res.render("operationProfile.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                errormessagepatient: "this id has already been registered",
+                operationName: respond2.rows[0].name,
+                operationCode: respond2.rows[0].code,
+                operationPrice: respond2.rows[0].price,
+                operationDuration: respond2.rows[0].duration,
+                roomNumber: respond2.rows[0].roomnumber,
+                operationDescription: respond2.rows[0].description,
+                address:respond2.rows[0].address
+            });
+        }
+    );
+})
+
+
 
 
 app.listen(port, (req, res) => {
