@@ -952,10 +952,10 @@ app.post("/previewAdminProfile",async(req,res)=>{
     let id = req.body.hiddenPreviewID
     await pool.query("select * from admin where nationalid = $1",[id],(err,respond2)=>{
         res.render("adminProfile.ejs", {
-                adminName: req.session.user["username"],
+                name: req.session.user["username"],
                 image: req.session.user["image"],
                 errormessageadmin: "this id has already been registered",
-                name: respond2.rows[0].name,
+                adminName: respond2.rows[0].name,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
                 mobile: respond2.rows[0].phone,
@@ -976,13 +976,34 @@ app.post("/previewDoctorProfile",async(req,res)=>{
                 name: req.session.user["username"],
                 image: req.session.user["image"],
                 errormessagedoctor: "this id has already been registered",
-                name: respond2.rows[0].name,
+                doctorName: respond2.rows[0].name,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
                 phone: respond2.rows[0].phone,
                 sex: respond2.rows[0].sex,
                 birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                 specialization: respond2.rows[0].speciality,
+                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                address:respond2.rows[0].address
+            });
+        }
+    );
+})
+
+app.post("/previewPatientProfile",async(req,res)=>{
+    let id = req.body.hiddenPreviewID
+    await pool.query(
+        `SELECT * FROM patient WHERE nationalid = '${id}'`,
+        (err2, respond2) => {
+            res.render("patientProfile.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                errormessagepatient: "this id has already been registered",
+                patientName: respond2.rows[0].name,
+                id: respond2.rows[0].nationalid,
+                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                sex: respond2.rows[0].sex,
+                phone: respond2.rows[0].phone,
                 age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
                 address:respond2.rows[0].address
             });
