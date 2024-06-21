@@ -88,13 +88,16 @@
 
     <!-- overlay pages -->
 
-    <div class="edit-overlay">
+    <div class="edit-overlay <%=editShow%>">
         <div class="edit-overlay-container">
+
             <div class="edit-overlay-content">
                 <h1 class="head"> تعديل بيانات الجهاز</h1>
+                <div class="errorMessage"><%= editErrorMessage %></div>
                 <br>
     
-                <form action="editEquipment" method="POST">
+                <form action="devicesPageEdit" method="POST">
+                    <input type="hidden" name="oldSerial" value="<%=savedCode%>" class="editHiddenID">
                     <div class="form-group">
                         <label for="equipmentName">اسم الجهاز</label>
                         <input type="text" id="equipmentName" name="equipmentName" value="رنين مغناطيسي">
@@ -115,7 +118,7 @@
     
                     <div class="form-group">
                         <label for="warrantly">الضمان</label>
-                        <input type="text" id="warrantly" name="warrantly" value="years 2">
+                        <input type="text" id="warrantly" name="warranty" value="years 2">
                     </div>
                     <br>
                     <div class="form-group">

@@ -121,7 +121,7 @@ app.get("/devices", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./devices.ejs", {allDevices: res.rows, show: null, errorMessage : null, name:req.session.user["username"]});
+            data.render("./devices.ejs", {allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"]});
         }
     })
 })
@@ -544,7 +544,7 @@ app.post("/devicesPageDelete",async(req,res)=>{
     let Serial = req.body.deletetionSerial
     await pool.query("delete from device where serialnumber = $1",[Serial], async(err, rp) => {
         await pool.query("select * from device", (err, respond) => {
-            res.render("./devices.ejs", {allDevices: respond.rows, show: null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./devices.ejs", {allDevices: respond.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -583,23 +583,23 @@ app.post("/adminsPageAdd",async(req,res)=>{
         await pool.query("select * from admin where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from admin", async(err, newdata) => {
-                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", showEdit:null, errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", showEdit:null,savedID:null,savedEmail:null, errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from admin where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from admin", async(err, newdata) => {
-                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", showEdit:null, errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
-                    else
+                    else{
                     await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, password, sex, image, bdate], async(err, respond) => {
                         await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows, show:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./admins.ejs", {allAdmins: newdata.rows, show:null,savedID:null,savedEmail:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
-                    })
+                    })}
                 })
             }
         })
@@ -682,15 +682,15 @@ app.post("/devicesPageAdd",async(req,res)=>{
 
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,data)=>{
         if(data.rows.length != 0){
-            await pool.query("select * from device",(req,newdata)=>{
-                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show", errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
+            await pool.query("select * from device",(err,newdata)=>{
+                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show",editShow:null,editErrorMessage:null,savedCode : null, errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
             })
         }
         else{
             await pool.query("insert into device (name, serialnumber, company, status, warranty, price, date) values ($1, $2, $3, $4, $5, $6, $7)",
                 [name,serial,company,stat,warranty,price,date],async(err,respond)=>{
                     await pool.query("select * from device",(err,newdata)=>{
-                        res.render("devices.ejs",{allDevices:newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
+                        res.render("./devices.ejs",{allDevices:newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode : null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
                     })
                 })
         }
@@ -1166,6 +1166,34 @@ app.post("/patientsPageEdit",async(req,res)=>{
                     })
                 }
             );
+        }
+
+    })
+})
+
+app.post("/devicesPageEdit",async (req,res)=>{
+    let name = req.body.equipmentName,
+    serial = req.body.serialNumber,
+    price = req.body.price,
+    warranty = req.body.warranty,
+    stat = req.body.status,
+    company = req.body.company,
+    date = req.body.productionDate,
+    oldSerial = req.body.oldSerial;
+    await pool.query("select * from device where serialnumber = $1",[serial],async(err,respond)=>{
+        if(respond.rows.length == 1 && serial != oldSerial){
+            await pool.query("select * from device",(err,newdata)=>{
+                res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:"show",editErrorMessage:"الرقم التسلسلي مستخدم",savedCode : oldSerial, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+            })
+        }
+        else{
+            await pool.query("update device set name = $1, serialnumber = $2, company = $3, warranty = $4, price = $5, date = $6, status = $7 where serialnumber = $8",
+                [name,serial,company,warranty,price,date,stat,oldSerial],async (err,respond2)=>{
+                    if(err) console.log(err)
+                    await pool.query("select * from device",(err,newdata)=>{
+                        res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+                    })      
+                })
         }
 
     })
