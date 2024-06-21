@@ -919,7 +919,6 @@ app.post("/devicesPageAdd",async(req,res)=>{
 
 app.post("/operationsPageAdd",async(req,res)=>{
     let name = req.body.name,
-    code = req.body.code,
     price = req.body.price,
     duration = req.body.duration,
     roomnumber = req.body.roomnumber,
@@ -1368,7 +1367,9 @@ app.post("/previewOperationProfile",async(req,res)=>{
                 operationDuration: respond2.rows[0].duration,
                 roomNumber: respond2.rows[0].roomnumber,
                 operationDescription: respond2.rows[0].description,
-                address:respond2.rows[0].address
+                address:respond2.rows[0].address,
+                editErrorMessage:null,
+                editShow:null
             });
         }
     );
@@ -1543,7 +1544,6 @@ app.post("/devicesPageEdit",async (req,res)=>{
 
 app.post("/operationsPageEdit",async (req,res)=>{
     let name = req.body.operationName,
-    code = req.body.operationId,
     price = req.body.price,
     duration = req.body.duration,
     roomnumber = req.body.roomNumber,
@@ -1553,30 +1553,20 @@ app.post("/operationsPageEdit",async (req,res)=>{
 
     if(typeof usedDevices == "string")
         usedDevices = [usedDevices];
-
-    await pool.query("select * from operation where code = $1",[code],async(err,data)=>{
-        if(data.rows.length != 0 && code != oldCode){
-            await pool.query("select * from operation",(err,newdata)=>{
-                res.render("./operations.ejs",{allOperations: newdata.rows,show: null,editShow:"show",editErrorMessage:"كود العملية مستخدم",savedCode:oldCode, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
-            })}
-        else{
-            await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
+    
+    await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
+        usedDevices.forEach(async (deviceSerialNumber)=>{
+            await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, oldCode],async(err,devicesData)=>{
             })
-            
-            usedDevices.forEach(async (deviceSerialNumber)=>{
-                await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
-                })
-            })
-
-
-            await pool.query("update operation set name = $1, code = $2, duration = $3, price = $4, roomnumber = $5, description = $6 where code = $7 "
-                ,[name,code,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
-                    await pool.query("select * from operation",async (err, newdata) => {
-                        res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
-                    })   
-                })    
-            }
+        })
     })
+
+    await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
+        ,[name,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
+            await pool.query("select * from operation",async (err, newdata) => {
+                res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            })   
+        })
 })
 
 app.post("/appointmentsPageEdit", async (req, respond) => {
@@ -1792,6 +1782,49 @@ app.post("/operationProfileDelete",async (req,res)=>{
                 })
         })
     })
+})
+
+app.post("/operationProfileEdit",async (req,res)=>{
+    let name = req.body.operationName,
+    price = req.body.price,
+    duration = req.body.duration,
+    roomnumber = req.body.roomNumber,
+    usedDevices = req.body["multiValueField"],
+    description = req.body.description,
+    oldCode = req.body.oldCode;
+
+    if(typeof usedDevices == "string")
+        usedDevices = [usedDevices];
+
+            await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
+                usedDevices.forEach(async (deviceSerialNumber)=>{
+                    await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, oldCode],async(err,devicesData)=>{
+                    })
+                })
+            })
+
+            await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
+                ,[name,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
+                    await pool.query(
+                        `SELECT * FROM operation WHERE code = '${oldCode}'`,
+                        (err2, respond2) => {
+                            res.render("operationProfile.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
+                                errormessagepatient: "this id has already been registered",
+                                operationName: respond2.rows[0].name,
+                                operationCode: respond2.rows[0].code,
+                                operationPrice: respond2.rows[0].price,
+                                operationDuration: respond2.rows[0].duration,
+                                roomNumber: respond2.rows[0].roomnumber,
+                                operationDescription: respond2.rows[0].description,
+                                address:respond2.rows[0].address,
+                                editErrorMessage:null,
+                                editShow:null
+                            });
+                        }
+                    );
+                })       
 })
 
  
