@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الملف الشخصي للمريض</title>
-    <link rel="stylesheet" href="./styles/partial css/overlay.css">
     <link rel="stylesheet" href="./styles/patient_profile_style.css">
     <link rel="stylesheet" href="./styles/partial css/navigationBar.css">
     <link rel="stylesheet" href="./styles/editPatient_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./styles/deleteOverlay.css">
+    <link rel="stylesheet" href="./styles/partial css/overlay.css">
 </head>
 
 <body>
-    <div class="edit-overlay" id="edit-overlay">
+    <div class="edit-overlay  <%=editShow%>">
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
              <h1 class="head"> تعديل بيانات المريض</h1>
-             <br>
-             <div class="errormessagepatientprofile">
+             <div class="errorMessage">
                 <%= errormessagepatient %>
             </div>
+             <br>
              
              <form action="editPatient" method="POST">
                 <input type="hidden" name="oldid" value="<%= id %>" >

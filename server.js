@@ -1240,15 +1240,17 @@ app.post("/editPatient", async (req, res) => {
                         `SELECT * FROM patient WHERE nationalid = '${oldid}'`,
                         (err2, respond2) => {
                             res.render("patientProfile.ejs", {
+                                editShow: "show",
                                 name: req.session.user["username"],
                                 image: req.session.user["image"],
-                                errormessagepatient: "this id has already been registered",
-                                name: respond2.rows[0].name,
+                                errormessagepatient: "الرقم القومي مستخدم",
+                                patientName: respond2.rows[0].name,
                                 id: respond2.rows[0].nationalid,
                                 birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                                 sex: respond2.rows[0].sex,
                                 phone: respond2.rows[0].phone,
                                 age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                address:respond2.rows[0].address
                             });
                         }
                     );
@@ -1262,12 +1264,14 @@ app.post("/editPatient", async (req, res) => {
                                 name: req.session.user["username"],
                                 image: req.session.user["image"],
                                 errormessagepatient: null,
-                                name: name,
+                                patientName: name,
                                 id: id,
                                 phone: phone,
                                 birthdate: birthdate,
                                 sex: sex,
                                 age: calculateAge(birthdate),
+                                address:address,
+                                editShow: null
                             });
                         }
                     );
@@ -1401,14 +1405,15 @@ app.post("/previewPatientProfile",async(req,res)=>{
             res.render("patientProfile.ejs", {
                 name: req.session.user["username"],
                 image: req.session.user["image"],
-                errormessagepatient: "this id has already been registered",
+                errormessagepatient: null,
                 patientName: respond2.rows[0].name,
                 id: respond2.rows[0].nationalid,
                 birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                 sex: respond2.rows[0].sex,
                 phone: respond2.rows[0].phone,
                 age: calculateAge(formatDate(respond2.rows[0]["birthdate"])),
-                address:respond2.rows[0].address
+                address:respond2.rows[0].address,
+                editShow:null
             });
         }
     );
