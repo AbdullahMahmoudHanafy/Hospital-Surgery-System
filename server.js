@@ -942,7 +942,6 @@ app.post("/devicesPageAdd",async(req,res)=>{
 
 app.post("/operationsPageAdd",async(req,res)=>{
     let name = req.body.name,
-    code = req.body.code,
     price = req.body.price,
     duration = req.body.duration,
     roomnumber = req.body.roomnumber,
@@ -961,7 +960,7 @@ app.post("/operationsPageAdd",async(req,res)=>{
                             })
                         })
                         await pool.query("select * from operation",async (err, newdata) => {
-                            res.render("./operations.ejs", {allOperations: newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })   
     })     
 })
@@ -1107,7 +1106,8 @@ app.post("/editAdmin", async (req, res) => {
         age = calculateAge(birthDate),
         confirmPassword = req.body["confirmPassword"],
         image = "123",
-        oldid = req.body["oldid"];
+        oldid = req.body["oldid"],
+        oldEmail = req.body["oldEmail"];
     await pool.query(
         `select * from admin where nationalid='${req.body["id"]}'`,
         async (err, respond) => {
@@ -1119,14 +1119,16 @@ app.post("/editAdmin", async (req, res) => {
                             res.render("adminProfile.ejs", {
                                 name: req.session.user["username"],
                                 image: req.session.user["image"],
-                                errormessageadmin: "this id has already been registered",
-                                name: respond2.rows[0].name,
+                                errormessageadmin: "الرقم القومي مستخدم",
+                                adminName: respond2.rows[0].name,
                                 email: respond2.rows[0].email,
                                 id: respond2.rows[0].nationalid,
                                 mobile: respond2.rows[0].phone,
                                 sex: respond2.rows[0].sex,
                                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB'))
+                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                address:respond2.rows[0].address,
+                                editShow: "show"
                             });
                         }
                     );
@@ -1137,47 +1139,82 @@ app.post("/editAdmin", async (req, res) => {
                             res.render("adminProfile.ejs", {
                                 name: req.session.user["username"],
                                 image: req.session.user["image"],
-                                errormessageadmin: "the passwords do not match",
-                                name: respond2.rows[0].name,
+                                errormessageadmin: "كلمات المرور غير متطابقة",
+                                adminName: respond2.rows[0].name,
                                 email: respond2.rows[0].email,
                                 id: respond2.rows[0].nationalid,
                                 mobile: respond2.rows[0].phone,
                                 sex: respond2.rows[0].sex,
                                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB'))
-
+                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                address:respond2.rows[0].address,
+                                editShow: "show"
                             });
                         }
                     );
                 }
                 else {
-                    await pool.query(
-                        "UPDATE admin SET name = $1, email = $2, nationalid = $3, phone = $4, sex = $5, birthdate = $6, image = $7, address = $8, password = $9 WHERE nationalid = $10",
-                        [
-                            name,
-                            email,
-                            id,
-                            mobile,
-                            sex,
-                            birthDate,
-                            image,
-                            address,
-                            password,
-                            oldid,
-                        ],
-                        (err2, respond2) => {
-                            res.render("adminProfile.ejs", {
-                                errormessageadmin: null,
-                                name: name,
-                                email: email,
-                                id: id,
-                                mobile: mobile,
-                                sex: sex,
-                                birthDate: birthDate,
-                                age: calculateAge(birthDate)
-                            });
+                    await pool.query("select * from admin where email = $1",[email], async(err,emailData)=>{
+                        if(emailData.rows.length != 0 && email != oldEmail){
+                            await pool.query(
+                                `select * from admin where nationalid ='${oldid}'`,
+                                (err2, respond2) => {
+                                    res.render("adminProfile.ejs", {
+                                        name: req.session.user["username"],
+                                        image: req.session.user["image"],
+                                        errormessageadmin: "البريد الإلكتروني مستخدم",
+                                        adminName: respond2.rows[0].name,
+                                        email: respond2.rows[0].email,
+                                        id: respond2.rows[0].nationalid,
+                                        mobile: respond2.rows[0].phone,
+                                        sex: respond2.rows[0].sex,
+                                        birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                        age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                        address:respond2.rows[0].address,
+                                        editShow: "show"
+                                    });
+                                }
+                            );
                         }
-                    );
+                        else{
+                            await pool.query(
+                                "UPDATE admin SET name = $1, email = $2, nationalid = $3, phone = $4, sex = $5, birthdate = $6, image = $7, address = $8, password = $9 WHERE nationalid = $10",
+                                [
+                                    name,
+                                    email,
+                                    id,
+                                    mobile,
+                                    sex,
+                                    birthDate,
+                                    image,
+                                    address,
+                                    password,
+                                    oldid,
+                                ],
+                                async (err2, respond2) => {
+                                    await pool.query(
+                                        `select * from admin where nationalid ='${id}'`,
+                                        (err2, respond2) => {
+                                            res.render("adminProfile.ejs", {
+                                                name: req.session.user["username"],
+                                                image: req.session.user["image"],
+                                                errormessageadmin: null,
+                                                adminName: respond2.rows[0].name,
+                                                email: respond2.rows[0].email,
+                                                id: respond2.rows[0].nationalid,
+                                                mobile: respond2.rows[0].phone,
+                                                sex: respond2.rows[0].sex,
+                                                birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                                address:respond2.rows[0].address,
+                                                editShow: null
+                                            });
+                                        }
+                                    );
+                                }
+                            );
+                        }
+                    })
                 }
             } else console.log(err);
         }
@@ -1319,7 +1356,7 @@ app.post("/previewAdminProfile",async(req,res)=>{
         res.render("adminProfile.ejs", {
                 name: req.session.user["username"],
                 image: req.session.user["image"],
-                errormessageadmin: "this id has already been registered",
+                errormessageadmin: null,
                 adminName: respond2.rows[0].name,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
@@ -1327,7 +1364,8 @@ app.post("/previewAdminProfile",async(req,res)=>{
                 sex: respond2.rows[0].sex,
                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                 age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
-                address : respond2.rows[0].address
+                address : respond2.rows[0].address,
+                editShow:null
             }); 
     })
 })
@@ -1391,7 +1429,9 @@ app.post("/previewOperationProfile",async(req,res)=>{
                 operationDuration: respond2.rows[0].duration,
                 roomNumber: respond2.rows[0].roomnumber,
                 operationDescription: respond2.rows[0].description,
-                address:respond2.rows[0].address
+                address:respond2.rows[0].address,
+                editErrorMessage:null,
+                editShow:null
             });
         }
     );
@@ -1566,7 +1606,6 @@ app.post("/devicesPageEdit",async (req,res)=>{
 
 app.post("/operationsPageEdit",async (req,res)=>{
     let name = req.body.operationName,
-    code = req.body.operationId,
     price = req.body.price,
     duration = req.body.duration,
     roomnumber = req.body.roomNumber,
@@ -1576,30 +1615,20 @@ app.post("/operationsPageEdit",async (req,res)=>{
 
     if(typeof usedDevices == "string")
         usedDevices = [usedDevices];
-
-    await pool.query("select * from operation where code = $1",[code],async(err,data)=>{
-        if(data.rows.length != 0 && code != oldCode){
-            await pool.query("select * from operation",(err,newdata)=>{
-                res.render("./operations.ejs",{allOperations: newdata.rows,show: null,editShow:"show",editErrorMessage:"كود العملية مستخدم",savedCode:oldCode, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
-            })}
-        else{
-            await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
+    
+    await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
+        usedDevices.forEach(async (deviceSerialNumber)=>{
+            await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, oldCode],async(err,devicesData)=>{
             })
-            
-            usedDevices.forEach(async (deviceSerialNumber)=>{
-                await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
-                })
-            })
-
-
-            await pool.query("update operation set name = $1, code = $2, duration = $3, price = $4, roomnumber = $5, description = $6 where code = $7 "
-                ,[name,code,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
-                    await pool.query("select * from operation",async (err, newdata) => {
-                        res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
-                    })   
-                })    
-            }
+        })
     })
+
+    await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
+        ,[name,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
+            await pool.query("select * from operation",async (err, newdata) => {
+                res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            })   
+        })
 })
 
 app.post("/appointmentsPageEdit", async (req, respond) => {
@@ -1734,6 +1763,132 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
     })
     
 })
+
+app.post("/adminProfileDelete",async (req,res)=>{
+    let oldid = req.body.oldid;
+    await pool.query("delete from admin where nationalid = $1",[oldid], async(err, rp) => {
+        let dataNumbers = await getNumbers()
+        res.render("./homePage.ejs",
+            {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                show1:  null, addSurgeonError: "",
+                show2:  null, addPatientError: "",
+                show3:  null, addAdminError: "",
+                show4:  null, addOperationError: "",
+                show5:  null, addDeviceError: "",
+                show6:  null, addAppointmentError: ""
+            })
+    })
+})
+
+app.post("/patientProfileDelete",async (req,res)=>{
+    let oldid = req.body.oldid;
+    await pool.query("delete from patient where nationalid = $1",[oldid], async(err, rp) => {
+        let dataNumbers = await getNumbers()
+        res.render("./homePage.ejs",
+            {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                show1:  null, addSurgeonError: "",
+                show2:  null, addPatientError: "",
+                show3:  null, addAdminError: "",
+                show4:  null, addOperationError: "",
+                show5:  null, addDeviceError: "",
+                show6:  null, addAppointmentError: ""
+            })
+    })
+})
+
+app.post("/doctorProfileDelete",async (req,res)=>{
+    let oldid = req.body.oldid;
+    await pool.query("delete from surgeon where nationalid = $1",[oldid], async(err, rp) => {
+        let dataNumbers = await getNumbers()
+        res.render("./homePage.ejs",
+            {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                show1:  null, addSurgeonError: "",
+                show2:  null, addPatientError: "",
+                show3:  null, addAdminError: "",
+                show4:  null, addOperationError: "",
+                show5:  null, addDeviceError: "",
+                show6:  null, addAppointmentError: ""
+            })
+    })
+})
+
+app.post("/operationProfileDelete",async (req,res)=>{
+    let oldCode = req.body.oldCode;
+     await pool.query("delete from useddevice where operationcode = $1",[oldCode],async (err,respond)=>{
+        await pool.query("delete from operation where code = $1",[oldCode], async(err, rp) => {
+            let dataNumbers = await getNumbers()
+            res.render("./homePage.ejs",
+                {
+                    name: req.session.user["username"],
+                    image: req.session.user["image"],
+                    dataNumbers: dataNumbers,
+                    show:  null, error: "",
+                    show1:  null, addSurgeonError: "",
+                    show2:  null, addPatientError: "",
+                    show3:  null, addAdminError: "",
+                    show4:  null, addOperationError: "",
+                    show5:  null, addDeviceError: "",
+                    show6:  null, addAppointmentError: ""
+                })
+        })
+    })
+})
+
+app.post("/operationProfileEdit",async (req,res)=>{
+    let name = req.body.operationName,
+    price = req.body.price,
+    duration = req.body.duration,
+    roomnumber = req.body.roomNumber,
+    usedDevices = req.body["multiValueField"],
+    description = req.body.description,
+    oldCode = req.body.oldCode;
+
+    if(typeof usedDevices == "string")
+        usedDevices = [usedDevices];
+
+            await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
+                usedDevices.forEach(async (deviceSerialNumber)=>{
+                    await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, oldCode],async(err,devicesData)=>{
+                    })
+                })
+            })
+
+            await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
+                ,[name,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
+                    await pool.query(
+                        `SELECT * FROM operation WHERE code = '${oldCode}'`,
+                        (err2, respond2) => {
+                            res.render("operationProfile.ejs", {
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
+                                errormessagepatient: "this id has already been registered",
+                                operationName: respond2.rows[0].name,
+                                operationCode: respond2.rows[0].code,
+                                operationPrice: respond2.rows[0].price,
+                                operationDuration: respond2.rows[0].duration,
+                                roomNumber: respond2.rows[0].roomnumber,
+                                operationDescription: respond2.rows[0].description,
+                                address:respond2.rows[0].address,
+                                editErrorMessage:null,
+                                editShow:null
+                            });
+                        }
+                    );
+                })       
+})
+
  
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);

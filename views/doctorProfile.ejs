@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./styles/deleteOverlay.css">
     <link rel="stylesheet" href="./styles/partial css/navigationBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./styles/partial css/overlay.css">
 </head>
 
 <body>
@@ -190,7 +191,10 @@
             <h3 class="message"><i class="fa-solid fa-triangle-exclamation fa-xlg" style="color: #f74600;"></i>هل أنت متأكد من عملية الحذف؟</h3>
             <div class="buttons-container">
                 <button class="cancel-deletion">إغلاق</button>
-                <button class="confirm-deletion">تأكيد</button>
+                <form action="doctorProfileDelete" method="post">
+                    <input type="hidden" name="oldid" value=<%= id %> >
+                    <button class="confirm-deletion">تأكيد</button>
+                </form>
             </div>
         </div>
         </div>
