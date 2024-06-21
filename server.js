@@ -432,15 +432,16 @@ app.post("/addDevice", async (req, respond) => {
     warranty = req.body["warranty"], 
     status = req.body["status"],
     company = req.body["company"],
-    date = req.body["date"]
+    date = req.body["date"],
+    productCode = req.body["productCode"]
 
     await pool.connect();
 
     await pool.query(`select * from device where serialnumber = '${serial}'`, async (err, res) => {
         if(res.rows.length == 0)
             {    
-            await pool.query("insert into device (name, serialnumber, price, warranty, status, company, date) values ($1, $2, $3, $4, $5, $6, $7)",
-                [name, serial, price, warranty, status, company, date], async (err, res) => {
+            await pool.query("insert into device (name, serialnumber, price, warranty, status, company, date, productcode) values ($1, $2, $3, $4, $5, $6, $7, $8)",
+                [name, serial, price, warranty, status, company, date, productCode], async (err, res) => {
                     if(err)
                         console.log(err)
                     }
@@ -494,8 +495,8 @@ app.post("/addOperation",async(req,res)=>{
     await pool.query("insert into operation (name, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5) returning code",
         [name,duration,price,roomnumber,description], async(err, respond) => {
             let code = respond.rows[0]["code"]
-            usedDevices.forEach(async (deviceSerialNumber)=>{
-                            await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
+            usedDevices.forEach(async (deviceproductcode)=>{
+                            await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, code],async(err,devicesData)=>{
                             })
                         })
             let dataNumbers = await getNumbers()
@@ -921,7 +922,8 @@ app.post("/devicesPageAdd",async(req,res)=>{
     warranty = req.body.warranty,
     stat = req.body.status,
     company = req.body.company,
-    date = req.body.date;
+    date = req.body.date,
+    productCode = req.body.productCode
 
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,data)=>{
         if(data.rows.length != 0){
@@ -930,8 +932,8 @@ app.post("/devicesPageAdd",async(req,res)=>{
             })
         }
         else{
-            await pool.query("insert into device (name, serialnumber, company, status, warranty, price, date) values ($1, $2, $3, $4, $5, $6, $7)",
-                [name,serial,company,stat,warranty,price,date],async(err,respond)=>{
+            await pool.query("insert into device (name, serialnumber, company, status, warranty, price, date, productcode) values ($1, $2, $3, $4, $5, $6, $7, $8)",
+                [name,serial,company,stat,warranty,price,date, productCode],async(err,respond)=>{
                     await pool.query("select * from device",(err,newdata)=>{
                         res.render("./devices.ejs",{allDevices:newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode : null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
                     })
@@ -1584,7 +1586,8 @@ app.post("/devicesPageEdit",async (req,res)=>{
     stat = req.body.status,
     company = req.body.company,
     date = req.body.productionDate,
-    oldSerial = req.body.oldSerial;
+    oldSerial = req.body.oldSerial,
+    productCode = req.body.productCode
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,respond)=>{
         if(respond.rows.length == 1 && serial != oldSerial){
             await pool.query("select * from device",(err,newdata)=>{
@@ -1592,8 +1595,8 @@ app.post("/devicesPageEdit",async (req,res)=>{
             })
         }
         else{
-            await pool.query("update device set name = $1, serialnumber = $2, company = $3, warranty = $4, price = $5, date = $6, status = $7 where serialnumber = $8",
-                [name,serial,company,warranty,price,date,stat,oldSerial],async (err,respond2)=>{
+            await pool.query("update device set name = $1, serialnumber = $2, company = $3, warranty = $4, price = $5, date = $6, status = $7, productcode = $9 where serialnumber = $8",
+                [name,serial,company,warranty,price,date,stat,oldSerial, productCode],async (err,respond2)=>{
                     if(err) console.log(err)
                     await pool.query("select * from device",(err,newdata)=>{
                         res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})

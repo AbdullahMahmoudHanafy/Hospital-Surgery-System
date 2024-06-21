@@ -20,7 +20,7 @@ function addField(event) {
     var newField = document.createElement("div");
     var input = document.createElement("input");
     var newButton = document.createElement("button");
-    input.placeholder = "ادخل الرقم التسلسلي للجهاز"
+    input.placeholder = "ادخل كود المنتج للجهاز"
     newButton.innerText = "حذف";
     newButton.classList.add("deleteButton");
     newButton.onclick = deleteField

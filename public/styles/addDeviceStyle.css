@@ -1,5 +1,7 @@
 .overlay5 .addDevice {
     width: 400px;
+    height: 600px;
+    overflow-y: scroll;
     margin: 0 auto;
     padding-left: 20px;
     padding-right: 20px;
@@ -92,6 +94,7 @@
 }
 
 .overlay5 input[type="name"],
+.overlay5 input[type = "text"],
 .overlay5 input[type="email"],
 .overlay5 input[type="password"],
 .overlay5 input[type="address"],
