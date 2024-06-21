@@ -593,7 +593,7 @@ app.post("/addAppointment", async (req, respond) => {
                                                                     show6:  "show"
                                                                 })
                                                             }else {
-                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceserial not in (select serialnumber from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
+                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceproductcode not in (select deviceproductcode from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
                                                                     if(devicesAvailable.rowCount > 0){
                                                                         let dataNumbers = await getNumbers()
                                                                         respond.render("./homePage.ejs", {
