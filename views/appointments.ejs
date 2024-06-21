@@ -69,7 +69,7 @@
 
                 <div class="appointments">
                     <% for( var i = 0 ; i < allAppointments.length ; i++ ){%>
-                    <div class="appointment-row"><div class="appointment-col id"><div><%= allAppointments[i]["appointmentid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["operationname"] %></div><div class="bottom"><%= allAppointments[i]["operationid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["patientname"] %></div><div class="bottom"><%= allAppointments[i]["patientid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["surgeonname"] %></div><div class="bottom"><%= allAppointments[i]["surgeonid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["roomnumber"] %></div><div class="bottom"><%= allAppointments[i]["operationduration"]%></div></div><div class="appointment-col"><div class="top"><%= `${new Date(allAppointments[i]["date"]).getDate()}-${new Date(allAppointments[i]["date"]).getMonth() + 1}-${new Date(allAppointments[i]["date"]).getFullYear()}` %></div><div class="bottom"><%= allAppointments[i]["time"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>  
+                    <div class="appointment-row"><div class="appointment-col id"><div><%= allAppointments[i]["appointmentid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["operationname"] %></div><div class="bottom"><%= allAppointments[i]["operationid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["patientname"] %></div><div class="bottom"><%= allAppointments[i]["patientid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["surgeonname"] %></div><div class="bottom"><%= allAppointments[i]["surgeonid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["roomnumber"] %></div><div class="bottom"><%= allAppointments[i]["operationduration"]%> ساعات</div></div><div class="appointment-col"><div class="top"><%= `${new Date(allAppointments[i]["date"]).getDate()}-${new Date(allAppointments[i]["date"]).getMonth() + 1}-${new Date(allAppointments[i]["date"]).getFullYear()}` %></div><div class="bottom"><%= allAppointments[i]["time"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>  
                     <% } %>
                 </div>
             </div>
@@ -78,45 +78,47 @@
 
     <!-- add overlay pages -->
 
-    <div class="edit-overlay">
+    <div class="edit-overlay <%=editShow%>">
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
                 <h1 class="head"> تعديل المقابلة</h1>
+                <div class="errorMessage"><%= editErrorMessage %></div>
                 <br>
 
-                <form action="editAppointments" method="POST">
+                <form action="appointmentsPageEdit" method="POST">
+                    <input type="hidden" name="oldID" value="<%=savedID%>" class="editHiddenID">
                     <div class="form-group">
                         <label for="patientID">الرقم القومي للمريض</label>
-                        <input type="text" id="patientID" name="patientID" value="3030630">
+                        <input type="text" id="patientID" name="patientID" value="" required>
                     </div>
                     <br>
 
                     <div class="form-group">
                         <label for="surgeonID">الرقم القومي للجراح</label>
-                        <input type="text" id="surgeonID" name="surgeonID" value="3030630">
+                        <input type="text" id="surgeonID" name="surgeonID" value="" required>
                     </div>
                     <br>
 
                     <div class="form-group">
-                        <label for="operationCode">كود العملية</label>
-                        <input type="text" id="operationCode" name="operationCode">
+                        <label for="operationID">كود العملية</label>
+                        <input type="text" id="operationID" name="operationID" required>
                     </div>
                     <br>
 
                     <div class="form-group">
                         <label for="roomNumber">رقم الغرفة</label>
-                        <input type="text" id="roomNumber" name="roomNumber" value="5">
+                        <input type="text" id="roomNumber" name="roomNumber" value="" required>
                     </div>
                     <br>
 
                     <div class="form-group">
-                        <label for="appointmentDate">تاريخ العملية</label>
-                        <input type="date" id="appointmentDate" name="appointmentDate">
+                        <label for="date">تاريخ العملية</label>
+                        <input type="date" id="date" name="date" required>
                     </div>
                     <br>
                     <div class="form-group">
-                        <label for="appointmentTime">ميعاد العملية</label>
-                        <input type="time" id="appointmentTime" name="appointmentTime">
+                        <label for="time">ميعاد العملية</label>
+                        <input type="time" id="time" name="time" required>
                     </div>
                     <br>
 

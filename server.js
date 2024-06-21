@@ -143,7 +143,7 @@ app.get("/appointments", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show: null, errorMessage: ""});
+            data.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
         }
     })
 })
@@ -776,7 +776,7 @@ app.post("/appointmentsPageDelete",async(req,res)=>{
             if(err)
                 console.log(err);
             else {
-                res.render("./appointments.ejs",{allAppointments: appointments.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./appointments.ejs",{allAppointments: appointments.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
             }
         })
     })
@@ -974,7 +974,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                     if(err)
                                                         console.log(err);
                                                     else {
-                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذا التوقيت غير مناسب"});
+                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا التوقيت غير مناسب", savedID: null});
                                                     }
                                                 })
                                             }else {
@@ -984,7 +984,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                             if(err)
                                                                 console.log(err);
                                                             else {
-                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذا الجراح لديه عملية في هذا التوقيت"});
+                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا الجراح لديه عملية في هذا التوقيت", savedID: null});
                                                             }
                                                         })
                                                     }else {
@@ -994,7 +994,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                     if(err)
                                                                         console.log(err);
                                                                     else {
-                                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذا المريض لديه عملية في هذا التوقيت"});
+                                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا المريض لديه عملية في هذا التوقيت", savedID: null});
                                                                     }
                                                                 })
                                                             }else {
@@ -1004,7 +1004,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                             if(err)
                                                                                 console.log(err);
                                                                             else {
-                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا"});
+                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", savedID: null});
                                                                             }
                                                                         })
                                                                     }else {
@@ -1017,7 +1017,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                                         if(err)
                                                                                             console.log(err);
                                                                                         else {
-                                                                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  null, errorMessage: ""});
+                                                                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
                                                                                         }
                                                                                     })
                                                                                 }
@@ -1035,7 +1035,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                         if(err)
                                             console.log(err);
                                         else {
-                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذه العملية لا تتم في هذه الغرفة"});
+                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية لا تتم في هذه الغرفة", savedID: null});
                                         }
                                     })
                                 }
@@ -1044,7 +1044,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                 if(err)
                                     console.log(err);
                                 else {
-                                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "لا توجد عملية بهذا الكود"});
+                                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا توجد عملية بهذا الكود", savedID: null});
                                 }
                             })
                         }
@@ -1054,7 +1054,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                         if(err)
                             console.log(err);
                         else {
-                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "لا يوجد جراح بهذا الرقم القومي"});
+                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد جراح بهذا الرقم القومي", savedID: null});
                         }
                     })
                 }
@@ -1064,7 +1064,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                 if(err)
                     console.log(err);
                 else {
-                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "لا يوجد مريض بهذا الرقم القومي"});
+                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد مريض بهذا الرقم القومي", savedID: null});
                 }
             })
         }
@@ -1577,6 +1577,139 @@ app.post("/operationsPageEdit",async (req,res)=>{
                 })    
             }
     })
+})
+
+app.post("/appointmentsPageEdit", async (req, respond) => {
+    let patientID = req.body["patientID"],
+    surgeonID = req.body["surgeonID"], 
+    operationID = req.body["operationID"], 
+    roomNumber = req.body["roomNumber"], 
+    date = req.body["date"],
+    time = req.body["time"],
+    oldId = req.body["oldID"]
+
+    date = new Date(`${date}T${time}Z`)
+    
+    let startdate = new Date(date.getTime() - 60 * 60 * 1000)
+
+
+    await pool.query(`select * from patient where nationalid = '${patientID}'`, async (err, resPatient) =>{
+        if(resPatient.rows.length != 0){
+            await pool.query(`select * from surgeon where nationalid = '${surgeonID}'`, async (err, resSurgeon) =>{
+                if(resSurgeon.rows.length != 0){
+                    await pool.query(`select roomnumber, duration from operation where code = '${operationID}'`, async (err, resOperation) =>{
+                        if(resOperation.rows.length != 0){
+                            let operationRoom = resOperation.rows[0]["roomnumber"]
+                            let operationDuration = resOperation.rows[0]["duration"]
+
+                            let enddate = new Date(startdate.getTime() + (2 + Number(operationDuration)) * 60 * 60 * 1000)
+                            if(roomNumber == operationRoom)
+                                {
+                                    await pool.query(`SELECT * FROM appointment WHERE roomnumber = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [operationRoom, startdate, enddate], async (err, timeRespond) => {
+                                        if(timeRespond.rowCount > 0)
+                                            {
+                                                await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                    if(err)
+                                                        console.log(err);
+                                                    else {
+                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا التوقيت غير مناسب", show: null, errorMessage: "", savedID: oldId});
+                                                    }
+                                                })
+                                            }else {
+                                                await pool.query(`SELECT * FROM appointment WHERE surgeonid = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [surgeonID, startdate, enddate], async (err, surgeonTimeRespond) =>{
+                                                    if (surgeonTimeRespond.rowCount > 0){
+                                                        await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                            if(err)
+                                                                console.log(err);
+                                                            else {
+                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا الجراح لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
+                                                            }
+                                                        })
+                                                    }else {
+                                                        await pool.query(`SELECT * FROM appointment WHERE patientid = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [patientID, startdate, enddate], async (err, patientTimeRespond) =>{
+                                                            if(patientTimeRespond.rowCount > 0){
+                                                                await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                                    if(err)
+                                                                        console.log(err);
+                                                                    else {
+                                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا المريض لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
+                                                                    }
+                                                                })
+                                                            }else {
+                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceserial not in (select serialnumber from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
+                                                                    if(devicesAvailable.rowCount > 0){
+                                                                        await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                                            if(err)
+                                                                                console.log(err);
+                                                                            else {
+                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", show: null, errorMessage: "", savedID: oldId});
+                                                                            }
+                                                                        })
+                                                                    }else {
+                                                                        await pool.query("update appointment set patientid = $1, surgeonid = $2, operationid = $3, date = $4, roomnumber = $5, time = $6, startdate = $7, enddate = $8 where appointmentid = $9 "
+                                                                            ,[patientID,surgeonID,operationID,date,roomNumber,time,startdate, enddate, oldId],async (err,res)=>{
+                                                                                await pool.query("select * from operation",async (err, newdata) => {
+                                                                                    if(err)
+                                                                                        console.log(err)
+                                                                                    else {
+                                                                                        await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                                                            if(err)
+                                                                                                console.log(err);
+                                                                                            else {
+                                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+                                                                                            }
+                                                                                        })
+                                                                                    }
+                                                                                })   
+                                                                            })    
+                                                                    }
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                    })
+                                }else{
+                                    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                        if(err)
+                                            console.log(err);
+                                        else {
+                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية لا تتم في هذه الغرفة", show: null, errorMessage: "", savedID: oldId});
+                                        }
+                                    })
+                                }
+                        }else {
+                            await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                if(err)
+                                    console.log(err);
+                                else {
+                                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا توجد عملية بهذا الكود", show: null, errorMessage: "", savedID: oldId});
+                                }
+                            })
+                        }
+                    })
+                }else {
+                    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                        if(err)
+                            console.log(err);
+                        else {
+                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد جراح بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
+                        }
+                    })
+                }
+            })
+        }else {
+            await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                if(err)
+                    console.log(err);
+                else {
+                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد مريض بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
+                }
+            })
+        }
+    })
+    
 })
  
 app.listen(port, (req, res) => {
