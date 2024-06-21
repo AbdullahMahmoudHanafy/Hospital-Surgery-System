@@ -4,35 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الملف الشخصي للمريض</title>
-    <link rel="stylesheet" href="./styles/partial css/overlay.css">
     <link rel="stylesheet" href="./styles/patient_profile_style.css">
     <link rel="stylesheet" href="./styles/partial css/navigationBar.css">
     <link rel="stylesheet" href="./styles/editPatient_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./styles/deleteOverlay.css">
+    <link rel="stylesheet" href="./styles/partial css/overlay.css">
 </head>
 
 <body>
-    <div class="edit-overlay" id="edit-overlay">
+    <div class="edit-overlay  <%=editShow%>">
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
              <h1 class="head"> تعديل بيانات المريض</h1>
-             <br>
-             <div class="errormessagepatientprofile">
+             <div class="errorMessage">
                 <%= errormessagepatient %>
             </div>
+             <br>
              
              <form action="editPatient" method="POST">
                 <input type="hidden" name="oldid" value="<%= id %>" >
                  <div class="form-group">
                      <label for="name">  الاسم</label>
-                     <input type="text" id="name" name="name" value="احمد">
+                     <input type="text" id="name" name="name" value="احمد" required> 
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="nationalID">الرقم القومي</label>
-                     <input type="text" id="nationalID" name="nationalID" value="3030630">
+                     <input type="text" id="nationalID" name="nationalID" value="3030630" required>
                  </div>
                  <br>
      
@@ -56,19 +56,19 @@
      
                  <div class="form-group">
                     <label for="image">صورة المريض</label>
-                    <input type="file" name="image">
+                    <input type="file" name="image" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="mobile">رقم الهاتف</label>
-                     <input type="tel" id="mobile" name="mobile" value="031321">
+                     <input type="tel" id="mobile" name="mobile" value="031321" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="address">العنوان</label>
-                     <input type="text" id="address" name="address" value="شارع علي علوكة">
+                     <input type="text" id="address" name="address" value="شارع علي علوكة" required>
                  </div>
                  <br>
      

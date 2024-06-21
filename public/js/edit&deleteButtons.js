@@ -12,6 +12,7 @@ cancelDeletion.addEventListener('click',function(){
 })
 cancelEdit.addEventListener('click',function(){
     editOverlay.style.display = 'none'
+    editOverlay.querySelector(".errorMessage").innerHTML = '';
 })
 
 // select all delete and edit buttons in all 3Dots menus

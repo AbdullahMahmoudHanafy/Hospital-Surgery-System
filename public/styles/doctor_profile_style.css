@@ -152,11 +152,6 @@ body {
     color: #333;
 }
 
-.errormessagedoctorprofile{
-    padding: 0;
-    color: rgb(182,38,38);
-    font-family: Arial,sans-serif;
-    font-size: .75rem;
-    text-align: center;
-    margin-bottom: 10px;
+.operations h3{
+    color: black;
 }
