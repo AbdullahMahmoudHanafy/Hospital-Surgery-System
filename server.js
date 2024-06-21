@@ -1771,6 +1771,28 @@ app.post("/doctorProfileDelete",async (req,res)=>{
             })
     })
 })
+
+app.post("/doctorProfileDelete",async (req,res)=>{
+    let oldCode = req.body.oldCode;
+     await pool.query("delete from useddevice where operationcode = $1",[oldCode],async (err,respond)=>{
+        await pool.query("delete from operation where code = $1",[oldCode], async(err, rp) => {
+            let dataNumbers = await getNumbers()
+            res.render("./homePage.ejs",
+                {
+                    name: req.session.user["username"],
+                    image: req.session.user["image"],
+                    dataNumbers: dataNumbers,
+                    show:  null, error: "",
+                    show1:  null, addSurgeonError: "",
+                    show2:  null, addPatientError: "",
+                    show3:  null, addAdminError: "",
+                    show4:  null, addOperationError: "",
+                    show5:  null, addDeviceError: "",
+                    show6:  null, addAppointmentError: ""
+                })
+        })
+    })
+})
  
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
