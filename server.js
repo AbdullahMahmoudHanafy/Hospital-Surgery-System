@@ -143,7 +143,7 @@ app.get("/appointments", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show: null, errorMessage: ""});
         }
     })
 })
@@ -503,19 +503,123 @@ app.post("/addOperation",async(req,res)=>{
 })
 
 app.post("/addAppointment", async (req, respond) => {
+    let patientID = req.body["patientID"],
+    surgeonID = req.body["surgeonID"], 
+    operationID = req.body["operationID"], 
+    roomNumber = req.body["roomNumber"], 
+    date = req.body["date"],
+    time = req.body["time"]
+    date = new Date(`${date}T${time}Z`)
+    
+    let startdate = new Date(date.getTime() - 60 * 60 * 1000)
+
 
     await pool.query(`select * from patient where nationalid = '${patientID}'`, async (err, resPatient) =>{
         if(resPatient.rows.length != 0){
-            pool.query(`select * from surgeon where nationalid = '${surgeonID}'`, async (err, resSurgeon) =>{
+            await pool.query(`select * from surgeon where nationalid = '${surgeonID}'`, async (err, resSurgeon) =>{
                 if(resSurgeon.rows.length != 0){
-                    pool.query(`select roomnumber, duration from operation where code = '${operationID}'`, async (err, resOperation) =>{
+                    await pool.query(`select roomnumber, duration from operation where code = '${operationID}'`, async (err, resOperation) =>{
                         if(resOperation.rows.length != 0){
-                            let operationRoom = resOperation.rows[0]["roomnumber"],
-                            operationDuration = resOperation.rows[0]["duration"]
+                            let operationRoom = resOperation.rows[0]["roomnumber"]
+                            let operationDuration = resOperation.rows[0]["duration"]
 
-                            if(roomnumber == operationRoom)
+                            let enddate = new Date(startdate.getTime() + (2 + Number(operationDuration)) * 60 * 60 * 1000)
+                            if(roomNumber == operationRoom)
                                 {
-                                    
+                                    await pool.query(`SELECT * FROM appointment WHERE roomnumber = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [operationRoom, startdate, enddate], async (err, timeRespond) => {
+                                        if(timeRespond.rowCount > 0)
+                                            {
+                                                console.log(timeRespond.rows, startdate, enddate)
+                                                let dataNumbers = await getNumbers()
+                                                respond.render("./homePage.ejs", {
+                                                name: req.session.user["username"],
+                                                image: req.session.user["image"],
+                                                dataNumbers: dataNumbers,
+                                                show:  null, error: "",
+                                                show1:  null, addSurgeonError: "",
+                                                show2:  null, addPatientError: "",
+                                                show3:  null, addAdminError: "",
+                                                show4:  null, addOperationError: "",
+                                                show5:  null, addDeviceError: "",
+                                                show6:  "show", addAppointmentError: "هذا التوقيت غير مناسب"
+                                                })
+                                            }else {
+                                                await pool.query(`SELECT * FROM appointment WHERE surgeonid = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [surgeonID, startdate, enddate], async (err, surgeonTimeRespond) =>{
+                                                    if (surgeonTimeRespond.rowCount > 0){
+                                                        let dataNumbers = await getNumbers()
+                                                            respond.render("./homePage.ejs", {
+                                                            name: req.session.user["username"],
+                                                            image: req.session.user["image"],
+                                                            dataNumbers: dataNumbers,
+                                                            show:  null, error: "",
+                                                            show1:  null, addSurgeonError: "",
+                                                            show2:  null, addPatientError: "",
+                                                            show3:  null, addAdminError: "",
+                                                            show4:  null, addOperationError: "",
+                                                            show5:  null, addDeviceError: "",
+                                                            show6:  "show", addAppointmentError: "هذا الجراح لديه عملية في هذا التوقيت"
+                                                        })
+                                                    }else {
+                                                        await pool.query(`SELECT * FROM appointment WHERE patientid = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [patientID, startdate, enddate], async (err, patientTimeRespond) =>{
+                                                            if(patientTimeRespond.rowCount > 0){
+                                                                let dataNumbers = await getNumbers()
+                                                                respond.render("./homePage.ejs", {
+                                                                    name: req.session.user["username"],
+                                                                    image: req.session.user["image"],
+                                                                    dataNumbers: dataNumbers,
+                                                                    show:  null, error: "",
+                                                                    show1:  null, addSurgeonError: "",
+                                                                    show2:  null, addPatientError: "",
+                                                                    show3:  null, addAdminError: "",
+                                                                    show4:  null, addOperationError: "",
+                                                                    show5:  null, addDeviceError: "",
+                                                                    show6:  "show", addAppointmentError: "هذا المريض لديه عملية في هذا التوقيت"
+                                                                })
+                                                            }else {
+                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceserial not in (select serialnumber from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
+                                                                    if(devicesAvailable.rowCount > 0){
+                                                                        let dataNumbers = await getNumbers()
+                                                                        respond.render("./homePage.ejs", {
+                                                                            name: req.session.user["username"],
+                                                                            image: req.session.user["image"],
+                                                                            dataNumbers: dataNumbers,
+                                                                            show:  null, error: "",
+                                                                            show1:  null, addSurgeonError: "",
+                                                                            show2:  null, addPatientError: "",
+                                                                            show3:  null, addAdminError: "",
+                                                                            show4:  null, addOperationError: "",
+                                                                            show5:  null, addDeviceError: "",
+                                                                            show6:  "show", addAppointmentError: "هذه العملية تتطلب جهاز غير متاح حاليا"
+                                                                        })
+                                                                    }else {
+                                                                        await pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time, startdate, enddate) values ($1, $2, $3, $4, $5, $6, $7, $8)",
+                                                                            [patientID, surgeonID, operationID, roomNumber, date, time, startdate, enddate], async (err, res) =>{
+                                                                                if(err)
+                                                                                    console.log(err)
+                                                                                else {
+                                                                                    let dataNumbers = await getNumbers()
+                                                                                    respond.render("./homePage.ejs", {
+                                                                                        name: req.session.user["username"],
+                                                                                        image: req.session.user["image"],
+                                                                                        dataNumbers: dataNumbers,
+                                                                                        show:  null, error: "",
+                                                                                        show1:  null, addSurgeonError: "",
+                                                                                        show2:  null, addPatientError: "",
+                                                                                        show3:  null, addAdminError: "",
+                                                                                        show4:  null, addOperationError: "",
+                                                                                        show5:  null, addDeviceError: "",
+                                                                                        show6:  null, addAppointmentError: ""
+                                                                                    })
+                                                                                }
+                                                                            })
+                                                                    }
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                    })
                                 }else{
                                     let dataNumbers = await getNumbers()
                                     respond.render("./homePage.ejs", {
@@ -835,6 +939,135 @@ app.post("/operationsPageAdd",async(req,res)=>{
                             res.render("./operations.ejs", {allOperations: newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })   
     })     
+})
+
+app.post("/appointmentPageAdd", async (req, respond) => {
+    let patientID = req.body["patientID"],
+    surgeonID = req.body["surgeonID"], 
+    operationID = req.body["operationID"], 
+    roomNumber = req.body["roomNumber"], 
+    date = req.body["date"],
+    time = req.body["time"]
+    date = new Date(`${date}T${time}Z`)
+    
+    let startdate = new Date(date.getTime() - 60 * 60 * 1000)
+
+
+    await pool.query(`select * from patient where nationalid = '${patientID}'`, async (err, resPatient) =>{
+        if(resPatient.rows.length != 0){
+            await pool.query(`select * from surgeon where nationalid = '${surgeonID}'`, async (err, resSurgeon) =>{
+                if(resSurgeon.rows.length != 0){
+                    await pool.query(`select roomnumber, duration from operation where code = '${operationID}'`, async (err, resOperation) =>{
+                        if(resOperation.rows.length != 0){
+                            let operationRoom = resOperation.rows[0]["roomnumber"]
+                            let operationDuration = resOperation.rows[0]["duration"]
+
+                            let enddate = new Date(startdate.getTime() + (2 + Number(operationDuration)) * 60 * 60 * 1000)
+                            if(roomNumber == operationRoom)
+                                {
+                                    await pool.query(`SELECT * FROM appointment WHERE roomnumber = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [operationRoom, startdate, enddate], async (err, timeRespond) => {
+                                        if(timeRespond.rowCount > 0)
+                                            {
+                                                await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                    if(err)
+                                                        console.log(err);
+                                                    else {
+                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذا التوقيت غير مناسب"});
+                                                    }
+                                                })
+                                            }else {
+                                                await pool.query(`SELECT * FROM appointment WHERE surgeonid = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [surgeonID, startdate, enddate], async (err, surgeonTimeRespond) =>{
+                                                    if (surgeonTimeRespond.rowCount > 0){
+                                                        await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                            if(err)
+                                                                console.log(err);
+                                                            else {
+                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذا الجراح لديه عملية في هذا التوقيت"});
+                                                            }
+                                                        })
+                                                    }else {
+                                                        await pool.query(`SELECT * FROM appointment WHERE patientid = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [patientID, startdate, enddate], async (err, patientTimeRespond) =>{
+                                                            if(patientTimeRespond.rowCount > 0){
+                                                                await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                                    if(err)
+                                                                        console.log(err);
+                                                                    else {
+                                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذا المريض لديه عملية في هذا التوقيت"});
+                                                                    }
+                                                                })
+                                                            }else {
+                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceserial not in (select serialnumber from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
+                                                                    if(devicesAvailable.rowCount > 0){
+                                                                        await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                                            if(err)
+                                                                                console.log(err);
+                                                                            else {
+                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا"});
+                                                                            }
+                                                                        })
+                                                                    }else {
+                                                                        await pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time, startdate, enddate) values ($1, $2, $3, $4, $5, $6, $7, $8)",
+                                                                            [patientID, surgeonID, operationID, roomNumber, date, time, startdate, enddate], async (err, res) =>{
+                                                                                if(err)
+                                                                                    console.log(err)
+                                                                                else {
+                                                                                    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                                                        if(err)
+                                                                                            console.log(err);
+                                                                                        else {
+                                                                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  null, errorMessage: ""});
+                                                                                        }
+                                                                                    })
+                                                                                }
+                                                                            })
+                                                                    }
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                    })
+                                }else{
+                                    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                        if(err)
+                                            console.log(err);
+                                        else {
+                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "هذه العملية لا تتم في هذه الغرفة"});
+                                        }
+                                    })
+                                }
+                        }else {
+                            await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                if(err)
+                                    console.log(err);
+                                else {
+                                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "لا توجد عملية بهذا الكود"});
+                                }
+                            })
+                        }
+                    })
+                }else {
+                    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                        if(err)
+                            console.log(err);
+                        else {
+                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "لا يوجد جراح بهذا الرقم القومي"});
+                        }
+                    })
+                }
+            })
+        }else {
+            await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                if(err)
+                    console.log(err);
+                else {
+                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], show:  "show", errorMessage: "لا يوجد مريض بهذا الرقم القومي"});
+                }
+            })
+        }
+    })
+    
 })
 
 app.post("/editAdmin", async (req, res) => {

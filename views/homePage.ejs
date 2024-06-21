@@ -141,7 +141,7 @@
     <div class = "overlay4 <%= show4 %>" >
         <div class="container addOperation">
             <% if(show5 != null){ %>
-                <div class="addDeviceError"><%= addDeviceError %></div>
+                <div class="addOperationError"><%= addOperationError %></div>
             <% } %>
             <h5> إضافة عملية</h5>
             <form dir='rtl' action="addOperation" method="post">
@@ -200,10 +200,13 @@
             </form>
         </div>
     </div>
-    <div class = "overlay6" >
+    <div class = "overlay6 <%= show6 %>" >
         <div class="container addAppointment">
+            <% if(show6 != null){ %>
+                <div class="addAppointmentError"><%= addAppointmentError %></div>
+            <% } %>
             <h5> عملية الحجز</h5>
-            <form>
+            <form action="addAppointment" method="post">
                 <label for="patientID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
                 <input type="text" name="patientID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
                 <label for="surgeonID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>

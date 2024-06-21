@@ -188,3 +188,11 @@
     margin: 10px;
     margin-bottom: 20px;
 }
+
+.overlay4 .addOperationError{
+    color: red;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
