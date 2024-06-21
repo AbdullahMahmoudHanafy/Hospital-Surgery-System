@@ -14,7 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const storage = multer.diskStorage({
     destination:function(req,file,cd){
-        cd(null,path.join(__dirname,"public/imgaes"));
+        cd(null,path.join(__dirname,"public/images"));
     },
     filename: function(req,file,cd){
         cd(null,file.originalname);
@@ -85,10 +85,10 @@ app.post("/loginAdmin", async (req, login) => {
                 let dataNumbers = await getNumbers()
                 let userId = res.rows[0]["nationalid"],
                     username = res.rows[0]["name"],
-                    profileImage = res.rows[0]["image"]
+                    image = res.rows[0]["image"]
     
                     req.session.user = {
-                        userId, username, profileImage
+                        userId, username, image
                     }
 
                     login.render("./homePage.ejs",
@@ -135,7 +135,7 @@ app.get("/devices", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./devices.ejs", {allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"]});
+            data.render("./devices.ejs", {allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
         }
     })
 })
@@ -230,7 +230,7 @@ app.post("/addAdmin", upload.single("image"), async (req, respond) => {
     address = req.body["address"],
     nationalID = req.body["nationalID"]
 
-    let image = "../imgaes/" + req.file.originalname
+    let image = "../images/" + req.file.originalname
 
     if(repassword == password)
     {
@@ -336,7 +336,7 @@ app.post("/addPatient", upload.single("image"), async(req,respond) => {
     sex = req.body["sex"], 
     address = req.body["address"], 
     phone = req.body["phone"], 
-    image = "../imgaes/" + req.file.originalname
+    image = "../images/" + req.file.originalname
 
     await pool.query(`select * from patient where nationalid = '${ID}'`, async (err, res) => {
         if(res.rowCount != 0)
@@ -392,7 +392,7 @@ app.post("/addSurgeon", upload.single("image"), async(req,respond) => {
     phone = req.body["phone"], 
     email = req.body["email"],
     speciality = req.body["speciality"],
-    image = "../imgaes/" + req.file.originalname
+    image = "../images/" + req.file.originalname
 
     await pool.connect();
 
@@ -830,7 +830,7 @@ app.post("/adminsPageAdd", upload.single("image"), async(req,res)=>{
     phone = req.body["phone"],
     address = req.body["address"],
     nationalID = req.body["nationalID"],
-    image = "../imgaes/" + req.file.originalname
+    image = "../images/" + req.file.originalname
 
     if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
@@ -871,7 +871,7 @@ app.post("/patientsPageAdd", upload.single("image"), async(req,res)=>{
     phone = req.body["phone"],
     address = req.body["address"],
     nationalID = req.body["nationalID"],
-    image = "../imgaes/" + req.file.originalname
+    image = "../images/" + req.file.originalname
 
     await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
         if(data.rows.length != 0){
@@ -901,7 +901,7 @@ app.post("/doctorsPageAdd", upload.single("image"), async(req,res)=>{
     phone = req.body["phone"],
     address = req.body["address"],
     nationalID = req.body["nationalID"],
-    image = "../imgaes/" + req.file.originalname
+    image = "../images/" + req.file.originalname
 
         await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
@@ -1119,7 +1119,7 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
         password = req.body["password"],
         age = calculateAge(birthDate),
         confirmPassword = req.body["confirmPassword"],
-        image = "../imgaes/" + req.file.originalname,
+        image = "../images/" + req.file.originalname,
         oldid = req.body["oldid"],
         oldEmail = req.body["oldEmail"];
     await pool.query(
@@ -1235,7 +1235,7 @@ app.post("/editPatient", upload.single("image"), async (req, res) => {
         id = req.body["nationalID"],
         birthdate = req.body["birthDate"],
         sex = req.body["sex"],
-        image = "../imgaes/" + req.file.originalname,
+        image = "../images/" + req.file.originalname,
         phone = req.body["mobile"],
         address = req.body["address"],
         age = calculateAge(birthdate),
@@ -1298,7 +1298,7 @@ app.post("/editSurgeon", upload.single("image"), async (req, res) => {
         oldid = req.body["oldid"],
         sex = req.body["sex"],
         id = req.body["id"],
-        image = "../imgaes/" + req.file.originalname,
+        image = "../images/" + req.file.originalname,
         address = req.body["address"],
         specialization = req.body["special"];
 
@@ -1466,7 +1466,7 @@ app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
         address = req.body["address"],
         password = req.body["password"],
         confirmPassword = req.body["confirmPassword"],
-        image = "../imgaes/" + req.file.originalname,
+        image = "../images/" + req.file.originalname,
         oldid = req.body["oldID"],
         oldEmail = req.body["oldEmail"];
     await pool.query(
@@ -1527,7 +1527,7 @@ app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
         oldid = req.body["oldID"],
         sex = req.body["sex"],
         id = req.body["id"],
-        image = "../imgaes/" + req.file.originalname,
+        image = "../images/" + req.file.originalname,
         address = req.body["address"],
         specialization = req.body["special"];
     await pool.query("select * from surgeon where nationalid = $1",[id],async(err,respond)=>{
@@ -1567,7 +1567,7 @@ app.post("/patientsPageEdit", upload.single("image"), async(req,res)=>{
         id = req.body["nationalID"],
         birthdate = req.body["birthDate"],
         sex = req.body["sex"],
-        image = "../imgaes/" + req.file.originalname,
+        image = "../images/" + req.file.originalname,
         phone = req.body["mobile"],
         address = req.body["address"],
         age = calculateAge(birthdate),
