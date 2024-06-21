@@ -40,6 +40,11 @@ cancelAdding.forEach((cancelButton) => {
         overlay5.style.display = "none"
         overlay6.style.display = "none"
 
+        let errorMessages = document.querySelectorAll(".errorMessage")
+        errorMessages.forEach((errorMessage) => {
+            errorMessage.innerHTML = ""
+        })
+        
         event.preventDefault()
     })
 })

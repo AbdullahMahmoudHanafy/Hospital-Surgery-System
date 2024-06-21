@@ -85,12 +85,13 @@ app.post("/loginAdmin", async (req, login) => {
                             image: req.session.user["image"],
                             dataNumbers: dataNumbers,
                             show:  null, error: "",
-                            show1:  null, addSurgeonError: "",
-                            show2:  null, addPatientError: "",
-                            show3:  null, addAdminError: "",
-                            show4:  null, addOperationError: "",
-                            show5:  null, addDeviceError: "",
-                            show6:  null, addAppointmentError: ""
+                            errorMessage: "",
+                            show1:  null,
+                            show2:  null,
+                            show3:  null,
+                            show4:  null,
+                            show5:  null,
+                            show6:  null
                         }
                     )
             }
@@ -106,12 +107,13 @@ app.get("/homePage", async (req, res) => {
             image: req.session.user["image"],
             dataNumbers: dataNumbers,
             show:  null, error: "",
-            show1:  null, addSurgeonError: "",
-            show2:  null, addPatientError: "",
-            show3:  null, addAdminError: "",
-            show4:  null, addOperationError: "",
-            show5:  null, addDeviceError: "",
-            show6:  null, addAppointmentError: ""
+            errorMessage: "",
+            show1:  null,
+            show2:  null,
+            show3:  null,
+            show4:  null,
+            show5:  null,
+            show6:  null
         })
 })
 
@@ -232,12 +234,13 @@ app.post("/addAdmin", async (req, respond) => {
                                 image: req.session.user["image"],
                                 dataNumbers: dataNumbers,
                                 show:  null, error: "",
-                                show1:  null, addSurgeonError: "",
-                                show2:  null, addPatientError: "",
-                                show3:  "show", addAdminError: "هذا الرقم القومي موجود بالفعل",
-                                show4:  null, addOperationError: "",
-                                show5:  null, addDeviceError: "",
-                                show6:  null, addAppointmentError: ""
+                                errorMessage: "هذا الرقم القومي موجود بالفعل",
+                                show1:  null,
+                                show2:  null,
+                                show3:  "show",
+                                show4:  null,
+                                show5:  null,
+                                show6:  null
                             })
                     }
                     else{
@@ -254,12 +257,13 @@ app.post("/addAdmin", async (req, respond) => {
                                                 image: req.session.user["image"],
                                                 dataNumbers: dataNumbers,
                                                 show:  null, error: "",
-                                                show1:  null, addSurgeonError: "",
-                                                show2:  null, addPatientError: "",
-                                                show3:  "show", addAdminError: "هذا البريد الالكتروني موجود بالفعل",
-                                                show4:  null, addOperationError: "",
-                                                show5:  null, addDeviceError: "",
-                                                show6:  null, addAppointmentError: ""
+                                                errorMessage: "هذا البريد الالكتروني موجود بالفعل",
+                                                show1:  null,
+                                                show2:  null,
+                                                show3:  "show",
+                                                show4:  null,
+                                                show5:  null,
+                                                show6:  null
                                             })
                                     }else{
                                         await pool.query("insert into admin (name, email, nationalID, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
@@ -274,12 +278,13 @@ app.post("/addAdmin", async (req, respond) => {
                                                             image: req.session.user["image"],
                                                             dataNumbers: dataNumbers,
                                                             show:  null, error: "",
-                                                            show1:  null, addSurgeonError: "",
-                                                            show2:  null, addPatientError: "",
-                                                            show3:  null, addAdminError: "",
-                                                            show4:  null, addOperationError: "",
-                                                            show5:  null, addDeviceError: "",
-                                                            show6:  null, addAppointmentError: ""
+                                                            errorMessage: "",
+                                                            show1:  null,
+                                                            show2:  null,
+                                                            show3:  "show",
+                                                            show4:  null,
+                                                            show5:  null,
+                                                            show6:  null
                                                         })
                                                 }
                                             }
@@ -299,12 +304,13 @@ app.post("/addAdmin", async (req, respond) => {
                 image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
-                show1:  null, addSurgeonError: "",
-                show2:  null, addPatientError: "",
-                show3:  "show", addAdminError: "كلمة المرور غير متطابقة",
-                show4:  null, addOperationError: "",
-                show5:  null, addDeviceError: "",
-                show6:  null, addAppointmentError: ""
+                errorMessage: "كلمات المرور غير متطابقة",
+                show1:  null,
+                show2:  null,
+                show3:  "show",
+                show4:  null,
+                show5:  null,
+                show6:  null
             })
     }
 })
@@ -328,12 +334,13 @@ app.post("/addPatient", async(req,respond) => {
                         image: req.session.user["image"],
                         dataNumbers: dataNumbers,
                         show:  null, error: "",
-                        show1:  null, addSurgeonError: "",
-                        show2:  "show", addPatientError: "هذا الرقم القومي موجود بالفعل",
-                        show3:  null, addAdminError: "",
-                        show4:  null, addOperationError: "",
-                        show5:  null, addDeviceError: "",
-                        show6:  null, addAppointmentError: ""
+                        errorMessage: "هذا الرقم القومي موجود بالفعل",
+                        show1:  null,
+                        show2:  "show",
+                        show3:  null,
+                        show4:  null,
+                        show5:  null,
+                        show6:  null
                     })
             }
         else{
@@ -348,12 +355,13 @@ app.post("/addPatient", async(req,respond) => {
                             image: req.session.user["image"],
                             dataNumbers: dataNumbers,
                             show:  null, error: "",
-                            show1:  null, addSurgeonError: "",
-                            show2:  null, addPatientError: "",
-                            show3:  null, addAdminError: "",
-                            show4:  null, addOperationError: "",
-                            show5:  null, addDeviceError: "",
-                            show6:  null, addAppointmentError: ""
+                            errorMessage: "",
+                            show1:  null,
+                            show2:  null,
+                            show3:  null,
+                            show4:  null,
+                            show5:  null,
+                            show6:  null
                         })
                 }
             })
@@ -388,12 +396,13 @@ app.post("/addSurgeon", async(req,respond) => {
                         image: req.session.user["image"],
                         dataNumbers: dataNumbers,
                         show:  null, error: "",
-                        show1:  null, addSurgeonError: "",
-                        show2:  null, addPatientError: "",
-                        show3:  null, addAdminError: "",
-                        show4:  null, addOperationError: "",
-                        show5:  null, addDeviceError: "",
-                        show6:  null, addAppointmentError: ""
+                        errorMessage: "",
+                        show1:  null,
+                        show2:  null,
+                        show3:  null,
+                        show4:  null,
+                        show5:  null,
+                        show6:  null
                     })
             }
         else{
@@ -404,12 +413,13 @@ app.post("/addSurgeon", async(req,respond) => {
                 image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
-                show1:  "show", addSurgeonError: "هذا الطبيب مسجل بالفعل",
-                show2:  null, addPatientError: "",
-                show3:  null, addAdminError: "",
-                show4:  null, addOperationError: "",
-                show5:  null, addDeviceError: "",
-                show6:  null, addAppointmentError: ""
+                errorMessage: "هذا الطبيب مسجل بالفعل",
+                show1:  "show",
+                show2:  null,
+                show3:  null,
+                show4:  null,
+                show5:  null,
+                show6:  null
             })
         }
     } )
@@ -441,12 +451,13 @@ app.post("/addDevice", async (req, respond) => {
                         image: req.session.user["image"],
                         dataNumbers: dataNumbers,
                         show:  null, error: "",
-                        show1:  null, addSurgeonError: "",
-                        show2:  null, addPatientError: "",
-                        show3:  null, addAdminError: "",
-                        show4:  null, addOperationError: "",
-                        show5:  null, addDeviceError: "",
-                        show6:  null, addAppointmentError: ""
+                        errorMessage: "",
+                        show1:  null,
+                        show2:  null,
+                        show3:  null,
+                        show4:  null,
+                        show5:  null,
+                        show6:  null
                     })
             }
         else{
@@ -457,12 +468,13 @@ app.post("/addDevice", async (req, respond) => {
                 image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
-                show1:  null, addSurgeonError: "",
-                show2:  null, addPatientError: "",
-                show3:  null, addAdminError: "",
-                show4:  null, addOperationError: "",
-                show5:  "show", addDeviceError: "هذا الجهاز مسجل بالفعل",
-                show6:  null, addAppointmentError: ""
+                errorMessage: "هذا الجهاز مسجل بالفعل",
+                show1:  null,
+                show2:  null,
+                show3:  null,
+                show4:  null,
+                show5:  "show",
+                show6:  null
             })
         }
     })
@@ -492,12 +504,13 @@ app.post("/addOperation",async(req,res)=>{
                 image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
-                show1:  null, addSurgeonError: "",
-                show2:  null, addPatientError: "",
-                show3:  null, addAdminError: "",
-                show4:  null, addOperationError: "",
-                show5:  null, addDeviceError: "",
-                show6:  null, addAppointmentError: ""
+                errorMessage: "",
+                show1:  null,
+                show2:  null,
+                show3:  null,
+                show4:  null,
+                show5:  null,
+                show6:  null
             })
     })      
 })
@@ -536,12 +549,13 @@ app.post("/addAppointment", async (req, respond) => {
                                                 image: req.session.user["image"],
                                                 dataNumbers: dataNumbers,
                                                 show:  null, error: "",
-                                                show1:  null, addSurgeonError: "",
-                                                show2:  null, addPatientError: "",
-                                                show3:  null, addAdminError: "",
-                                                show4:  null, addOperationError: "",
-                                                show5:  null, addDeviceError: "",
-                                                show6:  "show", addAppointmentError: "هذا التوقيت غير مناسب"
+                                                errorMessage: "هذه الغرفة غير متاحة في هذا التوقيت",
+                                                show1:  null,
+                                                show2:  null,
+                                                show3:  null,
+                                                show4:  null,
+                                                show5:  null,
+                                                show6:  "show"
                                                 })
                                             }else {
                                                 await pool.query(`SELECT * FROM appointment WHERE surgeonid = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [surgeonID, startdate, enddate], async (err, surgeonTimeRespond) =>{
@@ -552,12 +566,13 @@ app.post("/addAppointment", async (req, respond) => {
                                                             image: req.session.user["image"],
                                                             dataNumbers: dataNumbers,
                                                             show:  null, error: "",
-                                                            show1:  null, addSurgeonError: "",
-                                                            show2:  null, addPatientError: "",
-                                                            show3:  null, addAdminError: "",
-                                                            show4:  null, addOperationError: "",
-                                                            show5:  null, addDeviceError: "",
-                                                            show6:  "show", addAppointmentError: "هذا الجراح لديه عملية في هذا التوقيت"
+                                                            errorMessage: "هذا الجراح لديه عملية في هذا التوقيت",
+                                                            show1:  null,
+                                                            show2:  null,
+                                                            show3:  null,
+                                                            show4:  null,
+                                                            show5:  null,
+                                                            show6:  "show"
                                                         })
                                                     }else {
                                                         await pool.query(`SELECT * FROM appointment WHERE patientid = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [patientID, startdate, enddate], async (err, patientTimeRespond) =>{
@@ -568,12 +583,13 @@ app.post("/addAppointment", async (req, respond) => {
                                                                     image: req.session.user["image"],
                                                                     dataNumbers: dataNumbers,
                                                                     show:  null, error: "",
-                                                                    show1:  null, addSurgeonError: "",
-                                                                    show2:  null, addPatientError: "",
-                                                                    show3:  null, addAdminError: "",
-                                                                    show4:  null, addOperationError: "",
-                                                                    show5:  null, addDeviceError: "",
-                                                                    show6:  "show", addAppointmentError: "هذا المريض لديه عملية في هذا التوقيت"
+                                                                    errorMessage: "هذا المريذ لديه عملية في هذا التوقيت",
+                                                                    show1:  null,
+                                                                    show2:  null,
+                                                                    show3:  null,
+                                                                    show4:  null,
+                                                                    show5:  null,
+                                                                    show6:  "show"
                                                                 })
                                                             }else {
                                                                 await pool.query("select * from useddevice where operationcode = $1 and deviceserial not in (select serialnumber from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
@@ -584,12 +600,13 @@ app.post("/addAppointment", async (req, respond) => {
                                                                             image: req.session.user["image"],
                                                                             dataNumbers: dataNumbers,
                                                                             show:  null, error: "",
-                                                                            show1:  null, addSurgeonError: "",
-                                                                            show2:  null, addPatientError: "",
-                                                                            show3:  null, addAdminError: "",
-                                                                            show4:  null, addOperationError: "",
-                                                                            show5:  null, addDeviceError: "",
-                                                                            show6:  "show", addAppointmentError: "هذه العملية تتطلب جهاز غير متاح حاليا"
+                                                                            errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا",
+                                                                            show1:  null,
+                                                                            show2:  null,
+                                                                            show3:  null,
+                                                                            show4:  null,
+                                                                            show5:  null,
+                                                                            show6:  "show"
                                                                         })
                                                                     }else {
                                                                         await pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time, startdate, enddate) values ($1, $2, $3, $4, $5, $6, $7, $8)",
@@ -603,12 +620,13 @@ app.post("/addAppointment", async (req, respond) => {
                                                                                         image: req.session.user["image"],
                                                                                         dataNumbers: dataNumbers,
                                                                                         show:  null, error: "",
-                                                                                        show1:  null, addSurgeonError: "",
-                                                                                        show2:  null, addPatientError: "",
-                                                                                        show3:  null, addAdminError: "",
-                                                                                        show4:  null, addOperationError: "",
-                                                                                        show5:  null, addDeviceError: "",
-                                                                                        show6:  null, addAppointmentError: ""
+                                                                                        errorMessage: "",
+                                                                                        show1:  null,
+                                                                                        show2:  null,
+                                                                                        show3:  null,
+                                                                                        show4:  null,
+                                                                                        show5:  null,
+                                                                                        show6:  null
                                                                                     })
                                                                                 }
                                                                             })
@@ -627,12 +645,13 @@ app.post("/addAppointment", async (req, respond) => {
                                         image: req.session.user["image"],
                                         dataNumbers: dataNumbers,
                                         show:  null, error: "",
-                                        show1:  null, addSurgeonError: "",
-                                        show2:  null, addPatientError: "",
-                                        show3:  null, addAdminError: "",
-                                        show4:  null, addOperationError: "",
-                                        show5:  null, addDeviceError: "",
-                                        show6:  "show", addAppointmentError: "هذه العملية لا تتم في هذه الغرفة"
+                                        errorMessage: "هذه العملية لا تتم في هذه الغرفة",
+                                        show1:  null,
+                                        show2:  null,
+                                        show3:  null,
+                                        show4:  null,
+                                        show5:  null,
+                                        show6:  "show"
                                     })
                                 }
                         }else {
@@ -642,12 +661,13 @@ app.post("/addAppointment", async (req, respond) => {
                                 image: req.session.user["image"],
                                 dataNumbers: dataNumbers,
                                 show:  null, error: "",
-                                show1:  null, addSurgeonError: "",
-                                show2:  null, addPatientError: "",
-                                show3:  null, addAdminError: "",
-                                show4:  null, addOperationError: "",
-                                show5:  null, addDeviceError: "",
-                                show6:  "show", addAppointmentError: "لا توجد عملية بهذا الكود"
+                                errorMessage: "لا توجد عملية بهذا الكود",
+                                show1:  null,
+                                show2:  null,
+                                show3:  null,
+                                show4:  null,
+                                show5:  null,
+                                show6:  "show"
                             })
                         }
                     })
@@ -659,11 +679,13 @@ app.post("/addAppointment", async (req, respond) => {
                         dataNumbers: dataNumbers,
                         show:  null, error: "",
                         show1:  null, addSurgeonError: "",
-                        show2:  null, addPatientError: "",
-                        show3:  null, addAdminError: "",
-                        show4:  null, addOperationError: "",
-                        show5:  null, addDeviceError: "",
-                        show6:  "show", addAppointmentError: "لا يوجد جراح بهذا الرقم"
+                        errorMessage: "لا يوجد جراح بهضا الرقم القومي",
+                        show1:  null,
+                        show2:  null,
+                        show3:  null,
+                        show4:  null,
+                        show5:  null,
+                        show6:  "show"
                     })
                 }
             })
@@ -674,12 +696,13 @@ app.post("/addAppointment", async (req, respond) => {
                 image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
-                show1:  null, addSurgeonError: "",
-                show2:  null, addPatientError: "",
-                show3:  null, addAdminError: "",
-                show4:  null, addOperationError: "",
-                show5:  null, addDeviceError: "",
-                show6:  "show", addAppointmentError: "لا يوجد مريض بهذا الرقم"
+                errorMessage: "لا يوجد مريض بهذا الرقم القومي",
+                show1:  null,
+                show2:  null,
+                show3:  null,
+                show4:  null,
+                show5:  null,
+                show6:  "show"
             })
         }
     })

@@ -18,10 +18,8 @@
     <div class = "Nav-bar">
         <div class="overlay1 <%= show1 %>">
         <div class="container addSurgeon">
-            <% if(show1 != null){ %>
-                <div class="addSurgeonError"><%= addSurgeonError %></div>
-                <% } %>
             <h5>إضافة جراح </h5>
+            <div class="errorMessage"><%= errorMessage %></div>
             <form action="addSurgeon" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم الجراح</label>
                 <input type="name" name="name" placeholder="ادخل الاسم" dir='rtl' lang='ar' required>
@@ -59,10 +57,8 @@
     </div>
     <div class = "overlay2 <%= show2 %>">
         <div class="container addPatient">
-            <% if(show2 != null){ %>
-            <div class="addPatientError"><%= addPatientError %></div>
-            <% } %>
             <h5> إضافة مريض</h5>
+            <div class="errorMessage"><%= errorMessage %></div>
             <form action="addPatient" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم المريض</label>
                 <input type="name" name="name" placeholder="ادخل اسم المريض" dir='rtl' lang='ar' required>
@@ -96,10 +92,8 @@
     </div>
     <div class="overlay3 <%= show3 %>" >
         <div class="container addAdmin">
-            <% if(show3 != null){ %>
-            <div class="addAdminError"><%= addAdminError %></div>
-            <% } %>
             <h5> تسجيل مشرف جديد</h5>
+            <div class="errorMessage"><%= errorMessage %></div>
             <form action="addAdmin" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم المشرف</label>
                 <input type="name" name="name" placeholder="ادخل اسم المستخدم" dir='rtl' lang='ar' required>
@@ -138,10 +132,8 @@
     </div>
     <div class = "overlay4 <%= show4 %>" >
         <div class="container addOperation">
-            <% if(show5 != null){ %>
-                <div class="addOperationError"><%= addOperationError %></div>
-            <% } %>
             <h5> إضافة عملية</h5>
+            <div class="errorMessage"><%= errorMessage %></div>
             <form dir='rtl' action="addOperation" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم العملية</label>
                 <input type="text" name="name" placeholder="ادخل اسم العملية" dir='rtl' lang='ar' required>
@@ -155,7 +147,7 @@
                 <label for="usedDevices" id="device-input" dir='rtl'>الاجهزة المستخدمة</label>
                     <div id="fieldContainer" dir='rtl'>
                         <div class="newField">
-                            <input type="text" name="multiValueField" placeholder="ادخل الرقم التسلسلي للجهاز">
+                            <input type="text" name="multiValueField" placeholder="ادخل كود المنتج للجهاز">
                             <button type="button" class="deleteButton">حذف</button>
                         </div>
                     </div>
@@ -172,15 +164,15 @@
     </div>
     <div class = "overlay5 <%= show5 %>" >
         <div class="container addDevice">
-            <% if(show5 != null){ %>
-                <div class="addDeviceError"><%= addDeviceError %></div>
-            <% } %>
             <h5> إضافة جهاز</h5>
+            <div class="errorMessage"><%= errorMessage %></div>
             <form action="addDevice" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم الجهاز</label>
                 <input type="name" name="name" placeholder="ادخل اسم الجهاز" dir='rtl' lang='ar' required>
                 <label for="serial" dir='rtl' lang='ar'>الرقم التسلسلي</label>
                 <input type="serial" name="serial" placeholder="ادخل الرقم التسلسلي للجهاز" dir='rtl' lang='ar' required>
+                <label for="productCode">كود المنتج</label>
+                <input type="text" id="productCode" name="productCode" placeholder="ادخل كود المنتج لهذا الجهاز">
                 <label for="price" dir='rtl' lang='ar'>سعر الجهاز</label>
                 <input type="price" name="price" placeholder="ادخل سعر الجهاز" dir='rtl' lang='ar' required>
                 <label for="warranty" dir='rtl' lang='ar'>الضمان</label>
@@ -200,10 +192,8 @@
     </div>
     <div class = "overlay6 <%= show6 %>" >
         <div class="container addAppointment">
-            <% if(show6 != null){ %>
-                <div class="addAppointmentError"><%= addAppointmentError %></div>
-            <% } %>
             <h5> عملية الحجز</h5>
+            <div class="errorMessage"><%= errorMessage %></div>
             <form action="addAppointment" method="post">
                 <label for="patientID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
                 <input type="text" name="patientID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
