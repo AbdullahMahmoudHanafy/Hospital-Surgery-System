@@ -878,7 +878,6 @@ app.post("/patientsPageAdd",async(req,res)=>{
     })
 })
 
-
 app.post("/doctorsPageAdd",async(req,res)=>{
     let name = req.body["name"],
     sex = req.body["sex"], 
@@ -949,7 +948,6 @@ app.post("/operationsPageAdd",async(req,res)=>{
     roomnumber = req.body.roomnumber,
     usedDevices = req.body["multiValueField"],
     description = req.body.description;
-    let missedDevice = false;
     // if user entered one device typeof used devices will be string and the following algorithm use it as object so there must be a type casting
     if(typeof usedDevices == "string")
         usedDevices = [usedDevices];
@@ -957,8 +955,8 @@ app.post("/operationsPageAdd",async(req,res)=>{
     await pool.query("insert into operation (name, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5) returning code",
         [name,duration,price,roomnumber,description], async(err, respond) => {
             let code = respond.rows[0]["code"]
-            usedDevices.forEach(async (deviceSerialNumber)=>{
-                            await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
+            usedDevices.forEach(async (deviceproductcode)=>{
+                            await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, code],async(err,devicesData)=>{
                             })
                         })
                         await pool.query("select * from operation",async (err, newdata) => {
