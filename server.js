@@ -593,7 +593,7 @@ app.post("/addAppointment", async (req, respond) => {
                                                                     show6:  "show"
                                                                 })
                                                             }else {
-                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceproductcode not in (select deviceproductcode from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
+                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceproductcode not in (select DISTINCT deviceproductcode from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
                                                                     if(devicesAvailable.rowCount > 0){
                                                                         let dataNumbers = await getNumbers()
                                                                         respond.render("./homePage.ejs", {
@@ -1020,7 +1020,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                     }
                                                                 })
                                                             }else {
-                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceserial not in (select serialnumber from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
+                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceproductcode not in (select DISTINCT deviceproductcode from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
                                                                     if(devicesAvailable.rowCount > 0){
                                                                         await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
                                                                             if(err)
@@ -1694,7 +1694,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                                     }
                                                                 })
                                                             }else {
-                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceserial not in (select serialnumber from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
+                                                                await pool.query("select * from useddevice where operationcode = $1 and deviceproductcode not in (select DISTINCT deviceproductcode from device where status = $2)", [operationID, "نشط"], async (err, devicesAvailable) => {
                                                                     if(devicesAvailable.rowCount > 0){
                                                                         await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
                                                                             if(err)
