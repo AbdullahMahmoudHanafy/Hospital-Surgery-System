@@ -99,15 +99,15 @@
     </div>
 
     <!-- overlay pages -->
-    <div class="edit-overlay">
+    <div class="edit-overlay <%=editShow%>">
         <div class="edit-overlay-container">
            <div class="edit-overlay-content">
             <h1 class="head"> تعديل بيانات الجراح</h1>
-            <br>
-           
-            <div class="errormessagedoctorprofile">
+            <div class="errorMessage">
                 <%= errormessagedoctor %>
             </div>
+            <br>
+
             <form action="editSurgeon" method="POST">
                 <input type="hidden" name="oldid" value=<%= id %> >
                 <div class="form-group">
