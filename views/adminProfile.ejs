@@ -12,17 +12,18 @@
 </head>
 <body>
 
-    <div class="edit-overlay">
+    <div class="edit-overlay <%=editShow%>">
    
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
              <h1 class="head">  تعديل بيانات المشرف</h1>
-             <br>
-            <div class="errormessageadminprofile">
+             <div class="errorMessage">
                 <%= errormessageadmin %>
             </div>
+             <br>
              <form action="editAdmin" method="POST">
                 <input type="hidden" name="oldid" value= <%= id %>>
+                <input type="hidden" name="oldEmail" value= <%= email %>>
                  <div class="form-group">
                      <label for="name">الاسم</label>
                      <input type="text" id="name" name="name" value="احمد محمد">

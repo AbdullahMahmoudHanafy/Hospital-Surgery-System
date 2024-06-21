@@ -1083,7 +1083,8 @@ app.post("/editAdmin", async (req, res) => {
         age = calculateAge(birthDate),
         confirmPassword = req.body["confirmPassword"],
         image = "123",
-        oldid = req.body["oldid"];
+        oldid = req.body["oldid"],
+        oldEmail = req.body["oldEmail"];
     await pool.query(
         `select * from admin where nationalid='${req.body["id"]}'`,
         async (err, respond) => {
@@ -1095,14 +1096,16 @@ app.post("/editAdmin", async (req, res) => {
                             res.render("adminProfile.ejs", {
                                 name: req.session.user["username"],
                                 image: req.session.user["image"],
-                                errormessageadmin: "this id has already been registered",
-                                name: respond2.rows[0].name,
+                                errormessageadmin: "الرقم القومي مستخدم",
+                                adminName: respond2.rows[0].name,
                                 email: respond2.rows[0].email,
                                 id: respond2.rows[0].nationalid,
                                 mobile: respond2.rows[0].phone,
                                 sex: respond2.rows[0].sex,
                                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB'))
+                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                address:respond2.rows[0].address,
+                                editShow: "show"
                             });
                         }
                     );
@@ -1113,47 +1116,82 @@ app.post("/editAdmin", async (req, res) => {
                             res.render("adminProfile.ejs", {
                                 name: req.session.user["username"],
                                 image: req.session.user["image"],
-                                errormessageadmin: "the passwords do not match",
-                                name: respond2.rows[0].name,
+                                errormessageadmin: "كلمات المرور غير متطابقة",
+                                adminName: respond2.rows[0].name,
                                 email: respond2.rows[0].email,
                                 id: respond2.rows[0].nationalid,
                                 mobile: respond2.rows[0].phone,
                                 sex: respond2.rows[0].sex,
                                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB'))
-
+                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                address:respond2.rows[0].address,
+                                editShow: "show"
                             });
                         }
                     );
                 }
                 else {
-                    await pool.query(
-                        "UPDATE admin SET name = $1, email = $2, nationalid = $3, phone = $4, sex = $5, birthdate = $6, image = $7, address = $8, password = $9 WHERE nationalid = $10",
-                        [
-                            name,
-                            email,
-                            id,
-                            mobile,
-                            sex,
-                            birthDate,
-                            image,
-                            address,
-                            password,
-                            oldid,
-                        ],
-                        (err2, respond2) => {
-                            res.render("adminProfile.ejs", {
-                                errormessageadmin: null,
-                                name: name,
-                                email: email,
-                                id: id,
-                                mobile: mobile,
-                                sex: sex,
-                                birthDate: birthDate,
-                                age: calculateAge(birthDate)
-                            });
+                    await pool.query("select * from admin where email = $1",[email], async(err,emailData)=>{
+                        if(emailData.rows.length != 0 && email != oldEmail){
+                            await pool.query(
+                                `select * from admin where nationalid ='${oldid}'`,
+                                (err2, respond2) => {
+                                    res.render("adminProfile.ejs", {
+                                        name: req.session.user["username"],
+                                        image: req.session.user["image"],
+                                        errormessageadmin: "البريد الإلكتروني مستخدم",
+                                        adminName: respond2.rows[0].name,
+                                        email: respond2.rows[0].email,
+                                        id: respond2.rows[0].nationalid,
+                                        mobile: respond2.rows[0].phone,
+                                        sex: respond2.rows[0].sex,
+                                        birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                        age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                        address:respond2.rows[0].address,
+                                        editShow: "show"
+                                    });
+                                }
+                            );
                         }
-                    );
+                        else{
+                            await pool.query(
+                                "UPDATE admin SET name = $1, email = $2, nationalid = $3, phone = $4, sex = $5, birthdate = $6, image = $7, address = $8, password = $9 WHERE nationalid = $10",
+                                [
+                                    name,
+                                    email,
+                                    id,
+                                    mobile,
+                                    sex,
+                                    birthDate,
+                                    image,
+                                    address,
+                                    password,
+                                    oldid,
+                                ],
+                                async (err2, respond2) => {
+                                    await pool.query(
+                                        `select * from admin where nationalid ='${id}'`,
+                                        (err2, respond2) => {
+                                            res.render("adminProfile.ejs", {
+                                                name: req.session.user["username"],
+                                                image: req.session.user["image"],
+                                                errormessageadmin: null,
+                                                adminName: respond2.rows[0].name,
+                                                email: respond2.rows[0].email,
+                                                id: respond2.rows[0].nationalid,
+                                                mobile: respond2.rows[0].phone,
+                                                sex: respond2.rows[0].sex,
+                                                birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                                address:respond2.rows[0].address,
+                                                editShow: null
+                                            });
+                                        }
+                                    );
+                                }
+                            );
+                        }
+                    })
                 }
             } else console.log(err);
         }
@@ -1295,7 +1333,7 @@ app.post("/previewAdminProfile",async(req,res)=>{
         res.render("adminProfile.ejs", {
                 name: req.session.user["username"],
                 image: req.session.user["image"],
-                errormessageadmin: "this id has already been registered",
+                errormessageadmin: null,
                 adminName: respond2.rows[0].name,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
@@ -1303,7 +1341,8 @@ app.post("/previewAdminProfile",async(req,res)=>{
                 sex: respond2.rows[0].sex,
                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                 age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
-                address : respond2.rows[0].address
+                address : respond2.rows[0].address,
+                editShow:null
             }); 
     })
 })
