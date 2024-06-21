@@ -70,7 +70,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 .edit-overlay input[type="date"],
 .edit-overlay input[type="tel"] {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -162,12 +162,12 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
 .edit-overlay .deleteButton{
     margin: 10px;
-    height: 25px;
+    height: 36px;
 }
 
 .edit-overlay input[name="multiValueField"]{
-    margin: 10px;   
-    height: 25px;
+    height: 36px;
+    margin:10px
 }
 
 .edit-overlay #add-field-but{
@@ -181,4 +181,12 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 .edit-overlay ::-webkit-scrollbar-thumb{
     background-color: rgb(61, 116, 255);
     border-radius: 5px;
+}
+
+.edit-overlay .deleteButton:hover{
+    background-color: rgb(149, 11, 11);
+}
+
+.edit-overlay .deleteButton{
+    background-color: #ff3d3d;
 }

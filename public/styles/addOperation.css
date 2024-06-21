@@ -135,7 +135,7 @@
     width: 10px;
 }
 .overlay4 ::-webkit-scrollbar-thumb{
-    background-color: rgb(61, 116, 255);
+    background-color: tomato;
     border-radius: 5px;
 }
 
@@ -147,6 +147,7 @@
 .overlay4 .deleteButton{
     margin: 10px;
     height: 36px;
+    background-color: #ff3d3d;
 }
 
 .overlay4 input[name="multiValueField"]{
@@ -196,3 +197,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.overlay4 .deleteButton:hover{
+    background-color: rgb(149, 11, 11);
+}
+
