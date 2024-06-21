@@ -74,14 +74,15 @@
 
     <!-- add overlay pages -->
 
-    <div class="edit-overlay">
+    <div class="edit-overlay <%=editShow%>">
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
                 <h1 class="head"> تعديل العملية</h1>
+                <div class="errorMessage"><%= editErrorMessage %></div>
                 <br>
 
-                <form action="editOperation" method="POST">
-
+                <form action="operationsPageEdit" method="POST">
+                    <input type="hidden" name="oldCode" value="<%=savedCode%>" class="editHiddenID">
                     <div class="form-group">
                         <label for="operationName">اسم العملية</label>
                         <input type="text" id="operationName" name="operationName" value="فتاء">
