@@ -26,9 +26,9 @@ function calculateAge(birthdate) {
   const monthDifference = today.getMonth() - birthDate.getMonth();
 
   // Adjust age if the current month and day are before the birth date
-  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-  }
+//   if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+//       age--;
+//   }
 
   return age;
 }
@@ -121,7 +121,7 @@ app.get("/devices", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./devices.ejs", {allDevices: res.rows, show: null, errorMessage : null, name:req.session.user["username"]});
+            data.render("./devices.ejs", {allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"]});
         }
     })
 })
@@ -132,7 +132,7 @@ app.get("/admins", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./admins.ejs", {allAdmins: res.rows, show: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./admins.ejs", {allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -154,7 +154,7 @@ app.get("/doctors", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./doctors.ejs", {allDoctors: res.rows, show: null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./doctors.ejs", {allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -165,7 +165,7 @@ app.get("/operations", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./operations.ejs", {allOperations: res.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./operations.ejs", {allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -176,7 +176,7 @@ app.get("/patients", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./patients.ejs", {allPatients: res.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./patients.ejs", {allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -726,7 +726,7 @@ app.post("/adminsPageDeleteAdmin",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from admin where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from admin", (err, respond) => {
-            res.render("./admins.ejs", {allAdmins: respond.rows,show: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./admins.ejs", {allAdmins: respond.rows,show: null,savedID:null,savedEmail:null,showEdit:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -735,7 +735,7 @@ app.post("/doctorsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from surgeon where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from surgeon", (err, respond) => {
-            res.render("./doctors.ejs", {allDoctors: respond.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./doctors.ejs", {allDoctors: respond.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -744,16 +744,18 @@ app.post("/patientsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from patient where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from patient", (err, respond) => {
-            res.render("./patients.ejs", {allPatients: respond.rows,show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./patients.ejs", {allPatients: respond.rows,show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
 
 app.post("/operationsPageDelete",async(req,res)=>{
     let code = req.body.deletetionCode
+    await pool.query("delete from useddevice where operationcode = $1",[code],(err,respond)=>{
+    })
     await pool.query("delete from operation where code = $1",[code], async(err, rp) => {
         await pool.query("select * from operation", (err, respond) => {
-            res.render("./operations.ejs", {allOperations: respond.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./operations.ejs", {allOperations: respond.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -762,7 +764,7 @@ app.post("/devicesPageDelete",async(req,res)=>{
     let Serial = req.body.deletetionSerial
     await pool.query("delete from device where serialnumber = $1",[Serial], async(err, rp) => {
         await pool.query("select * from device", (err, respond) => {
-            res.render("./devices.ejs", {allDevices: respond.rows, show: null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./devices.ejs", {allDevices: respond.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -794,30 +796,30 @@ app.post("/adminsPageAdd",async(req,res)=>{
 
     if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
-            res.render("./admins.ejs", {allAdmins: data.rows, show: "show", errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./admins.ejs", {allAdmins: data.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     }
     else{
         await pool.query("select * from admin where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from admin", async(err, newdata) => {
-                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", showEdit:null,savedID:null,savedEmail:null, errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from admin where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from admin", async(err, newdata) => {
-                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
-                    else
+                    else{
                     await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, password, sex, image, bdate], async(err, respond) => {
                         await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows, show: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./admins.ejs", {allAdmins: newdata.rows, show:null,savedID:null,savedEmail:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
-                    })
+                    })}
                 })
             }
         })
@@ -836,7 +838,7 @@ app.post("/patientsPageAdd",async(req,res)=>{
     await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
         if(data.rows.length != 0){
             await pool.query("select * from patient", async(err, newdata) => {
-                res.render("./patients.ejs", {allPatients: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./patients.ejs", {allPatients: newdata.rows, show: "show", editShow:null,editErrorMessage:null,savedID : null,errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
             })
             }
         else{
@@ -845,7 +847,7 @@ app.post("/patientsPageAdd",async(req,res)=>{
                     if(err)
                         console.log(err)
                     await pool.query("select * from patient", async(err, newdata) => {
-                    res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./patients.ejs", {allPatients: newdata.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 })
         }
@@ -867,21 +869,21 @@ app.post("/doctorsPageAdd",async(req,res)=>{
         await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from surgeon", async(err, newdata) => {
-                    res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from surgeon where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show", errorMessage : "البريد الإلكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "البريد الإلكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
                     else
                     await pool.query("insert into surgeon (name, email, nationalid, phone, address, sex, image, birthdate, speciality) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, sex, image, bdate,speciality], async(err, respond) => {
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                        res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
                     })
                 })
@@ -900,15 +902,15 @@ app.post("/devicesPageAdd",async(req,res)=>{
 
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,data)=>{
         if(data.rows.length != 0){
-            await pool.query("select * from device",(req,newdata)=>{
-                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show", errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
+            await pool.query("select * from device",(err,newdata)=>{
+                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show",editShow:null,editErrorMessage:null,savedCode : null, errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
             })
         }
         else{
             await pool.query("insert into device (name, serialnumber, company, status, warranty, price, date) values ($1, $2, $3, $4, $5, $6, $7)",
                 [name,serial,company,stat,warranty,price,date],async(err,respond)=>{
                     await pool.query("select * from device",(err,newdata)=>{
-                        res.render("devices.ejs",{allDevices:newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
+                        res.render("./devices.ejs",{allDevices:newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode : null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
                     })
                 })
         }
@@ -1288,6 +1290,295 @@ app.post("/editSurgeon", async (req, res) => {
     );
 });
 
+app.post("/previewAdminProfile",async(req,res)=>{
+    let id = req.body.hiddenPreviewID
+    await pool.query("select * from admin where nationalid = $1",[id],(err,respond2)=>{
+        res.render("adminProfile.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                errormessageadmin: "this id has already been registered",
+                adminName: respond2.rows[0].name,
+                email: respond2.rows[0].email,
+                id: respond2.rows[0].nationalid,
+                mobile: respond2.rows[0].phone,
+                sex: respond2.rows[0].sex,
+                birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                address : respond2.rows[0].address
+            }); 
+    })
+})
+
+app.post("/previewDoctorProfile",async(req,res)=>{
+    let id = req.body.hiddenPreviewID
+    await pool.query(
+        `select * from surgeon where nationalid ='${id}'`,
+        (err2, respond2) => {
+            res.render("doctorProfile.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                errormessagedoctor: "this id has already been registered",
+                doctorName: respond2.rows[0].name,
+                email: respond2.rows[0].email,
+                id: respond2.rows[0].nationalid,
+                phone: respond2.rows[0].phone,
+                sex: respond2.rows[0].sex,
+                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                specialization: respond2.rows[0].speciality,
+                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                address:respond2.rows[0].address
+            });
+        }
+    );
+})
+
+app.post("/previewPatientProfile",async(req,res)=>{
+    let id = req.body.hiddenPreviewID
+    await pool.query(
+        `SELECT * FROM patient WHERE nationalid = '${id}'`,
+        (err2, respond2) => {
+            res.render("patientProfile.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                errormessagepatient: "this id has already been registered",
+                patientName: respond2.rows[0].name,
+                id: respond2.rows[0].nationalid,
+                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                sex: respond2.rows[0].sex,
+                phone: respond2.rows[0].phone,
+                age: calculateAge(formatDate(respond2.rows[0]["birthdate"])),
+                address:respond2.rows[0].address
+            });
+        }
+    );
+})
+
+app.post("/previewOperationProfile",async(req,res)=>{
+    let code = req.body.hiddenOperationCode
+    await pool.query(
+        `SELECT * FROM operation WHERE code = '${code}'`,
+        (err2, respond2) => {
+            res.render("operationProfile.ejs", {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                errormessagepatient: "this id has already been registered",
+                operationName: respond2.rows[0].name,
+                operationCode: respond2.rows[0].code,
+                operationPrice: respond2.rows[0].price,
+                operationDuration: respond2.rows[0].duration,
+                roomNumber: respond2.rows[0].roomnumber,
+                operationDescription: respond2.rows[0].description,
+                address:respond2.rows[0].address
+            });
+        }
+    );
+})
+
+app.post("/adminsPageEdit",async(req,res)=>{
+    let name = req.body["name"],
+        id = req.body["id"],
+        sex = req.body["sex"],
+        email = req.body["email"],
+        birthDate = req.body["birthDate"],
+        mobile = req.body["mobile"],
+        address = req.body["address"],
+        password = req.body["password"],
+        confirmPassword = req.body["confirmPassword"],
+        image = "123",
+        oldid = req.body["oldID"],
+        oldEmail = req.body["oldEmail"];
+    await pool.query(
+        `select * from admin where nationalid='${req.body["id"]}'`,
+        async (err, respond) => {
+            if (!err) {
+                if (respond.rows.length == 1 && id != oldid) {
+                    await pool.query("select * from admin", async(err, newdata) => {
+                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                    })
+                } else if (req.body["password"] != req.body["confirmPassword"]) {
+                    await pool.query("select * from admin", async(err, newdata) => {
+                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"كلمات المرور غير متطابقة", name: req.session.user["username"], image: req.session.user["image"]});
+                    })
+                }
+                else {
+                    await pool.query("select * from admin where email = $1",[email], async(err,emailData)=>{
+                        if(emailData.rows.length != 0 && email != oldEmail){
+                            await pool.query("select * from admin", async(err, newdata) => {
+                                res.render("./admins.ejs", {allAdmins: newdata.rows, show:null,savedID:oldid,savedEmail:oldEmail, showEdit: "show", errorMessage : null,editErrorMessage:"البريد الالكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                            })
+                        }
+                        else{
+                            await pool.query(
+                                "UPDATE admin SET name = $1, email = $2, nationalid = $3, phone = $4, sex = $5, birthdate = $6, image = $7, address = $8, password = $9 WHERE nationalid = $10",
+                                [
+                                    name,
+                                    email,
+                                    id,
+                                    mobile,
+                                    sex,
+                                    birthDate,
+                                    image,
+                                    address,
+                                    password,
+                                    oldid,
+                                ],
+                                async(err2, respond2) => {
+                                    await pool.query("select * from admin", async(err, newdata) => {
+                                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:null,savedEmail:null, show:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                                    })
+                                }
+                            );
+                        }
+                    })
+                    
+                }
+            } else console.log(err);
+        }
+    );
+})
+
+app.post("/doctorsPageEdit",async(req,res)=>{
+    let name = req.body["name"],
+        email = req.body["email"],
+        phone = req.body["mobile"],
+        birthdate = req.body["birthDate"],
+        oldid = req.body["oldID"],
+        sex = req.body["sex"],
+        id = req.body["id"],
+        image = "123",
+        address = req.body["address"],
+        specialization = req.body["special"];
+    await pool.query("select * from surgeon where nationalid = $1",[id],async(err,respond)=>{
+        if(respond.rows.length == 1 && id != oldid){
+            await pool.query("select * from surgeon", async(err, newdata) => {
+                res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,editShow:"show",savedID:oldid,editErrorMessage:"الرقم القومي مستخدم", errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            })
+        }
+        else{
+                await pool.query(
+                    `update surgeon set name = $1 , nationalid = $2 ,email = $3 , phone = $4, sex = $5 , birthdate = $6 ,address =$7 , image = $8 , speciality = $9 where nationalid = $10`,
+                    [
+                        name,
+                        id,
+                        email,
+                        phone,
+                        sex,
+                        birthdate,
+                        address,
+                        image,
+                        specialization,
+                        oldid,
+                    ],
+
+                    async(err2, respond2) => {
+                        await pool.query("select * from surgeon", async(err, newdata) => {
+                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,savedID:null,editShow:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                        })  
+                    }
+                );
+            }
+    })
+})
+
+app.post("/patientsPageEdit",async(req,res)=>{
+    let name = req.body["name"],
+        id = req.body["nationalID"],
+        birthdate = req.body["birthDate"],
+        sex = req.body["sex"],
+        image = "123",
+        phone = req.body["mobile"],
+        address = req.body["address"],
+        age = calculateAge(birthdate),
+        oldid = req.body["oldID"];
+
+    await pool.query("select * from patient where nationalid = $1",[id],async (err,respond)=>{
+        if(respond.rows.length == 1 && id != oldid){
+            await pool.query("select * from patient", async(err, newdata) => {
+                res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null,editShow:"show",editErrorMessage:"الرقم القومي مستخدم",savedID : oldid, name: req.session.user["username"], image: req.session.user["image"]});
+            })
+        }
+        else{
+            await pool.query(
+                "update patient SET name = $1, nationalid = $2, address = $3, phone = $4, sex = $5, image = $6, birthdate = $7 where nationalid = $8",
+
+                [name, id, address, phone, sex, image, birthdate, oldid],
+                async (err2, respond2) => {
+                    await pool.query("select * from patient", async(err, newdata) => {
+                        res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null,editShow:null,editErrorMessage:null,savedID : null, name: req.session.user["username"], image: req.session.user["image"]});
+                    })
+                }
+            );
+        }
+
+    })
+})
+
+app.post("/devicesPageEdit",async (req,res)=>{
+    let name = req.body.equipmentName,
+    serial = req.body.serialNumber,
+    price = req.body.price,
+    warranty = req.body.warranty,
+    stat = req.body.status,
+    company = req.body.company,
+    date = req.body.productionDate,
+    oldSerial = req.body.oldSerial;
+    await pool.query("select * from device where serialnumber = $1",[serial],async(err,respond)=>{
+        if(respond.rows.length == 1 && serial != oldSerial){
+            await pool.query("select * from device",(err,newdata)=>{
+                res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:"show",editErrorMessage:"الرقم التسلسلي مستخدم",savedCode : oldSerial, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+            })
+        }
+        else{
+            await pool.query("update device set name = $1, serialnumber = $2, company = $3, warranty = $4, price = $5, date = $6, status = $7 where serialnumber = $8",
+                [name,serial,company,warranty,price,date,stat,oldSerial],async (err,respond2)=>{
+                    if(err) console.log(err)
+                    await pool.query("select * from device",(err,newdata)=>{
+                        res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+                    })      
+                })
+        }
+
+    })
+})
+
+app.post("/operationsPageEdit",async (req,res)=>{
+    let name = req.body.operationName,
+    code = req.body.operationId,
+    price = req.body.price,
+    duration = req.body.duration,
+    roomnumber = req.body.roomNumber,
+    usedDevices = req.body["multiValueField"],
+    description = req.body.description,
+    oldCode = req.body.oldCode;
+
+    if(typeof usedDevices == "string")
+        usedDevices = [usedDevices];
+
+    await pool.query("select * from operation where code = $1",[code],async(err,data)=>{
+        if(data.rows.length != 0 && code != oldCode){
+            await pool.query("select * from operation",(err,newdata)=>{
+                res.render("./operations.ejs",{allOperations: newdata.rows,show: null,editShow:"show",editErrorMessage:"كود العملية مستخدم",savedCode:oldCode, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+            })}
+        else{
+            await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
+            })
+            
+            usedDevices.forEach(async (deviceSerialNumber)=>{
+                await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, code],async(err,devicesData)=>{
+                })
+            })
+
+
+            await pool.query("update operation set name = $1, code = $2, duration = $3, price = $4, roomnumber = $5, description = $6 where code = $7 "
+                ,[name,code,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
+                    await pool.query("select * from operation",async (err, newdata) => {
+                        res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                    })   
+                })    
+            }
+    })
+})
+ 
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
 });

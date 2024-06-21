@@ -39,7 +39,8 @@ cancelDeletion.addEventListener('click',function(){
     deleteOverlay.style.display = 'none'
 })
 cancelEdit.addEventListener('click',function(){
-    editOverlay.style.display = 'none'
+    editOverlay.style.display = 'none';
+    editOverlay.querySelector(".errorMessage").innerHTML = '';
 })
 
 // select all delete and edit buttons in all 3Dots menus
@@ -50,14 +51,19 @@ let deleteButtons = document.querySelectorAll('.delete')
 editButtons.forEach((editButton)=>{
     editButton.addEventListener('click',function(event){
         editOverlay.style.display = 'flex'
-        var id = event.target.parentElement.parentElement.parentElement.querySelector(".id").textContent
-        document.querySelector(".editHiddenID").value = id
+        let id = event.target.parentElement.parentElement.parentElement.querySelector(".id").textContent
+        editOverlay.querySelector(".editHiddenID").value = id
+        if(editOverlay.classList.contains("editAdminInAdminsPage")){
+        let email = event.target.parentElement.parentElement.parentElement.querySelector(".email").value
+        editOverlay.querySelector(".editHiddenEmail").value = email
+        }
     })
 })
+
 deleteButtons.forEach((deleteButton)=>{
     deleteButton.addEventListener('click',function(event){
         deleteOverlay.style.display = 'flex'
-        var id = event.target.parentElement.parentElement.parentElement.querySelector(".id").textContent
+        let id = event.target.parentElement.parentElement.parentElement.querySelector(".id").textContent
         document.querySelector(".DeletionHiddenID").value = id
     })
 })

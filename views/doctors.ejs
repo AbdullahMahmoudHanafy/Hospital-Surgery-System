@@ -64,36 +64,37 @@
 
                 <div class="doctors">
                     <% for( var i = 0 ; i < allDoctors.length ; i++ ){%>
-                    <div class="doctor-row"><div class="doctor-col"><div class="top"><%= allDoctors[i]["name"] %></div><div class="bottom id"><%= allDoctors[i]["nationalid"] %></div></div><div class="doctor-col"><div class="doctor-gender"><%= allDoctors[i]["sex"] %></div></div><div class="doctor-col"><div class="top"><%= new Date().getFullYear() - new Date(allDoctors[i]["birthdate"]).getFullYear() %>عاما </div><div class="bottom"><%= `${new Date(allDoctors[i]["birthdate"]).getDate()}-${new Date(allDoctors[i]["birthdate"]).getMonth() + 1}-${new Date(allDoctors[i]["birthdate"]).getFullYear()}` %></div></div><div class="doctor-col"><div class="top"><%= allDoctors[i]["speciality"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="doctor-row"><div class="doctor-col"><div class="top"><%= allDoctors[i]["name"] %></div><div class="bottom id"><%= allDoctors[i]["nationalid"] %></div></div><div class="doctor-col"><div class="doctor-gender"><%= allDoctors[i]["sex"] %></div></div><div class="doctor-col"><div class="top"><%= new Date().getFullYear() - new Date(allDoctors[i]["birthdate"]).getFullYear() %>عاما </div><div class="bottom"><%= `${new Date(allDoctors[i]["birthdate"]).getDate()}-${new Date(allDoctors[i]["birthdate"]).getMonth() + 1}-${new Date(allDoctors[i]["birthdate"]).getFullYear()}` %></div></div><div class="doctor-col"><div class="top"><%= allDoctors[i]["speciality"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><form action="previewDoctorProfile" method="post"><input type="hidden" value="<%= allDoctors[i]["nationalid"] %>" name="hiddenPreviewID"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button></form><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <% } %>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="edit-overlay">
+    <div class="edit-overlay <%=editShow%>">
         <div class="edit-overlay-container">
            <div class="edit-overlay-content">
             <h1 class="head"> تعديل بيانات الجراح</h1>
+            <div class="errorMessage"><%= editErrorMessage %></div>
             <br>
-           
             
-            <form action="editSurgeon" method="POST">
+            <form action="doctorsPageEdit" method="POST">
+                <input type="hidden" name="oldID" value="<%=savedID%>" class="editHiddenID">
                 <div class="form-group">
                     <label for="name">الاسم</label>
-                    <input type="text" id="name" name="name" value=" محمد احمد">
+                    <input type="text" id="name" name="name" value=" محمد احمد" required>
                 </div>
                 <br>
     
                 <div class="form-group">
                     <label for="id">الرقم القومي</label>
-                    <input type="text" id="id" name="id" value="3030630">
+                    <input type="text" id="id" name="id" value="3030630" required>
                 </div>
                 <br>
     
                 <div class="form-group">
                     <label for="birthDate">تاريخ الميلاد</label>
-                    <input type="date" id="birthDate" name="birthDate" >
+                    <input type="date" id="birthDate" name="birthDate" required>
                 </div>
                 <br>
     
@@ -123,7 +124,7 @@
     
                 <div class="form-group">
                     <label for="email">البريد الالكتروني</label>
-                    <input type="text" id="email" name="email" value="doctor@example">
+                    <input type="text" id="email" name="email" value="doctor@example" required>
                 </div>
                 <br>
                 
@@ -131,20 +132,20 @@
     
                 <div class="form-group">
                     <label for="mobile">رقم الهاتف</label>
-                    <input type="tel" id="mobile" name="mobile" value="031321">
+                    <input type="tel" id="mobile" name="mobile" value="031321" required>
                 </div>
                 <br>
     
                 <div class="form-group">
                     <label for="address">العنوان</label>
-                    <input type="text" id="address" name="address" value="شارع علي علوكة">
+                    <input type="text" id="address" name="address" value="شارع علي علوكة" required>
                 </div>
                 <br>
     
     
                 <div class="form-group">
                     <label for="special">التخصص </label>
-                    <input type="text" id="special" name="special" value="[جراحة العيون]" dir="rtl">
+                    <input type="text" id="special" name="special" value="[جراحة العيون]" dir="rtl" required>
                 </div>
     
                 <br>

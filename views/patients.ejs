@@ -63,36 +63,38 @@
 
                 <div class="patients">
                     <% for( var i = 0 ; i < allPatients.length ; i++ ){%>
-                    <div class="patient-row"><div class="patient-col"><div class="top"><%= allPatients[i]["name"] %></div><div class="bottom id"><%= allPatients[i]["nationalid"] %></div></div><div class="patient-col"><div class="patient-gender"><%= allPatients[i]["sex"] %></div></div><div class="patient-col"><div class="top"><%= new Date().getFullYear() - new Date(allPatients[i]["birthdate"]).getFullYear() %> عاما</div><div class="bottom"><%= `${new Date(allPatients[i]["birthdate"]).getDate()}-${new Date(allPatients[i]["birthdate"]).getMonth() + 1}-${new Date(allPatients[i]["birthdate"]).getFullYear()}` %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="patient-row"><div class="patient-col"><div class="top"><%= allPatients[i]["name"] %></div><div class="bottom id"><%= allPatients[i]["nationalid"] %></div></div><div class="patient-col"><div class="patient-gender"><%= allPatients[i]["sex"] %></div></div><div class="patient-col"><div class="top"><%= new Date().getFullYear() - new Date(allPatients[i]["birthdate"]).getFullYear() %> عاما</div><div class="bottom"><%= `${new Date(allPatients[i]["birthdate"]).getDate()}-${new Date(allPatients[i]["birthdate"]).getMonth() + 1}-${new Date(allPatients[i]["birthdate"]).getFullYear()}` %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><form action="previewPatientProfile" method="post"><input type="hidden" value="<%= allPatients[i]["nationalid"] %>" name="hiddenPreviewID"><button class="display"><i class="fa-solid fa-display fa-lg" style="color: #3d74ff;"></i>عرض</button></form><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <% } %>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="edit-overlay" id="edit-overlay">
+    <div class="edit-overlay <%=editShow%>" id="edit-overlay">
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
              <h1 class="head"> تعديل بيانات المريض</h1>
+             <div class="errorMessage"><%= editErrorMessage %></div>
              <br>
             
              
-             <form action="editPatient" method="POST">
+             <form action="patientsPageEdit" method="POST">
+                <input type="hidden" name="oldID" value="<%=savedID%>" class="editHiddenID">
                  <div class="form-group">
                      <label for="name">الاسم</label>
-                     <input type="text" id="name" name="name" value="احمد">
+                     <input type="text" id="name" name="name" value="احمد" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="nationalID">الرقم القومي</label>
-                     <input type="text" id="nationalID" name="nationalID" value="3030630">
+                     <input type="text" id="nationalID" name="nationalID" value="3030630" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="birthDate">تاريخ الميلاد</label>
-                     <input type="date" id="birthDate" name="birthDate" >
+                     <input type="date" id="birthDate" name="birthDate" required >
                  </div>
                  <br>
      
@@ -101,8 +103,8 @@
                      <!-- Other form fields (name, email, password, etc.) -->
                  
                      <label for="gender">الجنس</label>
-                     <input type="radio" name="sex" value="Male" required /><span class="sexVal">ذكر</span>
-                     <input type="radio" name="sex" value="Female" required /><span class = "sexVal">أنثى</span>
+                     <input type="radio" name="sex" value="ذكر" required /><span class="sexVal">ذكر</span>
+                     <input type="radio" name="sex" value="أنثي" required /><span class = "sexVal">أنثى</span>
                  
                      <!-- Submit button and other fields go here -->
                  </div>
@@ -120,13 +122,13 @@
      
                  <div class="form-group">
                      <label for="mobile">رقم الهاتف</label>
-                     <input type="tel" id="mobile" name="mobile" value="031321">
+                     <input type="tel" id="mobile" name="mobile" value="031321" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="address">العنوان</label>
-                     <input type="text" id="address" name="address" value="شارع علي علوكة">
+                     <input type="text" id="address" name="address" value="شارع علي علوكة" required>
                  </div>
                  <br>
      
