@@ -87,7 +87,10 @@
                 متأكد من عملية الحذف؟</h3>
             <div class="buttons-container">
                 <button class="cancel-deletion">إغلاق</button>
-                <button class="confirm-deletion">تأكيد</button>
+                <form action="patientProfilePage" method="post">
+                    <input type="hidden" name="oldid" value="<%= id %>" >
+                    <button class="confirm-deletion">تأكيد</button>
+                </form>
             </div>
         </div>
     </div>
