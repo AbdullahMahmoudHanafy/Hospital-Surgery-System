@@ -176,7 +176,7 @@ app.get("/patients", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./patients.ejs", {allPatients: res.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./patients.ejs", {allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -526,7 +526,7 @@ app.post("/patientsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from patient where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from patient", (err, respond) => {
-            res.render("./patients.ejs", {allPatients: respond.rows,show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./patients.ejs", {allPatients: respond.rows,show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -618,7 +618,7 @@ app.post("/patientsPageAdd",async(req,res)=>{
     await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
         if(data.rows.length != 0){
             await pool.query("select * from patient", async(err, newdata) => {
-                res.render("./patients.ejs", {allPatients: newdata.rows, show: "show", errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./patients.ejs", {allPatients: newdata.rows, show: "show", editShow:null,editErrorMessage:null,savedID : null,errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
             })
             }
         else{
@@ -627,7 +627,7 @@ app.post("/patientsPageAdd",async(req,res)=>{
                     if(err)
                         console.log(err)
                     await pool.query("select * from patient", async(err, newdata) => {
-                    res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./patients.ejs", {allPatients: newdata.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 })
         }
@@ -1135,6 +1135,39 @@ app.post("/doctorsPageEdit",async(req,res)=>{
                     }
                 );
             }
+    })
+})
+
+app.post("/patientsPageEdit",async(req,res)=>{
+    let name = req.body["name"],
+        id = req.body["nationalID"],
+        birthdate = req.body["birthDate"],
+        sex = req.body["sex"],
+        image = "123",
+        phone = req.body["mobile"],
+        address = req.body["address"],
+        age = calculateAge(birthdate),
+        oldid = req.body["oldID"];
+
+    await pool.query("select * from patient where nationalid = $1",[id],async (err,respond)=>{
+        if(respond.rows.length == 1 && id != oldid){
+            await pool.query("select * from patient", async(err, newdata) => {
+                res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null,editShow:"show",editErrorMessage:"الرقم القومي مستخدم",savedID : oldid, name: req.session.user["username"], image: req.session.user["image"]});
+            })
+        }
+        else{
+            await pool.query(
+                "update patient SET name = $1, nationalid = $2, address = $3, phone = $4, sex = $5, image = $6, birthdate = $7 where nationalid = $8",
+
+                [name, id, address, phone, sex, image, birthdate, oldid],
+                async (err2, respond2) => {
+                    await pool.query("select * from patient", async(err, newdata) => {
+                        res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null,editShow:null,editErrorMessage:null,savedID : null, name: req.session.user["username"], image: req.session.user["image"]});
+                    })
+                }
+            );
+        }
+
     })
 })
  
