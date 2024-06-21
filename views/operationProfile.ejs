@@ -14,6 +14,30 @@
 
 <body>
 
+    <div class = "Nav-bar">
+        
+            
+        <div class = "Left-nav">
+            <a href="homePage" class=""><button class = "Nav-bar-btn">الصفحة الرئيسية</button></a>
+            <a href="appointments" class=""><button class = "Nav-bar-btn">المواعيد</button></a>
+            <a href="patients" class=""><button class = "Nav-bar-btn">المرضى</button></a>
+            <a href="doctors" class=""><button class = "Nav-bar-btn">الجراحون</button></a>
+            <a href="admins" class=""><button class = "Nav-bar-btn">المشرفون</button></a>
+            <a href="operations" class=""><button class = "Nav-bar-btn">العمليات</button></a>
+            <a href="devices" class=""><button class = "Nav-bar-btn">المعدات</button></a>
+        </div>
+        <div class = "Right-nav">
+            <div class = "Admin-data">
+                <img src="./images/myImage.jpg" alt="An admin's image" class = "Admin-img">
+                <div class="navbar-name"><%= name %></div>
+
+            </div>
+            <a href="currentAdminProfile"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button></a>
+            <a href="/"><button class="Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button></a>
+
+
+        </div>
+
     <div class="edit-overlay">
         <div class="edit-overlay-container">
             <div class="edit-overlay-content">
@@ -84,29 +108,7 @@
         </div>
      </div>
 
-    <div class = "Nav-bar">
-        
-            
-        <div class = "Left-nav">
-            <button class = "Nav-bar-btn">الصفحة الرئيسية</button>
-            <button class = "Nav-bar-btn">المواعيد</button>
-            <button class = "Nav-bar-btn">المرضى</button>
-            <button class = "Nav-bar-btn">الجراحون</button>
-            <button class = "Nav-bar-btn">غرف العمليات</button>
-            <button class = "Nav-bar-btn">العمليات</button>
-            <button class = "Nav-bar-btn">المعدات</button>
-        </div>
-        <div class = "Right-nav">
-            <div class = "Admin-data">
-                <img src="./images/myImage.jpg" alt="An admin's image" class = "Admin-img">
-                <div class="navbar-name"><%= name %></div>
-
-            </div>
-            <a href="currentAdminProfile"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button></a>
-            <a href="/"><button class="Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button></a>
-
-
-        </div>
+     
 
     </div>
     <div class="container">
@@ -135,7 +137,7 @@
     </div>
         
     </div>
-    <script src=".js/edit&deleteButtons.js"></script>
-    <script src=".js/deviceInput.js"></script>
+    <script src="./js/edit&deleteButtons.js"></script>
+    <script src="./js/deviceInput.js"></script>
 </body>
 </html>

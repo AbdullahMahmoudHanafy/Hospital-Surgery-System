@@ -938,7 +938,7 @@ app.post("/operationsPageAdd",async(req,res)=>{
                             })
                         })
                         await pool.query("select * from operation",async (err, newdata) => {
-                            res.render("./operations.ejs", {allOperations: newdata.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })   
     })     
 })
@@ -1772,7 +1772,7 @@ app.post("/doctorProfileDelete",async (req,res)=>{
     })
 })
 
-app.post("/doctorProfileDelete",async (req,res)=>{
+app.post("/operationProfileDelete",async (req,res)=>{
     let oldCode = req.body.oldCode;
      await pool.query("delete from useddevice where operationcode = $1",[oldCode],async (err,respond)=>{
         await pool.query("delete from operation where code = $1",[oldCode], async(err, rp) => {
@@ -1793,6 +1793,7 @@ app.post("/doctorProfileDelete",async (req,res)=>{
         })
     })
 })
+
  
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
