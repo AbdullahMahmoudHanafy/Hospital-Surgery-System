@@ -77,7 +77,7 @@
             <div class="errorMessage"><%= editErrorMessage %></div>
             <br>
             
-            <form action="doctorsPageEdit" method="POST">
+            <form action="doctorsPageEdit" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="oldID" value="<%=savedID%>" class="editHiddenID">
                 <div class="form-group">
                     <label for="name">الاسم</label>
@@ -176,7 +176,7 @@
             <div class="addSurgeon">
                 <h5>إضافة جراح </h5>
                 <div class="errorMessage"><%= errorMessage %></div>
-                <form action="doctorsPageAdd" method="post">
+                <form action="doctorsPageAdd" method="post" enctype="multipart/form-data">
                     <label for="name" dir='rtl' lang='ar'>اسم الجراح</label>
                     <input type="name" name="name" placeholder="ادخل الاسم" dir='rtl' lang='ar' required>
                     <label for="ID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>

@@ -79,7 +79,7 @@
              <div class="errorMessage"><%= editErrorMessage %></div>
              <br>
              
-             <form action="adminsPageEdit" method="POST">
+             <form action="adminsPageEdit" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="oldID" value="<%=savedID%>" class="editHiddenID">
                 <input type="hidden" name="oldEmail" value="<%=savedEmail%>" class="editHiddenEmail">
                  <div class="form-group">
@@ -186,7 +186,7 @@
         <div class="addAdmin">
             <h5> تسجيل مشرف جديد</h5>
             <div class="errorMessage"><%= errorMessage %></div>
-            <form action="adminsPageAdd" method="post">
+            <form action="adminsPageAdd" method="post" enctype="multipart/form-data">
                 <label for="name" dir='rtl' lang='ar'>اسم المشرف</label>
                 <input type="name" name="name" placeholder="ادخل اسم المستخدم" dir='rtl' lang='ar' required>
                 <label for="nationalID" dir='rtl' lang='ar'>الرقم القومي للمشرف</label>

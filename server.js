@@ -12,6 +12,18 @@ const app = express();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const storage = multer.diskStorage({
+    destination:function(req,file,cd){
+        cd(null,path.join(__dirname,"public/imgaes"));
+    },
+    filename: function(req,file,cd){
+        cd(null,file.originalname);
+    }
+})
+
+
+const upload = multer({storage})
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -195,9 +207,10 @@ app.get("/currentAdminProfile", async (req, res) => {
             birthdate = adminUser.rows[0]["birthdate"].toLocaleDateString('en-GB'),
             sex = adminUser.rows[0]["sex"],
             address = adminUser.rows[0]["address"],
-            age = calculateAge(formatDate(adminUser.rows[0]["birthdate"]))
+            age = calculateAge(formatDate(adminUser.rows[0]["birthdate"]
+            ))
 
-            res.render("./adminProfile.ejs", {name: name, adminName: name, id: id, email: email, address: address, mobile: mobile, birthDate: birthdate, sex: sex, address: address, age: age, image: req.session.user["image"],errormessageadmin: ""})
+            res.render("./adminProfile.ejs", {name: name, adminName: name, id: id, email: email, address: address, mobile: mobile, birthDate: birthdate, sex: sex, address: address, age: age, image: req.session.user["image"],errormessageadmin: null,editShow: null})
         }
     })
 })
@@ -206,7 +219,7 @@ app.get("/currentAdminProfile", async (req, res) => {
 
 
 
-app.post("/addAdmin", async (req, respond) => {
+app.post("/addAdmin", upload.single("image"), async (req, respond) => {
     let name = req.body["name"],
     sex = req.body["sex"], 
     bdate = req.body["birthDate"], 
@@ -215,8 +228,9 @@ app.post("/addAdmin", async (req, respond) => {
     repassword = req.body["repassword"],
     phone = req.body["phone"],
     address = req.body["address"],
-    nationalID = req.body["nationalID"],
-    image = "123"
+    nationalID = req.body["nationalID"]
+
+    let image = "../imgaes/" + req.file.originalname
 
     if(repassword == password)
     {
@@ -281,7 +295,7 @@ app.post("/addAdmin", async (req, respond) => {
                                                             errorMessage: "",
                                                             show1:  null,
                                                             show2:  null,
-                                                            show3:  "show",
+                                                            show3:  null,
                                                             show4:  null,
                                                             show5:  null,
                                                             show6:  null
@@ -315,14 +329,14 @@ app.post("/addAdmin", async (req, respond) => {
     }
 })
 
-app.post("/addPatient", async(req,respond) => {
+app.post("/addPatient", upload.single("image"), async(req,respond) => {
     let name = req.body["name"], 
     ID = req.body["ID"], 
     birthdate = req.body["birthDate"], 
     sex = req.body["sex"], 
     address = req.body["address"], 
     phone = req.body["phone"], 
-    image = "123"
+    image = "../imgaes/" + req.file.originalname
 
     await pool.query(`select * from patient where nationalid = '${ID}'`, async (err, res) => {
         if(res.rowCount != 0)
@@ -369,7 +383,7 @@ app.post("/addPatient", async(req,respond) => {
     } )
 })
 
-app.post("/addSurgeon", async(req,respond) => {
+app.post("/addSurgeon", upload.single("image"), async(req,respond) => {
     let name = req.body["name"], 
     ID = req.body["ID"], 
     birthdate = req.body["birthdate"], 
@@ -378,7 +392,7 @@ app.post("/addSurgeon", async(req,respond) => {
     phone = req.body["phone"], 
     email = req.body["email"],
     speciality = req.body["speciality"],
-    image = "123"
+    image = "../imgaes/" + req.file.originalname
 
     await pool.connect();
 
@@ -806,7 +820,7 @@ app.post("/appointmentsPageDelete",async(req,res)=>{
     })
 })
 
-app.post("/adminsPageAdd",async(req,res)=>{
+app.post("/adminsPageAdd", upload.single("image"), async(req,res)=>{
     let name = req.body["name"],
     sex = req.body["sex"], 
     bdate = req.body["birthDate"], 
@@ -816,7 +830,7 @@ app.post("/adminsPageAdd",async(req,res)=>{
     phone = req.body["phone"],
     address = req.body["address"],
     nationalID = req.body["nationalID"],
-    image = "123"
+    image = "../imgaes/" + req.file.originalname
 
     if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
@@ -850,14 +864,14 @@ app.post("/adminsPageAdd",async(req,res)=>{
     }
 })
 
-app.post("/patientsPageAdd",async(req,res)=>{
+app.post("/patientsPageAdd", upload.single("image"), async(req,res)=>{
     let name = req.body["name"],
     sex = req.body["sex"], 
     bdate = req.body["birthDate"], 
     phone = req.body["phone"],
     address = req.body["address"],
     nationalID = req.body["nationalID"],
-    image = "123"
+    image = "../imgaes/" + req.file.originalname
 
     await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
         if(data.rows.length != 0){
@@ -878,7 +892,7 @@ app.post("/patientsPageAdd",async(req,res)=>{
     })
 })
 
-app.post("/doctorsPageAdd",async(req,res)=>{
+app.post("/doctorsPageAdd", upload.single("image"), async(req,res)=>{
     let name = req.body["name"],
     sex = req.body["sex"], 
     bdate = req.body["birthDate"], 
@@ -887,7 +901,7 @@ app.post("/doctorsPageAdd",async(req,res)=>{
     phone = req.body["phone"],
     address = req.body["address"],
     nationalID = req.body["nationalID"],
-    image = "123"
+    image = "../imgaes/" + req.file.originalname
 
         await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
@@ -1094,7 +1108,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
     
 })
 
-app.post("/editAdmin", async (req, res) => {
+app.post("/editAdmin", upload.single("image"), async (req, res) => {
     let name = req.body["name"],
         id = req.body["id"],
         sex = req.body["sex"],
@@ -1105,7 +1119,7 @@ app.post("/editAdmin", async (req, res) => {
         password = req.body["password"],
         age = calculateAge(birthDate),
         confirmPassword = req.body["confirmPassword"],
-        image = "123",
+        image = "../imgaes/" + req.file.originalname,
         oldid = req.body["oldid"],
         oldEmail = req.body["oldEmail"];
     await pool.query(
@@ -1216,12 +1230,12 @@ app.post("/editAdmin", async (req, res) => {
     );
 });
 
-app.post("/editPatient", async (req, res) => {
+app.post("/editPatient", upload.single("image"), async (req, res) => {
     let name = req.body["name"],
         id = req.body["nationalID"],
         birthdate = req.body["birthDate"],
         sex = req.body["sex"],
-        image = "123",
+        image = "../imgaes/" + req.file.originalname,
         phone = req.body["mobile"],
         address = req.body["address"],
         age = calculateAge(birthdate),
@@ -1276,7 +1290,7 @@ app.post("/editPatient", async (req, res) => {
     );
 });
 
-app.post("/editSurgeon", async (req, res) => {
+app.post("/editSurgeon", upload.single("image"), async (req, res) => {
     let name = req.body["name"],
         email = req.body["email"],
         phone = req.body["mobile"],
@@ -1284,7 +1298,7 @@ app.post("/editSurgeon", async (req, res) => {
         oldid = req.body["oldid"],
         sex = req.body["sex"],
         id = req.body["id"],
-        image = "123",
+        image = "../imgaes/" + req.file.originalname,
         address = req.body["address"],
         specialization = req.body["special"];
 
@@ -1442,7 +1456,7 @@ app.post("/previewOperationProfile",async(req,res)=>{
     );
 })
 
-app.post("/adminsPageEdit",async(req,res)=>{
+app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
     let name = req.body["name"],
         id = req.body["id"],
         sex = req.body["sex"],
@@ -1452,7 +1466,7 @@ app.post("/adminsPageEdit",async(req,res)=>{
         address = req.body["address"],
         password = req.body["password"],
         confirmPassword = req.body["confirmPassword"],
-        image = "123",
+        image = "../imgaes/" + req.file.originalname,
         oldid = req.body["oldID"],
         oldEmail = req.body["oldEmail"];
     await pool.query(
@@ -1505,7 +1519,7 @@ app.post("/adminsPageEdit",async(req,res)=>{
     );
 })
 
-app.post("/doctorsPageEdit",async(req,res)=>{
+app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
     let name = req.body["name"],
         email = req.body["email"],
         phone = req.body["mobile"],
@@ -1513,7 +1527,7 @@ app.post("/doctorsPageEdit",async(req,res)=>{
         oldid = req.body["oldID"],
         sex = req.body["sex"],
         id = req.body["id"],
-        image = "123",
+        image = "../imgaes/" + req.file.originalname,
         address = req.body["address"],
         specialization = req.body["special"];
     await pool.query("select * from surgeon where nationalid = $1",[id],async(err,respond)=>{
@@ -1548,12 +1562,12 @@ app.post("/doctorsPageEdit",async(req,res)=>{
     })
 })
 
-app.post("/patientsPageEdit",async(req,res)=>{
+app.post("/patientsPageEdit", upload.single("image"), async(req,res)=>{
     let name = req.body["name"],
         id = req.body["nationalID"],
         birthdate = req.body["birthDate"],
         sex = req.body["sex"],
-        image = "123",
+        image = "../imgaes/" + req.file.originalname,
         phone = req.body["mobile"],
         address = req.body["address"],
         age = calculateAge(birthdate),
@@ -1780,12 +1794,13 @@ app.post("/adminProfileDelete",async (req,res)=>{
                 image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
-                show1:  null, addSurgeonError: "",
-                show2:  null, addPatientError: "",
-                show3:  null, addAdminError: "",
-                show4:  null, addOperationError: "",
-                show5:  null, addDeviceError: "",
-                show6:  null, addAppointmentError: ""
+                errorMessage: "",
+                show1:  null,
+                show2:  null,
+                show3:  null,
+                show4:  null,
+                show5:  null,
+                show6:  null
             })
     })
 })
@@ -1800,12 +1815,13 @@ app.post("/patientProfileDelete",async (req,res)=>{
                 image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
-                show1:  null, addSurgeonError: "",
-                show2:  null, addPatientError: "",
-                show3:  null, addAdminError: "",
-                show4:  null, addOperationError: "",
-                show5:  null, addDeviceError: "",
-                show6:  null, addAppointmentError: ""
+                errorMessage: "",
+                show1:  null,
+                show2:  null,
+                show3:  null,
+                show4:  null,
+                show5:  null,
+                show6:  null
             })
     })
 })
@@ -1820,12 +1836,13 @@ app.post("/doctorProfileDelete",async (req,res)=>{
                 image: req.session.user["image"],
                 dataNumbers: dataNumbers,
                 show:  null, error: "",
-                show1:  null, addSurgeonError: "",
-                show2:  null, addPatientError: "",
-                show3:  null, addAdminError: "",
-                show4:  null, addOperationError: "",
-                show5:  null, addDeviceError: "",
-                show6:  null, addAppointmentError: ""
+                errorMessage: "",
+                show1:  null,
+                show2:  null,
+                show3:  null,
+                show4:  null,
+                show5:  null,
+                show6:  null
             })
     })
 })
@@ -1841,12 +1858,13 @@ app.post("/operationProfileDelete",async (req,res)=>{
                     image: req.session.user["image"],
                     dataNumbers: dataNumbers,
                     show:  null, error: "",
-                    show1:  null, addSurgeonError: "",
-                    show2:  null, addPatientError: "",
-                    show3:  null, addAdminError: "",
-                    show4:  null, addOperationError: "",
-                    show5:  null, addDeviceError: "",
-                    show6:  null, addAppointmentError: ""
+                    errorMessage: "",
+                    show1:  null,
+                    show2:  null,
+                    show3:  null,
+                    show4:  null,
+                    show5:  null,
+                    show6:  null
                 })
         })
     })

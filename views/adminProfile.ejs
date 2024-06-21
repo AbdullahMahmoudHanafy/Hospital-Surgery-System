@@ -21,7 +21,7 @@
                 <%= errormessageadmin %>
             </div>
              <br>
-             <form action="editAdmin" method="POST">
+             <form action="editAdmin" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="oldid" value= <%= id %>>
                 <input type="hidden" name="oldEmail" value= <%= email %>>
                  <div class="form-group">
