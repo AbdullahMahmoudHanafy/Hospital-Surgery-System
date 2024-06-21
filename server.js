@@ -1618,8 +1618,8 @@ app.post("/operationsPageEdit",async (req,res)=>{
         usedDevices = [usedDevices];
     
     await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
-        usedDevices.forEach(async (deviceSerialNumber)=>{
-            await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, oldCode],async(err,devicesData)=>{
+        usedDevices.forEach(async (deviceproductcode)=>{
+            await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, oldCode],async(err,devicesData)=>{
             })
         })
     })
@@ -1860,8 +1860,8 @@ app.post("/operationProfileEdit",async (req,res)=>{
         usedDevices = [usedDevices];
 
             await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
-                usedDevices.forEach(async (deviceSerialNumber)=>{
-                    await pool.query("insert into useddevice (deviceserial, operationcode) values ($1, $2)",[deviceSerialNumber, oldCode],async(err,devicesData)=>{
+                usedDevices.forEach(async (deviceproductcode)=>{
+                    await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, oldCode],async(err,devicesData)=>{
                     })
                 })
             })
