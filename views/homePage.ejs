@@ -110,9 +110,8 @@
                 <label for="gender">جنس المشرف</label>
                 <div class="form-group">
                     <!-- Other form fields (name, email, password, etc.) -->
-                
-                    <input type="radio" name="sex" value="أنثي" required/><span class = "sexVal">أنثى</span>
                     <input type="radio" name="sex" value="ذكر" required /><span class="sexVal">ذكر</span>
+                    <input type="radio" name="sex" value="أنثي" required/><span class = "sexVal">أنثى</span>
                 
                     <!-- Submit button and other fields go here -->
                 </div>
@@ -227,7 +226,6 @@
     </div>
         <div class = "Right-nav">
             <a href="/"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button></a>
-            <button class = "Nav-bar-icon-btn" id = "Dark-mode"><i class="fa-solid fa-moon"></i></button>
             <a href="currentAdminProfile"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button></a>
             <div class = "Admin-data">
                 <div class="navbar-name"><%= name %></div>
@@ -324,7 +322,6 @@
             </div>
         </div>
     </div>
-    <script src="./js/darkMode.js"></script>
     <script src="./js/AddingButtons.js"></script>
     <script src="./js/deviceInput.js"></script>
 </body>
