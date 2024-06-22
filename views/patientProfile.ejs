@@ -26,13 +26,13 @@
                 <input type="hidden" name="oldid" value="<%= id %>" >
                  <div class="form-group">
                      <label for="name">  الاسم</label>
-                     <input type="text" id="name" name="name" value="احمد" required> 
+                     <input type="text" id="name" name="name" value="<%= patientName %>" required> 
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="nationalID">الرقم القومي</label>
-                     <input type="text" id="nationalID" name="nationalID" value="3030630" required>
+                     <input type="text" id="nationalID" name="nationalID" value=<%= id %> required>
                  </div>
                  <br>
      
@@ -62,13 +62,13 @@
      
                  <div class="form-group">
                      <label for="mobile">رقم الهاتف</label>
-                     <input type="tel" id="mobile" name="mobile" value="031321" required>
+                     <input type="tel" id="mobile" name="mobile" value=<%= phone %> dir="rtl" required>
                  </div>
                  <br>
      
                  <div class="form-group">
                      <label for="address">العنوان</label>
-                     <input type="text" id="address" name="address" value="شارع علي علوكة" required>
+                     <input type="text" id="address" name="address" value=<%= address %> required>
                  </div>
                  <br>
      
