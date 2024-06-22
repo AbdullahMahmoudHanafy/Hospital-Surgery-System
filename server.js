@@ -146,7 +146,8 @@ app.get("/admins", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./admins.ejs", {allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -765,7 +766,8 @@ app.post("/adminsPageDeleteAdmin",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from admin where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from admin", (err, respond) => {
-            res.render("./admins.ejs", {allAdmins: respond.rows,show: null,savedID:null,savedEmail:null,showEdit:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                allAdmins: respond.rows,show: null,savedID:null,savedEmail:null,showEdit:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -836,28 +838,32 @@ app.post("/adminsPageAdd", upload.single("image"), async(req,res)=>{
 
     if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
-            res.render("./admins.ejs", {allAdmins: data.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                allAdmins: data.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     }
     else{
         await pool.query("select * from admin where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from admin", async(err, newdata) => {
-                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", showEdit:null,savedID:null,savedEmail:null, errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                        allAdmins: newdata.rows, show: "show", showEdit:null,savedID:null,savedEmail:null, errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from admin where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from admin", async(err, newdata) => {
-                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                                allAdmins: newdata.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
                     else{
                     await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, password, sex, image, bdate], async(err, respond) => {
                         await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows, show:null,savedID:null,savedEmail:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                            allAdmins: newdata.rows, show:null,savedID:null,savedEmail:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
                     })}
                 })
@@ -1480,18 +1486,21 @@ app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
             if (!err) {
                 if (respond.rows.length == 1 && id != oldid) {
                     await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                            allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                     })
                 } else if (req.body["password"] != req.body["confirmPassword"]) {
                     await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"كلمات المرور غير متطابقة", name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                            allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"كلمات المرور غير متطابقة", name: req.session.user["username"], image: req.session.user["image"]});
                     })
                 }
                 else {
                     await pool.query("select * from admin where email = $1",[email], async(err,emailData)=>{
                         if(emailData.rows.length != 0 && email != oldEmail){
                             await pool.query("select * from admin", async(err, newdata) => {
-                                res.render("./admins.ejs", {allAdmins: newdata.rows, show:null,savedID:oldid,savedEmail:oldEmail, showEdit: "show", errorMessage : null,editErrorMessage:"البريد الالكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                                res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                                    allAdmins: newdata.rows, show:null,savedID:oldid,savedEmail:oldEmail, showEdit: "show", errorMessage : null,editErrorMessage:"البريد الالكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                             })
                         }
                         else{
@@ -1511,7 +1520,8 @@ app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
                                 ],
                                 async(err2, respond2) => {
                                     await pool.query("select * from admin", async(err, newdata) => {
-                                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:null,savedEmail:null, show:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                                        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                                            allAdmins: newdata.rows,savedID:null,savedEmail:null, show:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                                     })
                                 }
                             );
@@ -2338,7 +2348,7 @@ app.get("/doctorsSBADAndMale", async (req, data) => {
 
 app.get("/doctorsSBNAAndFemale", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'ذكر' order by name asc", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثي' order by name asc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2350,7 +2360,7 @@ app.get("/doctorsSBNAAndFemale", async (req, data) => {
 
 app.get("/doctorsSBNDAndFemale", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'ذكر' order by name desc", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثي' order by name desc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2362,7 +2372,7 @@ app.get("/doctorsSBNDAndFemale", async (req, data) => {
 
 app.get("/doctorsSBAAAndFemale", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'ذكر' order by birthdate desc", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثي' order by birthdate desc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2374,7 +2384,7 @@ app.get("/doctorsSBAAAndFemale", async (req, data) => {
 
 app.get("/doctorsSBADAndFemale", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'ذكر' order by birthdate asc", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثي' order by birthdate asc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2385,7 +2395,187 @@ app.get("/doctorsSBADAndFemale", async (req, data) => {
 })
 
 
- 
+
+
+
+
+
+
+
+
+app.get("/maleAdmins", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/admins",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+
+app.get("/femaleAdmins", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/admins",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBNA", async (req, data) => {
+
+    await pool.query("select * from admin order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/AdminsSBNA",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBND", async (req, data) => {
+
+    await pool.query("select * from admin order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/AdminsSBND",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBAA", async (req, data) => {
+
+    await pool.query("select * from admin order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/AdminsSBAA",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBAD", async (req, data) => {
+
+    await pool.query("select * from admin order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/AdminsSBAD",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/AdminsSBNAAndMale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/AdminsSBNAAndMale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBNDAndMale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/AdminsSBNDAndMale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBAAAndMale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر' order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/AdminsSBAAAndMale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBADAndMale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر' order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/AdminsSBADAndMale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBNAAndFemale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/AdminsSBNAAndFemale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBNDAndFemale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/AdminsSBNDAndFemale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBAAAndFemale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي' order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/AdminsSBAAAndFemale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBADAndFemale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي' order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/AdminsSBADAndFemale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
 });
