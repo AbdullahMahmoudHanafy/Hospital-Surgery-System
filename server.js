@@ -200,17 +200,18 @@ app.get("/currentAdminProfile", async (req, res) => {
         if(err)
             console.log(err)
         else {
-            let name = req.session.user["username"],
+            let name = adminUser.rows[0]["name"],
             id = req.session.user["userId"],
             email = adminUser.rows[0]["email"],
             mobile = adminUser.rows[0]["phone"],
             birthdate = adminUser.rows[0]["birthdate"].toLocaleDateString('en-GB'),
             sex = adminUser.rows[0]["sex"],
             address = adminUser.rows[0]["address"],
+            image = adminUser.rows[0]["image"],
             age = calculateAge(formatDate(adminUser.rows[0]["birthdate"]
             ))
 
-            res.render("./adminProfile.ejs", {name: name, adminName: name, id: id, email: email, address: address, mobile: mobile, birthDate: birthdate, sex: sex, address: address, age: age, image: req.session.user["image"],errormessageadmin: null,editShow: null})
+            res.render("./adminProfile.ejs", {name: name, adminName: name, id: id, email: email, address: address, mobile: mobile, birthDate: birthdate, sex: sex, address: address, age: age, image: image, adminImage: image,errormessageadmin: null,editShow: null})
         }
     })
 })
@@ -1178,6 +1179,7 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                                         image: req.session.user["image"],
                                         errormessageadmin: "البريد الإلكتروني مستخدم",
                                         adminName: respond2.rows[0].name,
+                                        adminImage: respond2.rows[0].image,
                                         email: respond2.rows[0].email,
                                         id: respond2.rows[0].nationalid,
                                         mobile: respond2.rows[0].phone,
@@ -1211,6 +1213,7 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                                         image: req.session.user["image"],
                                         errormessageadmin: null,
                                         adminName: name,
+                                        adminImage: image,
                                         email: email,
                                         id: id,
                                         mobile: mobile,
@@ -1254,6 +1257,7 @@ app.post("/editPatient", upload.single("image"), async (req, res) => {
                                 image: req.session.user["image"],
                                 errormessagepatient: "الرقم القومي مستخدم",
                                 patientName: respond2.rows[0].name,
+                                patientImage: respond2.rows[0].image,
                                 id: respond2.rows[0].nationalid,
                                 birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                                 sex: respond2.rows[0].sex,
@@ -1274,6 +1278,7 @@ app.post("/editPatient", upload.single("image"), async (req, res) => {
                                 image: req.session.user["image"],
                                 errormessagepatient: null,
                                 patientName: name,
+                                patientImage: image,
                                 id: id,
                                 phone: phone,
                                 birthdate: birthdate,
@@ -1315,6 +1320,7 @@ app.post("/editSurgeon", upload.single("image"), async (req, res) => {
                                 image: req.session.user["image"],
                                 errormessagedoctor: "الرقم القومي مستخدم",
                                 doctorName: respond2.rows[0].name,
+                                doctorImage: respond2.rows[0].image,
                                 email: respond2.rows[0].email,
                                 id: respond2.rows[0].nationalid,
                                 phone: respond2.rows[0].phone,
@@ -1349,6 +1355,7 @@ app.post("/editSurgeon", upload.single("image"), async (req, res) => {
                                 image: req.session.user["image"],
                                 errormessagedoctor: null,
                                 doctorName: name,
+                                doctorImage: image,
                                 id: id,
                                 email: email,
                                 phone: phone,
@@ -1375,12 +1382,13 @@ app.post("/previewAdminProfile",async(req,res)=>{
                 image: req.session.user["image"],
                 errormessageadmin: null,
                 adminName: respond2.rows[0].name,
+                adminImage: respond2.rows[0].image,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
                 mobile: respond2.rows[0].phone,
                 sex: respond2.rows[0].sex,
                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                age: calculateAge(formatDate(respond2.rows[0].birthdate)),
                 address : respond2.rows[0].address,
                 editShow:null
             }); 
@@ -1397,13 +1405,14 @@ app.post("/previewDoctorProfile",async(req,res)=>{
                 image: req.session.user["image"],
                 errormessagedoctor: null,
                 doctorName: respond2.rows[0].name,
+                doctorImage: respond2.rows[0].image,
                 email: respond2.rows[0].email,
                 id: respond2.rows[0].nationalid,
                 phone: respond2.rows[0].phone,
                 sex: respond2.rows[0].sex,
                 birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                 specialization: respond2.rows[0].speciality,
-                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                age: calculateAge(formatDate(respond2.rows[0].birthdate)),
                 address:respond2.rows[0].address,
                 editShow:null
             });
@@ -1421,6 +1430,7 @@ app.post("/previewPatientProfile",async(req,res)=>{
                 image: req.session.user["image"],
                 errormessagepatient: null,
                 patientName: respond2.rows[0].name,
+                patientImage: respond2.rows[0].image,
                 id: respond2.rows[0].nationalid,
                 birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                 sex: respond2.rows[0].sex,
