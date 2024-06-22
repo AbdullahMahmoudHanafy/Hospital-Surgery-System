@@ -217,6 +217,14 @@ app.get("/currentAdminProfile", async (req, res) => {
     })
 })
 
+app.get("/logout", async (req, res) => {
+    req.session.destroy((err) => {
+        if(err)
+            console.log(err)
+        res.render("./loginPage.ejs",{loginError: ""});
+    })
+})
+
 
 
 
