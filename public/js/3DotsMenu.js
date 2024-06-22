@@ -67,3 +67,16 @@ deleteButtons.forEach((deleteButton)=>{
         document.querySelector(".DeletionHiddenID").value = id
     })
 })
+
+
+let selectElement = document.getElementById('endpoint-select');
+let hiddenSelect = document.getElementById('hiddenSelect')
+selectElement.value = hiddenSelect.value
+
+selectElement.addEventListener('change', function() {
+    var selectedEndpoint = this.value;
+    console.log(selectedEndpoint)
+    if (selectedEndpoint) {
+      window.location.href = selectedEndpoint;
+    }
+  });

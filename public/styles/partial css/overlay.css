@@ -19,3 +19,7 @@
     color:tomato;
     text-align: center;
 }
+
+.highlight{
+    background-color:  rgb(61, 116, 255) !important;
+}

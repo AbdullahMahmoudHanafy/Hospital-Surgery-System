@@ -40,15 +40,17 @@
                 <div class="title">المرضى</div>
                 <div class="search">
                     <div class="buttons">
-                        <button class="all">الكل</button>
-                        <button class="active">ذكر</button>
-                        <button class="inactive">أنثي</button>
+                        <a href="/patients"><button class="all <%=highlitedAll%>">الكل</button></a>
+                        <a href="/malePatients"><button class="active <%=highlitedFirst%>">ذكر</button></a>
+                        <a href="/femalePatients"><button class="inactive <%=highlitedSecond%>" >أنثي</button></a>
                     </div>
-                    <select class="combobox">
-                        <option value="purchaseDate-asc">الترتيب حسب الاسم (من ألألف الي الياء)</option>
-                        <option value="purchaseDate-desc">الترتيب حسب الاسم (من الياء الي الألف)</option>
-                        <option value="name-asc">الترتيب حسب العمر (تصاعديا)</option>
-                        <option value="name-desc">الترتيب حسب العمر (تنازليا)</option>
+                    <input type="hidden" id = "hiddenSelect" value="<%=selectElementValue%>">
+                    <select class="combobox" id="endpoint-select">
+                        <option value="/patients">بدون ترتيب</option>
+                        <option value="/patientsSortedASCByName<%=currentPage%>">الترتيب حسب الاسم (من ألألف الي الياء)</option>
+                        <option value="/patientsSortedDESCByName<%=currentPage%>">الترتيب حسب الاسم (من الياء الي الألف)</option>
+                        <option value="/patientsSortedASCByAge<%=currentPage%>">الترتيب حسب العمر (تصاعديا)</option>
+                        <option value="/patientsSortedDESCByAge<%=currentPage%>">الترتيب حسب العمر (تنازليا)</option>
                     </select>
                     <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
                 </div>
