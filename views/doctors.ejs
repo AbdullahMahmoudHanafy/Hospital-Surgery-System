@@ -40,15 +40,17 @@
                 <div class="title">الجراحون</div>
                 <div class="search">
                     <div class="buttons">
-                        <button class="all">الكل</button>
-                        <button class="active">ذكر</button>
-                        <button class="inactive">أنثي</button>
+                        <a href="/doctors"><button class="all <%=highlitedAll%>">الكل</button></a>
+                        <a href="/maleDoctors"><button class="active <%=highlitedFirst%>">ذكر</button></a>
+                        <a href="/femaleDoctors"><button class="inactive <%=highlitedSecond%>">أنثي</button></a>
                     </div>
-                    <select class="combobox">
-                        <option value="purchaseDate-asc">الترتيب حسب الاسم (من ألألف الي الياء)</option>
-                        <option value="purchaseDate-desc">الترتيب حسب الاسم (من الياء الي الألف)</option>
-                        <option value="name-asc">الترتيب حسب العمر (تصاعديا)</option>
-                        <option value="name-desc">الترتيب حسب العمر (تنازليا)</option>
+                    <input type="hidden" id = "hiddenSelect" value="<%=selectElementValue%>">
+                    <select class="combobox" id="endpoint-select">
+                        <option value="/doctors">بدون ترتيب</option>
+                        <option value="/doctorsSBNA<%=currentPage%>">الترتيب حسب الاسم (من ألألف الي الياء)</option>
+                        <option value="/doctorsSBND<%=currentPage%>">الترتيب حسب الاسم (من الياء الي الألف)</option>
+                        <option value="/doctorsSBAA<%=currentPage%>">الترتيب حسب العمر (تصاعديا)</option>
+                        <option value="/doctorsSBAD<%=currentPage%>">الترتيب حسب العمر (تنازليا)</option>
                     </select>
                     <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
                 </div>

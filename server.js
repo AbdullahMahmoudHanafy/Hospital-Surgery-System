@@ -136,7 +136,8 @@ app.get("/devices", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./devices.ejs", {allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
         }
     })
 })
@@ -147,7 +148,8 @@ app.get("/admins", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./admins.ejs", {allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -158,7 +160,7 @@ app.get("/appointments", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+            data.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
         }
     })
 })
@@ -169,7 +171,8 @@ app.get("/doctors", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./doctors.ejs", {allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -180,7 +183,7 @@ app.get("/operations", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./operations.ejs", {allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./operations.ejs", {selectElementValue:"/operations",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -191,7 +194,7 @@ app.get("/patients", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./patients.ejs", {allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -774,7 +777,8 @@ app.post("/adminsPageDeleteAdmin",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from admin where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from admin", (err, respond) => {
-            res.render("./admins.ejs", {allAdmins: respond.rows,show: null,savedID:null,savedEmail:null,showEdit:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                allAdmins: respond.rows,show: null,savedID:null,savedEmail:null,showEdit:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -783,7 +787,8 @@ app.post("/doctorsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from surgeon where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from surgeon", (err, respond) => {
-            res.render("./doctors.ejs", {allDoctors: respond.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                allDoctors: respond.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -792,7 +797,7 @@ app.post("/patientsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from patient where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from patient", (err, respond) => {
-            res.render("./patients.ejs", {allPatients: respond.rows,show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",allPatients: respond.rows,show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -803,7 +808,7 @@ app.post("/operationsPageDelete",async(req,res)=>{
     })
     await pool.query("delete from operation where code = $1",[code], async(err, rp) => {
         await pool.query("select * from operation", (err, respond) => {
-            res.render("./operations.ejs", {allOperations: respond.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./operations.ejs", {selectElementValue:"/operations",allOperations: respond.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -812,7 +817,8 @@ app.post("/devicesPageDelete",async(req,res)=>{
     let Serial = req.body.deletetionSerial
     await pool.query("delete from device where serialnumber = $1",[Serial], async(err, rp) => {
         await pool.query("select * from device", (err, respond) => {
-            res.render("./devices.ejs", {allDevices: respond.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                allDevices: respond.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -824,7 +830,7 @@ app.post("/appointmentsPageDelete",async(req,res)=>{
             if(err)
                 console.log(err);
             else {
-                res.render("./appointments.ejs",{allAppointments: appointments.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
+                res.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
             }
         })
     })
@@ -844,28 +850,32 @@ app.post("/adminsPageAdd", upload.single("image"), async(req,res)=>{
 
     if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
-            res.render("./admins.ejs", {allAdmins: data.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                allAdmins: data.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     }
     else{
         await pool.query("select * from admin where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from admin", async(err, newdata) => {
-                    res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show", showEdit:null,savedID:null,savedEmail:null, errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                        allAdmins: newdata.rows, show: "show", showEdit:null,savedID:null,savedEmail:null, errorMessage : "الرقم القومي مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from admin where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from admin", async(err, newdata) => {
-                            res.render("./admins.ejs", {allAdmins: newdata.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                                allAdmins: newdata.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "البريد الإلكتروني مستخدم",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
                     else{
                     await pool.query("insert into admin (name, email, nationalid, phone, address, password, sex, image, birthdate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, password, sex, image, bdate], async(err, respond) => {
                         await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows, show:null,savedID:null,savedEmail:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                            allAdmins: newdata.rows, show:null,savedID:null,savedEmail:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
                     })}
                 })
@@ -886,7 +896,7 @@ app.post("/patientsPageAdd", upload.single("image"), async(req,res)=>{
     await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
         if(data.rows.length != 0){
             await pool.query("select * from patient", async(err, newdata) => {
-                res.render("./patients.ejs", {allPatients: newdata.rows, show: "show", editShow:null,editErrorMessage:null,savedID : null,errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",selectElementValue:"/patients",allPatients: newdata.rows, show: "show", editShow:null,editErrorMessage:null,savedID : null,errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
             })
             }
         else{
@@ -895,7 +905,7 @@ app.post("/patientsPageAdd", upload.single("image"), async(req,res)=>{
                     if(err)
                         console.log(err)
                     await pool.query("select * from patient", async(err, newdata) => {
-                    res.render("./patients.ejs", {allPatients: newdata.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",allPatients: newdata.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 })
         }
@@ -916,21 +926,24 @@ app.post("/doctorsPageAdd", upload.single("image"), async(req,res)=>{
         await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from surgeon", async(err, newdata) => {
-                    res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                        allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from surgeon where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "البريد الإلكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                                allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "البريد الإلكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
                     else
                     await pool.query("insert into surgeon (name, email, nationalid, phone, address, sex, image, birthdate, speciality) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, sex, image, bdate,speciality], async(err, respond) => {
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                        res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                            allDoctors: newdata.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
                     })
                 })
@@ -951,14 +964,16 @@ app.post("/devicesPageAdd",async(req,res)=>{
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,data)=>{
         if(data.rows.length != 0){
             await pool.query("select * from device",(err,newdata)=>{
-                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show",editShow:null,editErrorMessage:null,savedCode : null, errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
+                res.render("./devices.ejs",{highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                    allDevices: newdata.rows,show: "show",editShow:null,editErrorMessage:null,savedCode : null, errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
             })
         }
         else{
             await pool.query("insert into device (name, serialnumber, company, status, warranty, price, date, productcode) values ($1, $2, $3, $4, $5, $6, $7, $8)",
                 [name,serial,company,stat,warranty,price,date, productCode],async(err,respond)=>{
                     await pool.query("select * from device",(err,newdata)=>{
-                        res.render("./devices.ejs",{allDevices:newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode : null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
+                        res.render("./devices.ejs",{highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                            allDevices:newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode : null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
                     })
                 })
         }
@@ -984,7 +999,7 @@ app.post("/operationsPageAdd",async(req,res)=>{
                             })
                         })
                         await pool.query("select * from operation",async (err, newdata) => {
-                            res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./operations.ejs", {selectElementValue:"/operations",allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })   
     })     
 })
@@ -1020,7 +1035,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                     if(err)
                                                         console.log(err);
                                                     else {
-                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا التوقيت غير مناسب", savedID: null});
+                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا التوقيت غير مناسب", savedID: null});
                                                     }
                                                 })
                                             }else {
@@ -1030,7 +1045,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                             if(err)
                                                                 console.log(err);
                                                             else {
-                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا الجراح لديه عملية في هذا التوقيت", savedID: null});
+                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا الجراح لديه عملية في هذا التوقيت", savedID: null});
                                                             }
                                                         })
                                                     }else {
@@ -1040,7 +1055,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                     if(err)
                                                                         console.log(err);
                                                                     else {
-                                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا المريض لديه عملية في هذا التوقيت", savedID: null});
+                                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا المريض لديه عملية في هذا التوقيت", savedID: null});
                                                                     }
                                                                 })
                                                             }else {
@@ -1050,7 +1065,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                             if(err)
                                                                                 console.log(err);
                                                                             else {
-                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", savedID: null});
+                                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", savedID: null});
                                                                             }
                                                                         })
                                                                     }else {
@@ -1063,7 +1078,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                                         if(err)
                                                                                             console.log(err);
                                                                                         else {
-                                                                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
+                                                                                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
                                                                                         }
                                                                                     })
                                                                                 }
@@ -1081,7 +1096,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                         if(err)
                                             console.log(err);
                                         else {
-                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية لا تتم في هذه الغرفة", savedID: null});
+                                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية لا تتم في هذه الغرفة", savedID: null});
                                         }
                                     })
                                 }
@@ -1090,7 +1105,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                 if(err)
                                     console.log(err);
                                 else {
-                                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا توجد عملية بهذا الكود", savedID: null});
+                                    respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا توجد عملية بهذا الكود", savedID: null});
                                 }
                             })
                         }
@@ -1100,7 +1115,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                         if(err)
                             console.log(err);
                         else {
-                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد جراح بهذا الرقم القومي", savedID: null});
+                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد جراح بهذا الرقم القومي", savedID: null});
                         }
                     })
                 }
@@ -1110,7 +1125,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                 if(err)
                     console.log(err);
                 else {
-                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد مريض بهذا الرقم القومي", savedID: null});
+                    respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد مريض بهذا الرقم القومي", savedID: null});
                 }
             })
         }
@@ -1517,18 +1532,21 @@ app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
             if (!err) {
                 if (respond.rows.length == 1 && id != oldid) {
                     await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                            allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                     })
                 } else if (req.body["password"] != req.body["confirmPassword"]) {
                     await pool.query("select * from admin", async(err, newdata) => {
-                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"كلمات المرور غير متطابقة", name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                            allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"كلمات المرور غير متطابقة", name: req.session.user["username"], image: req.session.user["image"]});
                     })
                 }
                 else {
                     await pool.query("select * from admin where email = $1",[email], async(err,emailData)=>{
                         if(emailData.rows.length != 0 && email != oldEmail){
                             await pool.query("select * from admin", async(err, newdata) => {
-                                res.render("./admins.ejs", {allAdmins: newdata.rows, show:null,savedID:oldid,savedEmail:oldEmail, showEdit: "show", errorMessage : null,editErrorMessage:"البريد الالكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                                res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                                    allAdmins: newdata.rows, show:null,savedID:oldid,savedEmail:oldEmail, showEdit: "show", errorMessage : null,editErrorMessage:"البريد الالكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                             })
                         }
                         else{
@@ -1548,7 +1566,8 @@ app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
                                 ],
                                 async(err2, respond2) => {
                                     await pool.query("select * from admin", async(err, newdata) => {
-                                        res.render("./admins.ejs", {allAdmins: newdata.rows,savedID:null,savedEmail:null, show:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                                        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                                            allAdmins: newdata.rows,savedID:null,savedEmail:null, show:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                                     })
                                 }
                             );
@@ -1575,7 +1594,8 @@ app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
     await pool.query("select * from surgeon where nationalid = $1",[id],async(err,respond)=>{
         if(respond.rows.length == 1 && id != oldid){
             await pool.query("select * from surgeon", async(err, newdata) => {
-                res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,editShow:"show",savedID:oldid,editErrorMessage:"الرقم القومي مستخدم", errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                    allDoctors: newdata.rows, show: null,editShow:"show",savedID:oldid,editErrorMessage:"الرقم القومي مستخدم", errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
             })
         }
         else{
@@ -1597,7 +1617,8 @@ app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
                     async(err2, respond2) => {
                         await pool.query("update medicalhistory set surgeonid = $1, surgeonname = $2 where surgeonid = $3", [id, name, oldid], async (err, historyRespond) => {
                             await pool.query("select * from surgeon", async(err, newdata) => {
-                                res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,savedID:null,editShow:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                                res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                                allDoctors: newdata.rows, show: null,savedID:null,editShow:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                             })  
                         })
                     }
@@ -1620,7 +1641,7 @@ app.post("/patientsPageEdit", upload.single("image"), async(req,res)=>{
     await pool.query("select * from patient where nationalid = $1",[id],async (err,respond)=>{
         if(respond.rows.length == 1 && id != oldid){
             await pool.query("select * from patient", async(err, newdata) => {
-                res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null,editShow:"show",editErrorMessage:"الرقم القومي مستخدم",savedID : oldid, name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",allPatients: newdata.rows, show: null, errorMessage : null,editShow:"show",editErrorMessage:"الرقم القومي مستخدم",savedID : oldid, name: req.session.user["username"], image: req.session.user["image"]});
             })
         }
         else{
@@ -1631,7 +1652,7 @@ app.post("/patientsPageEdit", upload.single("image"), async(req,res)=>{
                 async (err2, respond2) => {
                     await pool.query("update medicalhistory set patientid = $1, patientname = $2 where patientid = $3", [id, name, oldid], async (err, historyRespond) => {
                         await pool.query("select * from patient", async(err, newdata) => {
-                            res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null,editShow:null,editErrorMessage:null,savedID : null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",allPatients: newdata.rows, show: null, errorMessage : null,editShow:null,editErrorMessage:null,savedID : null, name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     })
                 }
@@ -1654,7 +1675,8 @@ app.post("/devicesPageEdit",async (req,res)=>{
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,respond)=>{
         if(respond.rows.length == 1 && serial != oldSerial){
             await pool.query("select * from device",(err,newdata)=>{
-                res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:"show",editErrorMessage:"الرقم التسلسلي مستخدم",savedCode : oldSerial, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+                res.render("./devices.ejs",{highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                    allDevices: newdata.rows,show: null,editShow:"show",editErrorMessage:"الرقم التسلسلي مستخدم",savedCode : oldSerial, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
             })
         }
         else{
@@ -1662,7 +1684,8 @@ app.post("/devicesPageEdit",async (req,res)=>{
                 [name,serial,company,warranty,price,date,stat,oldSerial, productCode],async (err,respond2)=>{
                     if(err) console.log(err)
                     await pool.query("select * from device",(err,newdata)=>{
-                        res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+                        res.render("./devices.ejs",{highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                            allDevices: newdata.rows,show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
                     })      
                 })
         }
@@ -1692,7 +1715,7 @@ app.post("/operationsPageEdit",async (req,res)=>{
     await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
         ,[name,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
             await pool.query("select * from operation",async (err, newdata) => {
-                res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./operations.ejs", {selectElementValue:"/operations",allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
             })   
         })
 })
@@ -1730,7 +1753,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                     if(err)
                                                         console.log(err);
                                                     else {
-                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا التوقيت غير مناسب", show: null, errorMessage: "", savedID: oldId});
+                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا التوقيت غير مناسب", show: null, errorMessage: "", savedID: oldId});
                                                     }
                                                 })
                                             }else {
@@ -1740,7 +1763,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                             if(err)
                                                                 console.log(err);
                                                             else {
-                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا الجراح لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
+                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا الجراح لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
                                                             }
                                                         })
                                                     }else {
@@ -1750,7 +1773,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                                     if(err)
                                                                         console.log(err);
                                                                     else {
-                                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا المريض لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
+                                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا المريض لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
                                                                     }
                                                                 })
                                                             }else {
@@ -1760,7 +1783,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                                             if(err)
                                                                                 console.log(err);
                                                                             else {
-                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", show: null, errorMessage: "", savedID: oldId});
+                                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", show: null, errorMessage: "", savedID: oldId});
                                                                             }
                                                                         })
                                                                     }else {
@@ -1774,7 +1797,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                                                             if(err)
                                                                                                 console.log(err);
                                                                                             else {
-                                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+                                                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
                                                                                             }
                                                                                         })
                                                                                     }
@@ -1793,7 +1816,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                         if(err)
                                             console.log(err);
                                         else {
-                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية لا تتم في هذه الغرفة", show: null, errorMessage: "", savedID: oldId});
+                                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية لا تتم في هذه الغرفة", show: null, errorMessage: "", savedID: oldId});
                                         }
                                     })
                                 }
@@ -1802,7 +1825,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                 if(err)
                                     console.log(err);
                                 else {
-                                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا توجد عملية بهذا الكود", show: null, errorMessage: "", savedID: oldId});
+                                    respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا توجد عملية بهذا الكود", show: null, errorMessage: "", savedID: oldId});
                                 }
                             })
                         }
@@ -1812,7 +1835,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                         if(err)
                             console.log(err);
                         else {
-                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد جراح بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
+                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد جراح بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
                         }
                     })
                 }
@@ -1822,7 +1845,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                 if(err)
                     console.log(err);
                 else {
-                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد مريض بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
+                    respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد مريض بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
                 }
             })
         }
@@ -2173,7 +2196,1033 @@ app.post("/addHistorySurgeonPage", async (req, respond) => {
     })
 })
 
- 
+app.get("/malePatients", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'ذكر'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",currentPage:"AndMale",selectElementValue:"/patients",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/femalePatients", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'أنثي'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",currentPage:"AndFemale",selectElementValue:"/patients",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/patientsSortedASCByAge", async (req, data) => {
+
+    await pool.query("select * from patient ORDER BY birthdate DESC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patientsSortedASCByAge",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/patientsSortedDESCByAge", async (req, data) => {
+
+    await pool.query("select * from patient ORDER BY birthdate ASC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patientsSortedDESCByAge",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/patientsSortedASCByName", async (req, data) => {
+
+    await pool.query("select * from patient ORDER BY name ASC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patientsSortedASCByName",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/patientsSortedDESCByName", async (req, data) => {
+
+    await pool.query("select * from patient ORDER BY name DESC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patientsSortedDESCByName",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/patientsSortedASCByAgeAndFemale", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'أنثي' ORDER BY birthdate DESC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/patientsSortedASCByAgeAndFemale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/patientsSortedDESCByAgeAndFemale", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'أنثي' ORDER BY birthdate ASC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/patientsSortedDESCByAgeAndFemale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/patientsSortedASCByNameAndFemale", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'أنثي' ORDER BY name ASC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/patientsSortedASCByNameAndFemale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/patientsSortedDESCByNameAndFemale", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'أنثي' ORDER BY name DESC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/patientsSortedDESCByNameAndFemale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/patientsSortedASCByAgeAndMale", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'ذكر' ORDER BY birthdate DESC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/patientsSortedASCByAgeAndMale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/patientsSortedDESCByAgeAndMale", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'ذكر' ORDER BY birthdate ASC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/patientsSortedDESCByAgeAndMale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+
+app.get("/patientsSortedASCByNameAndMale", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'ذكر' ORDER BY name ASC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/patientsSortedASCByNameAndMale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/patientsSortedDESCByNameAndMale", async (req, data) => {
+
+    await pool.query("select * from patient where sex = 'ذكر' ORDER BY name DESC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/patientsSortedDESCByNameAndMale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/operationsSBNA", async (req, data) => {
+
+    await pool.query("select * from operation order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {selectElementValue:"/operationsSBNA",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/operationsSBND", async (req, data) => {
+
+    await pool.query("select * from operation order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {selectElementValue:"/operationsSBND",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/operationsSBRNA", async (req, data) => {
+
+    await pool.query("select * from operation order by roomnumber asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {selectElementValue:"/operationsSBRNA",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/operationsSBRND", async (req, data) => {
+
+    await pool.query("select * from operation order by roomnumber desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {selectElementValue:"/operationsSBRND",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/appointmentsSBPNA", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY P.name ASC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBPNA",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+
+app.get("/appointmentsSBPND", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY P.name DESC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBPND",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBSNA", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY surgeonname ASC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBSNA",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBSND", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY surgeonname DESC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBSND",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBANA", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.appointmentid ASC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBANA",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBAND", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.appointmentid DESC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBAND",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBDA", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.date ASC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBDA",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBDD", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.date DESC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBDD",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/maleDoctors", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctors",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+
+app.get("/femaleDoctors", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'أنثي'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctors",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBNA", async (req, data) => {
+
+    await pool.query("select * from surgeon order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctorsSBNA",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBND", async (req, data) => {
+
+    await pool.query("select * from surgeon order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctorsSBND",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBAA", async (req, data) => {
+
+    await pool.query("select * from surgeon order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctorsSBAA",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBAD", async (req, data) => {
+
+    await pool.query("select * from surgeon order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctorsSBAD",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/doctorsSBNAAndMale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctorsSBNAAndMale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBNDAndMale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctorsSBNDAndMale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBAAAndMale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctorsSBAAAndMale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBADAndMale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctorsSBADAndMale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBNAAndFemale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'أنثي' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctorsSBNAAndFemale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBNDAndFemale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'أنثي' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctorsSBNDAndFemale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBAAAndFemale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'أنثي' order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctorsSBAAAndFemale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBADAndFemale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'أنثي' order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctorsSBADAndFemale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/maleAdmins", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/admins",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+
+app.get("/femaleAdmins", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/admins",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBNA", async (req, data) => {
+
+    await pool.query("select * from admin order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/AdminsSBNA",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBND", async (req, data) => {
+
+    await pool.query("select * from admin order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/AdminsSBND",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBAA", async (req, data) => {
+
+    await pool.query("select * from admin order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/AdminsSBAA",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBAD", async (req, data) => {
+
+    await pool.query("select * from admin order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/AdminsSBAD",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/AdminsSBNAAndMale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/AdminsSBNAAndMale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBNDAndMale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/AdminsSBNDAndMale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBAAAndMale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر' order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/AdminsSBAAAndMale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBADAndMale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'ذكر' order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/AdminsSBADAndMale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBNAAndFemale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/AdminsSBNAAndFemale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBNDAndFemale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/AdminsSBNDAndFemale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBAAAndFemale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي' order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/AdminsSBAAAndFemale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/AdminsSBADAndFemale", async (req, data) => {
+
+    await pool.query("select * from admin where sex = 'أنثي' order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./admins.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/AdminsSBADAndFemale",
+                allAdmins: res.rows, show: null,showEdit:null,savedID:null,savedEmail:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/activeDevices", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devices",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+
+
+app.get("/inactiveDevices", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devices",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDA", async (req, data) => {
+
+    await pool.query("select * from device order by date asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBDA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDD", async (req, data) => {
+
+    await pool.query("select * from device order by date desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBDD",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNA", async (req, data) => {
+
+    await pool.query("select * from device order by name ASC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBNA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBND", async (req, data) => {
+
+    await pool.query("select * from device order by name DESC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBND",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCA", async (req, data) => {
+
+    await pool.query("select * from device order by company asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBCA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCD", async (req, data) => {
+
+    await pool.query("select * from device order by company desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBCD",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPA", async (req, data) => {
+
+    await pool.query("select * from device order by price asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBPA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPD", async (req, data) => {
+
+    await pool.query("select * from device order by price desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBPD",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWA", async (req, data) => {
+
+    await pool.query("select * from device order by warranty asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBWA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWD", async (req, data) => {
+
+    await pool.query("select * from device order by warranty desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBWD",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by date asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBDAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by date desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBDDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBNAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBNDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by company asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBCAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by company desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBCDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by price asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBPAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by price desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBPDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by warranty asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBWAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by warranty desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBWDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/devicesSBDAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by date asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBDAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by date desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBDDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBNAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBNDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by company asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBCAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by company desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBCDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by price asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBPAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by price desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBPDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by warranty asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBWAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by warranty desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBWDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+
+
+
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
 });

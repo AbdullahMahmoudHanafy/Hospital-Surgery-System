@@ -44,11 +44,13 @@
                         <button class="active">ذكر</button>
                         <button class="inactive">أنثي</button>
                     </div> -->
-                    <select class="combobox">
-                        <option value="purchaseDate-asc">الترتيب حسب الاسم (من ألألف الي الياء)</option>
-                        <option value="purchaseDate-desc">الترتيب حسب الاسم (من الياء الي الألف)</option>
-                        <option value="name-asc">الترتيب حسب العمر (تصاعديا)</option>
-                        <option value="name-desc">الترتيب حسب العمر (تنازليا)</option>
+                    <input type="hidden" id = "hiddenSelect" value="<%=selectElementValue%>">
+                    <select class="combobox" id="endpoint-select">
+                        <option value="/operations">بدون ترتيب</option>
+                        <option value="/operationsSBNA">الترتيب حسب الاسم (من ألألف الي الياء)</option>
+                        <option value="/operationsSBND">الترتيب حسب الاسم (من الياء الي الألف)</option>
+                        <option value="/operationsSBRNA">الترتيب حسب رقم الغرفة (تصاعديا)</option>
+                        <option value="/operationsSBRND">الترتيب حسب رقم الغرفة (تنازليا)</option>
                     </select>
                     <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
                 </div>
