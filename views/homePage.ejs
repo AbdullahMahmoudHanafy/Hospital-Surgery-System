@@ -134,7 +134,7 @@
         <div class="container addOperation">
             <h5> إضافة عملية</h5>
             <div class="errorMessage"><%= errorMessage %></div>
-            <form dir='rtl' action="addOperation" method="post" enctype="multipart/form-data">
+            <form dir='rtl' action="addOperation" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم العملية</label>
                 <input type="text" name="name" placeholder="ادخل اسم العملية" dir='rtl' lang='ar' required>
                 <label for="price" dir='rtl' lang='ar'>سعر العملية</label>
@@ -166,7 +166,7 @@
         <div class="container addDevice">
             <h5> إضافة جهاز</h5>
             <div class="errorMessage"><%= errorMessage %></div>
-            <form action="addDevice" method="post" enctype="multipart/form-data">
+            <form action="addDevice" method="post">
                 <label for="name" dir='rtl' lang='ar'>اسم الجهاز</label>
                 <input type="name" name="name" placeholder="ادخل اسم الجهاز" dir='rtl' lang='ar' required>
                 <label for="serial" dir='rtl' lang='ar'>الرقم التسلسلي</label>
@@ -194,7 +194,7 @@
         <div class="container addAppointment">
             <h5> عملية الحجز</h5>
             <div class="errorMessage"><%= errorMessage %></div>
-            <form action="addAppointment" method="post" enctype="multipart/form-data">
+            <form action="addAppointment" method="post">
                 <label for="patientID" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
                 <input type="text" name="patientID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
                 <label for="surgeonID" dir='rtl' lang='ar'>الرقم القومي للجراح</label>

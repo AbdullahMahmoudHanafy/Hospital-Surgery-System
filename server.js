@@ -515,6 +515,13 @@ app.post("/addOperation",async(req,res)=>{
     roomnumber = req.body.roomnumber,
     usedDevices = req.body["multiValueField"],
     description = req.body.description;
+    console.log(name)
+    console.log(price)
+    console.log(roomnumber)
+    console.log(duration)
+    console.log(usedDevices)
+    console.log(description)
+    
     // if user entered one device typeof used devices will be string and the following algorithm use it as object so there must be a type casting
     if(typeof usedDevices == "string")
         usedDevices = [usedDevices];
@@ -522,10 +529,11 @@ app.post("/addOperation",async(req,res)=>{
     await pool.query("insert into operation (name, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5) returning code",
         [name,duration,price,roomnumber,description], async(err, respond) => {
             let code = respond.rows[0]["code"]
+            if(usedDevices != undefined){
             usedDevices.forEach(async (deviceproductcode)=>{
                             await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, code],async(err,devicesData)=>{
                             })
-                        })
+                        })}
             let dataNumbers = await getNumbers()
             res.render("./homePage.ejs", {
                 name: req.session.user["username"],
@@ -994,10 +1002,11 @@ app.post("/operationsPageAdd",async(req,res)=>{
     await pool.query("insert into operation (name, duration, price, roomnumber, description) values ($1, $2, $3, $4, $5) returning code",
         [name,duration,price,roomnumber,description], async(err, respond) => {
             let code = respond.rows[0]["code"]
+            if(usedDevices != undefined){
             usedDevices.forEach(async (deviceproductcode)=>{
                             await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, code],async(err,devicesData)=>{
                             })
-                        })
+                        })}
                         await pool.query("select * from operation",async (err, newdata) => {
                             res.render("./operations.ejs", {selectElementValue:"/operations",allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })   
@@ -1704,13 +1713,13 @@ app.post("/operationsPageEdit",async (req,res)=>{
 
     if(typeof usedDevices == "string")
         usedDevices = [usedDevices];
-    
+    if(usedDevices != undefined){
     await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
         usedDevices.forEach(async (deviceproductcode)=>{
             await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, oldCode],async(err,devicesData)=>{
             })
         })
-    })
+    })}
 
     await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
         ,[name,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
@@ -1952,10 +1961,11 @@ app.post("/operationProfileEdit",async (req,res)=>{
         usedDevices = [usedDevices];
 
             await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
+                if(usedDevices != undefined){
                 usedDevices.forEach(async (deviceproductcode)=>{
                     await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, oldCode],async(err,devicesData)=>{
                     })
-                })
+                })}
             })
 
             await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
