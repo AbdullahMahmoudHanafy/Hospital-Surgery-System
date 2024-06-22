@@ -5,6 +5,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import  pool  from "./database.js"
 import session from 'express-session';
+import { type } from "os";
 
 const port = 3000;
 
@@ -61,7 +62,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      maxAge: 60 * 30 * 1000, // Session duration (in milliseconds)
+      maxAge: 60 * 60 * 1000, // Session duration (in milliseconds)
     },
 }));
 
@@ -1248,47 +1249,53 @@ app.post("/editPatient", upload.single("image"), async (req, res) => {
         async (err, respond) => {
             if (!err) {
                 if (respond.rows.length === 1 && id != oldid) {
-                    await pool.query(
-                        `SELECT * FROM patient WHERE nationalid = '${oldid}'`,
-                        (err2, respond2) => {
-                            res.render("patientProfile.ejs", {
-                                editShow: "show",
-                                name: req.session.user["username"],
-                                image: req.session.user["image"],
-                                errormessagepatient: "الرقم القومي مستخدم",
-                                patientName: respond2.rows[0].name,
-                                patientImage: respond2.rows[0].image,
-                                id: respond2.rows[0].nationalid,
-                                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                                sex: respond2.rows[0].sex,
-                                phone: respond2.rows[0].phone,
-                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
-                                address:respond2.rows[0].address
-                            });
-                        }
-                    );
+                    await pool.query("select * from medicalhistory where patientid = $1", [id], async (err, historyData) => {
+                        await pool.query(
+                            `SELECT * FROM patient WHERE nationalid = '${oldid}'`,
+                            (err2, respond2) => {
+                                res.render("patientProfile.ejs", {
+                                    historyData: historyData.rows,
+                                    editShow: "show",
+                                    name: req.session.user["username"],
+                                    image: req.session.user["image"],
+                                    errormessagepatient: "الرقم القومي مستخدم",
+                                    patientName: respond2.rows[0].name,
+                                    patientImage: respond2.rows[0].image,
+                                    id: respond2.rows[0].nationalid,
+                                    birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                    sex: respond2.rows[0].sex,
+                                    phone: respond2.rows[0].phone,
+                                    age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                                    address:respond2.rows[0].address, historyErrorMessage: "", showHistory: null
+                                });
+                            }
+                        );
+                    })
                 } else {
-                    await pool.query(
-                        "update patient SET name = $1, nationalid = $2, address = $3, phone = $4, sex = $5, image = $6, birthdate = $7 where nationalid = $8",
-
-                        [name, id, address, phone, sex, image, birthdate, oldid],
-                        (err2, respond2) => {
-                            res.render("patientProfile.ejs", {
-                                name: req.session.user["username"],
-                                image: req.session.user["image"],
-                                errormessagepatient: null,
-                                patientName: name,
-                                patientImage: image,
-                                id: id,
-                                phone: phone,
-                                birthdate: birthdate,
-                                sex: sex,
-                                age: calculateAge(birthdate),
-                                address:address,
-                                editShow: null
-                            });
-                        }
-                    );
+                    await pool.query("update medicalhistory set patientid = $1, patientname = $2 where patientid = $3 returning *", [id, name, oldid], async (err, historyData) => {
+                        await pool.query(
+                            "update patient SET name = $1, nationalid = $2, address = $3, phone = $4, sex = $5, image = $6, birthdate = $7 where nationalid = $8",
+    
+                            [name, id, address, phone, sex, image, birthdate, oldid],
+                            (err2, respond2) => {
+                                res.render("patientProfile.ejs", {
+                                    historyData: historyData.rows,
+                                    name: req.session.user["username"],
+                                    image: req.session.user["image"],
+                                    errormessagepatient: null,
+                                    patientName: name,
+                                    patientImage: image,
+                                    id: id,
+                                    phone: phone,
+                                    birthdate: birthdate,
+                                    sex: sex,
+                                    age: calculateAge(birthdate),
+                                    address:address,
+                                    editShow: null, historyErrorMessage: "", showHistory: null
+                                });
+                            }
+                        );
+                    })
                 }
             } else console.log(err);
         }
@@ -1312,27 +1319,30 @@ app.post("/editSurgeon", upload.single("image"), async (req, res) => {
         async (err, respond) => {
             if (!err) {
                 if (respond.rows.length === 1 && id != oldid) {
-                    await pool.query(
-                        `select * from surgeon where nationalid ='${oldid}'`,
-                        (err2, respond2) => {
-                            res.render("doctorProfile.ejs", {
-                                name: req.session.user["username"],
-                                image: req.session.user["image"],
-                                errormessagedoctor: "الرقم القومي مستخدم",
-                                doctorName: respond2.rows[0].name,
-                                doctorImage: respond2.rows[0].image,
-                                email: respond2.rows[0].email,
-                                id: respond2.rows[0].nationalid,
-                                phone: respond2.rows[0].phone,
-                                sex: respond2.rows[0].sex,
-                                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                                specialization: respond2.rows[0].speciality,
-                                age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
-                                address:respond2.rows[0].address,
-                                editShow:"show"
-                            });
-                        }
-                    );
+                    await pool.query("select * from medicalhistory where surgeonid = $1", [id], async (err, historyData) => {
+                        await pool.query(
+                            `select * from surgeon where nationalid ='${id}'`,
+                            (err2, respond2) => {
+                                res.render("doctorProfile.ejs", {
+                                    historyData: historyData.rows,
+                                    name: req.session.user["username"],
+                                    image: req.session.user["image"],
+                                    errormessagedoctor: "الرقم القومي مستخدم",
+                                    doctorName: respond2.rows[0].name,
+                                    doctorImage: respond2.rows[0].image,
+                                    email: respond2.rows[0].email,
+                                    id: respond2.rows[0].nationalid,
+                                    phone: respond2.rows[0].phone,
+                                    sex: respond2.rows[0].sex,
+                                    birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                    specialization: respond2.rows[0].speciality,
+                                    age: calculateAge(formatDate(respond2.rows[0].birthdate)),
+                                    address:respond2.rows[0].address,
+                                    editShow:"show", historyErrorMessage: "", showHistory: null
+                                });
+                            }
+                        );
+                    })
                 } else {
                     await pool.query(
                         `update surgeon set name = $1 , nationalid = $2 ,email = $3 , phone = $4, sex = $5 , birthdate = $6 ,address =$7 , image = $8 , speciality = $9 where nationalid = $10`,
@@ -1349,23 +1359,31 @@ app.post("/editSurgeon", upload.single("image"), async (req, res) => {
                             oldid,
                         ],
 
-                        (err2, respond2) => {
-                            res.render("doctorProfile.ejs", {
-                                name: req.session.user["username"],
-                                image: req.session.user["image"],
-                                errormessagedoctor: null,
-                                doctorName: name,
-                                doctorImage: image,
-                                id: id,
-                                email: email,
-                                phone: phone,
-                                birthdate: birthdate,
-                                sex: sex,
-                                specialization: specialization,
-                                age: calculateAge(birthdate),
-                                address:address,
-                                editShow:null
-                            });
+                        async (err2, respond2) => {
+                            await pool.query("update medicalhistory set surgeonid = $1, surgeonname = $2 where surgeonid = $3 returning *", [id, name, oldid], async (err, historyData) => {
+                                await pool.query(
+                                    `select * from surgeon where nationalid ='${id}'`,
+                                    (err2, respond2) => {
+                                        res.render("doctorProfile.ejs", {
+                                            historyData: historyData.rows,
+                                            name: req.session.user["username"],
+                                            image: req.session.user["image"],
+                                            errormessagedoctor: null,
+                                            doctorName: respond2.rows[0].name,
+                                            doctorImage: respond2.rows[0].image,
+                                            email: respond2.rows[0].email,
+                                            id: respond2.rows[0].nationalid,
+                                            phone: respond2.rows[0].phone,
+                                            sex: respond2.rows[0].sex,
+                                            birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                            specialization: respond2.rows[0].speciality,
+                                            age: calculateAge(formatDate(respond2.rows[0].birthdate)),
+                                            address:respond2.rows[0].address,
+                                            editShow:null, historyErrorMessage: "", showHistory: null
+                                        });
+                                    }
+                                );
+                            })
                         }
                     );
                 }
@@ -1397,50 +1415,56 @@ app.post("/previewAdminProfile",async(req,res)=>{
 
 app.post("/previewDoctorProfile",async(req,res)=>{
     let id = req.body.hiddenPreviewID
-    await pool.query(
-        `select * from surgeon where nationalid ='${id}'`,
-        (err2, respond2) => {
-            res.render("doctorProfile.ejs", {
-                name: req.session.user["username"],
-                image: req.session.user["image"],
-                errormessagedoctor: null,
-                doctorName: respond2.rows[0].name,
-                doctorImage: respond2.rows[0].image,
-                email: respond2.rows[0].email,
-                id: respond2.rows[0].nationalid,
-                phone: respond2.rows[0].phone,
-                sex: respond2.rows[0].sex,
-                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                specialization: respond2.rows[0].speciality,
-                age: calculateAge(formatDate(respond2.rows[0].birthdate)),
-                address:respond2.rows[0].address,
-                editShow:null
-            });
-        }
-    );
+    await pool.query("select * from medicalhistory where surgeonid = $1", [id], async (err, historyData) => {
+        await pool.query(
+            `select * from surgeon where nationalid ='${id}'`,
+            (err2, respond2) => {
+                res.render("doctorProfile.ejs", {
+                    historyData: historyData.rows,
+                    name: req.session.user["username"],
+                    image: req.session.user["image"],
+                    errormessagedoctor: null,
+                    doctorName: respond2.rows[0].name,
+                    doctorImage: respond2.rows[0].image,
+                    email: respond2.rows[0].email,
+                    id: respond2.rows[0].nationalid,
+                    phone: respond2.rows[0].phone,
+                    sex: respond2.rows[0].sex,
+                    birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                    specialization: respond2.rows[0].speciality,
+                    age: calculateAge(formatDate(respond2.rows[0].birthdate)),
+                    address:respond2.rows[0].address,
+                    editShow:null, historyErrorMessage: "", showHistory: null
+                });
+            }
+        );
+    })
 })
 
 app.post("/previewPatientProfile",async(req,res)=>{
     let id = req.body.hiddenPreviewID
-    await pool.query(
-        `SELECT * FROM patient WHERE nationalid = '${id}'`,
-        (err2, respond2) => {
-            res.render("patientProfile.ejs", {
-                name: req.session.user["username"],
-                image: req.session.user["image"],
-                errormessagepatient: null,
-                patientName: respond2.rows[0].name,
-                patientImage: respond2.rows[0].image,
-                id: respond2.rows[0].nationalid,
-                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
-                sex: respond2.rows[0].sex,
-                phone: respond2.rows[0].phone,
-                age: calculateAge(formatDate(respond2.rows[0]["birthdate"])),
-                address:respond2.rows[0].address,
-                editShow:null
-            });
-        }
-    );
+    await pool.query("select * from medicalhistory where patientid = $1", [id], async (err, historyData) => {
+        await pool.query(
+            `SELECT * FROM patient WHERE nationalid = '${id}'`,
+            (err2, respond2) => {
+                res.render("patientProfile.ejs", {
+                    historyData: historyData.rows,
+                    name: req.session.user["username"],
+                    image: req.session.user["image"],
+                    errormessagepatient: null,
+                    patientName: respond2.rows[0].name,
+                    patientImage: respond2.rows[0].image,
+                    id: respond2.rows[0].nationalid,
+                    birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                    sex: respond2.rows[0].sex,
+                    phone: respond2.rows[0].phone,
+                    age: calculateAge(formatDate(respond2.rows[0]["birthdate"])),
+                    address:respond2.rows[0].address,
+                    editShow:null, historyErrorMessage: "", showHistory: null
+                });
+            }
+        );
+    })
 })
 
 app.post("/previewOperationProfile",async(req,res)=>{
@@ -1563,9 +1587,11 @@ app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
                     ],
 
                     async(err2, respond2) => {
-                        await pool.query("select * from surgeon", async(err, newdata) => {
-                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,savedID:null,editShow:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
-                        })  
+                        await pool.query("update medicalhistory set surgeonid = $1, surgeonname = $2 where surgeonid = $3", [id, name, oldid], async (err, historyRespond) => {
+                            await pool.query("select * from surgeon", async(err, newdata) => {
+                                res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,savedID:null,editShow:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                            })  
+                        })
                     }
                 );
             }
@@ -1595,8 +1621,10 @@ app.post("/patientsPageEdit", upload.single("image"), async(req,res)=>{
 
                 [name, id, address, phone, sex, image, birthdate, oldid],
                 async (err2, respond2) => {
-                    await pool.query("select * from patient", async(err, newdata) => {
-                        res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null,editShow:null,editErrorMessage:null,savedID : null, name: req.session.user["username"], image: req.session.user["image"]});
+                    await pool.query("update medicalhistory set patientid = $1, patientname = $2 where patientid = $3", [id, name, oldid], async (err, historyRespond) => {
+                        await pool.query("select * from patient", async(err, newdata) => {
+                            res.render("./patients.ejs", {allPatients: newdata.rows, show: null, errorMessage : null,editShow:null,editErrorMessage:null,savedID : null, name: req.session.user["username"], image: req.session.user["image"]});
+                        })
                     })
                 }
             );
@@ -1921,6 +1949,220 @@ app.post("/operationProfileEdit",async (req,res)=>{
                         }
                     );
                 })       
+})
+
+app.post("/addHistoryPatientPage", async (req, respond) => {
+    let operationCode = req.body["operationcode"],
+    patientName = req.body["name"],
+    patientId = req.body["patientid"],
+    surgeonId = req.body["surgeonid"],
+    date = req.body["date"]
+    console.log(typeof(date))
+    await pool.query("select * from surgeon where nationalid = $1", [surgeonId], async (err, surgeonRespond) => {
+        if(err)
+            console.log(err)
+        else {
+            if(surgeonRespond.rowCount != 0){
+                let surgeonName = surgeonRespond.rows[0]["name"]
+                await pool.query("select * from operation where code = $1", [operationCode], async (err, operationRespond) =>{
+                    if(err)
+                        console.log(err)
+                    else {
+                        if(operationRespond.rowCount != 0)
+                            {
+                                let operationName = operationRespond.rows[0]["name"]
+                                await pool.query("insert into medicalhistory (patientname, patientid, surgeonname, surgeonid, operationcode, operationname, date) values ($1, $2, $3, $4, $5, $6, $7)",
+                                    [patientName, patientId, surgeonName, surgeonId, operationCode, operationName, date], async (err, res) => {
+                                        if(err)
+                                            console.log(err)
+                                        else {
+                                            await pool.query("select * from medicalhistory where patientid = $1", [patientId], async (err, historyData) => {
+                                                await pool.query(
+                                                    `SELECT * FROM patient WHERE nationalid = '${patientId}'`,
+                                                    (err2, respond2) => {
+                                                        respond.render("patientProfile.ejs", {
+                                                            historyData: historyData.rows,
+                                                            name: req.session.user["username"],
+                                                            image: req.session.user["image"],
+                                                            errormessagepatient: null,
+                                                            patientName: respond2.rows[0].name,
+                                                            patientImage: respond2.rows[0].image,
+                                                            id: respond2.rows[0].nationalid,
+                                                            birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                                            sex: respond2.rows[0].sex,
+                                                            phone: respond2.rows[0].phone,
+                                                            age: calculateAge(formatDate(respond2.rows[0]["birthdate"])),
+                                                            address:respond2.rows[0].address,
+                                                            editShow:null, historyErrorMessage: "", showHistory: null
+                                                        });
+                                                    }
+                                                );
+                                            })
+                                        }
+                                    }
+                                )
+                            }else {
+                                await pool.query("select * from medicalhistory where patientid = $1", [patientId], async (err, historyData) => {
+                                    await pool.query(
+                                        `SELECT * FROM patient WHERE nationalid = '${patientId}'`,
+                                        (err2, respond2) => {
+                                            respond.render("patientProfile.ejs", {
+                                                historyData: historyData.rows,
+                                                name: req.session.user["username"],
+                                                image: req.session.user["image"],
+                                                errormessagepatient: null,
+                                                patientName: respond2.rows[0].name,
+                                                patientImage: respond2.rows[0].image,
+                                                id: respond2.rows[0].nationalid,
+                                                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                                sex: respond2.rows[0].sex,
+                                                phone: respond2.rows[0].phone,
+                                                age: calculateAge(formatDate(respond2.rows[0]["birthdate"])),
+                                                address:respond2.rows[0].address,
+                                                editShow:null, historyErrorMessage: "لا توجد عملية بهذا الكود", showHistory: "show"
+                                            });
+                                        }
+                                    );
+                                })
+                            }
+                    }
+                })
+            }else {
+                await pool.query("select * from medicalhistory where patientid = $1", [patientId], async (err, historyData) => {
+                    await pool.query(
+                        `SELECT * FROM patient WHERE nationalid = '${patientId}'`,
+                        (err2, respond2) => {
+                            respond.render("patientProfile.ejs", {
+                                historyData:historyData.rows,
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
+                                errormessagepatient: null,
+                                patientName: respond2.rows[0].name,
+                                patientImage: respond2.rows[0].image,
+                                id: respond2.rows[0].nationalid,
+                                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                sex: respond2.rows[0].sex,
+                                phone: respond2.rows[0].phone,
+                                age: calculateAge(formatDate(respond2.rows[0]["birthdate"])),
+                                address:respond2.rows[0].address,
+                                editShow:null, historyErrorMessage: "لا يوجد جراح بهذا الرقم القومي", showHistory: "show"
+                            });
+                        }
+                    );
+                })
+            }
+        }
+    })
+})
+
+
+app.post("/addHistorySurgeonPage", async (req, respond) => {
+    let operationCode = req.body["operationcode"],
+    surgeonName = req.body["name"],
+    patientId = req.body["patientid"],
+    surgeonId = req.body["surgeonid"],
+    date = req.body["date"]
+    await pool.query("select * from patient where nationalid = $1", [patientId], async (err, patientRespond) => {
+        if(err)
+            console.log(err)
+        else {
+            if(patientRespond.rowCount != 0){
+                let patientName = patientRespond.rows[0]["name"]
+                await pool.query("select * from operation where code = $1", [operationCode], async (err, operationRespond) =>{
+                    if(err)
+                        console.log(err)
+                    else {
+                        if(operationRespond.rowCount != 0)
+                            {
+                                let operationName = operationRespond.rows[0]["name"]
+                                await pool.query("insert into medicalhistory (patientname, patientid, surgeonname, surgeonid, operationcode, operationname, date) values ($1, $2, $3, $4, $5, $6, $7)",
+                                    [patientName, patientId, surgeonName, surgeonId, operationCode, operationName, date], async (err, res) => {
+                                        if(err)
+                                            console.log(err)
+                                        else {
+                                            await pool.query("select * from medicalhistory where surgeonid = $1", [surgeonId], async (err, historyData) => {
+                                                await pool.query(
+                                                    `select * from surgeon where nationalid ='${surgeonId}'`,
+                                                    (err2, respond2) => {
+                                                        respond.render("doctorProfile.ejs", {
+                                                            historyData: historyData.rows,
+                                                            name: req.session.user["username"],
+                                                            image: req.session.user["image"],
+                                                            errormessagedoctor: null,
+                                                            doctorName: respond2.rows[0].name,
+                                                            doctorImage: respond2.rows[0].image,
+                                                            email: respond2.rows[0].email,
+                                                            id: respond2.rows[0].nationalid,
+                                                            phone: respond2.rows[0].phone,
+                                                            sex: respond2.rows[0].sex,
+                                                            birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                                            specialization: respond2.rows[0].speciality,
+                                                            age: calculateAge(formatDate(respond2.rows[0].birthdate)),
+                                                            address:respond2.rows[0].address,
+                                                            editShow:null, historyErrorMessage: "", showHistory: null
+                                                        });
+                                                    }
+                                                );
+                                            })
+                                        }
+                                    }
+                                )
+                            }else {
+                                await pool.query("select * from medicalhistory where surgeonid = $1", [surgeonId], async (err, historyData) => {
+                                    await pool.query(
+                                        `select * from surgeon where nationalid ='${surgeonId}'`,
+                                        (err2, respond2) => {
+                                            respond.render("doctorProfile.ejs", {
+                                                historyData: historyData.rows,
+                                                name: req.session.user["username"],
+                                                image: req.session.user["image"],
+                                                errormessagedoctor: null,
+                                                doctorName: respond2.rows[0].name,
+                                                doctorImage: respond2.rows[0].image,
+                                                email: respond2.rows[0].email,
+                                                id: respond2.rows[0].nationalid,
+                                                phone: respond2.rows[0].phone,
+                                                sex: respond2.rows[0].sex,
+                                                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                                specialization: respond2.rows[0].speciality,
+                                                age: calculateAge(formatDate(respond2.rows[0].birthdate)),
+                                                address:respond2.rows[0].address,
+                                                editShow:null, historyErrorMessage: "لا توجد عملية بهذا الكود", showHistory: null
+                                            });
+                                        }
+                                    );
+                                })
+                            }
+                    }
+                })
+            }else {
+                await pool.query("select * from medicalhistory where surgeonid = $1", [surgeonId], async (err, historyData) => {
+                    await pool.query(
+                        `select * from surgeon where nationalid ='${surgeonId}'`,
+                        (err2, respond2) => {
+                            respond.render("doctorProfile.ejs", {
+                                historyData: historyData.rows,
+                                name: req.session.user["username"],
+                                image: req.session.user["image"],
+                                errormessagedoctor: null,
+                                doctorName: respond2.rows[0].name,
+                                doctorImage: respond2.rows[0].image,
+                                email: respond2.rows[0].email,
+                                id: respond2.rows[0].nationalid,
+                                phone: respond2.rows[0].phone,
+                                sex: respond2.rows[0].sex,
+                                birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                                specialization: respond2.rows[0].speciality,
+                                age: calculateAge(formatDate(respond2.rows[0].birthdate)),
+                                address:respond2.rows[0].address,
+                                editShow:null, historyErrorMessage: "لا يوجد مريض بهذا الرقم القومي", showHistory: null
+                            });
+                        }
+                    );
+                })
+            }
+        }
+    })
 })
 
  

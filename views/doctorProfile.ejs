@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/editSurgeon.css">
     <link rel="stylesheet" href="./styles/deleteOverlay.css">
     <link rel="stylesheet" href="./styles/partial css/navigationBar.css">
+    <link rel="stylesheet" href="./styles/addHistory.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./styles/partial css/overlay.css">
 </head>
@@ -67,34 +68,26 @@
         </div>
     </div>
         <div class="operations">
-            <h3>آخر العمليات:</h3>
-            <div class="operation">
-                <div class="column c1">
-                    <h4 > نوع العملية</h4>
-                    <p>الدودية الزائدة</p>
-                    <p> قلب مفتوح</p>
-                    <p>استبدال مفصل الورك</p>
-                </div>
-                <div class="column c2">
-                    <h4>اسم المريض</h4>
-                    <p>محمد علي</p>
-                    <p>علي حسن</p>
-                    <p>كريم يوسف</p>
-                </div>
-                <div class="column c3">
-                    <h4>الرقم القومي</h4>
-                    <p>19854567812345</p>
-                    <p>19850678905678</p>
-                    <p>19851122345678</p>
-                </div>
-                <div class="column c4">
-                    <h4>التاريخ</h4>
-                    <p>2024-05-01</p>
-                    <p>2024-04-15 </p>
-                    <p> 2024-03-20</p>
-                </div>
+            <div id="operation-titles">
+                <h3>آخر العمليات:</h3>
+                <button id="medical-histpry-add-button">أضف عملية</button>
             </div>
-       
+            <div id="patient-medical-history">
+                <div id="medical-histpry-labels">
+                    <div class="medical-histpry-label-div"><h4>اسم العملية</h4></div>
+                    <div class="medical-histpry-label-div"><h4>اسم المريض</h4></div>
+                    <div class="medical-histpry-label-div"><h4>الرقم القومي للمريض</h4></div>
+                    <div class="medical-histpry-label-div"><h4>تاريخ العملية</h4></div>
+                </div>
+                <% for (var i = 0; i < historyData.length; i++){ %>
+                <div id="medical-histpry-data">
+                    <div class="medical-histpry-data-div"><h4><%= historyData[i]["operationname"] %></h4></div>
+                    <div class="medical-histpry-data-div"><h4><%= historyData[i]["patientname"] %></h4></div>
+                    <div class="medical-histpry-data-div"><h4><%= historyData[i]["patientid"] %></h4></div>
+                    <div class="medical-histpry-data-div"><h4><%= historyData[i]["date"] %></h4></div>
+                </div>
+                <% } %>
+            </div>
         </div>
     </div>
 
@@ -184,6 +177,34 @@
            </div>
         </div>
     </div>
+    <div class="add-history-overlay <%= showHistory %>">
+        <div class="add-history-container">
+            <h5>اضافة عملية للمريض</h5>
+            <div class="errorMessage">
+                <%= historyErrorMessage %>
+            </div>
+            
+            <form action="addHistorySurgeonPage" method="post">
+                <label for="operationcode" dir='rtl' lang='ar'>كود العملية</label>
+                <input type="text" name="operationcode" placeholder="ادخل كود العملية" dir='rtl' lang='ar' required>
+
+                <input type="hidden" name="surgeonid" value=<%= id %> dir='rtl' lang='ar'>
+                <input type="hidden" name="name" value="<%= doctorName %>" dir='rtl' lang='ar'>
+
+                <label for="patientid" dir='rtl' lang='ar'>الرقم القومي للمريض</label>
+                <input type="text" name="patientid" placeholder="ادخل الرقم القومي للجراح" dir='rtl' lang='ar' required>
+
+                <label for="date" dir='rtl' lang='ar'>تاريخ العملية</label>
+                <input type="date" name="date" placeholder="ادخل تاريخ العملية" dir='rtl' lang='ar' required>
+
+                <div class="buttonContainer" dir='rtl' lang='ar' >
+                    <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
+                    <button class="cancel cancel-adding-history"dir='rtl' lang='ar'> إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
 
     <div class="delete-overlay" dir="rtl">
         <div class="delete-overlay-container">
@@ -199,5 +220,6 @@
         </div>
         </div>
     <script src="./js/edit&deleteButtons.js"></script>
+    <script src="./js/addHistory.js"></script>
 </body>
 </html>

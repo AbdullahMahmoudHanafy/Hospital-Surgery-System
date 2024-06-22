@@ -125,10 +125,33 @@ body {
     margin-top: 20px;
 }
 
+#operation-titles{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
 .operations h3 {
     margin-top: 0;
     text-align: center;
     color: black;
+    margin-left: 300px;
+}
+
+#medical-histpry-add-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+}
+
+#medical-histpry-add-button:hover{
+    background-color: blue;
 }
 
 .operation {
@@ -158,4 +181,29 @@ body {
     color: #333;
 }
 
+#medical-histpry-labels{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.medical-histpry-label-div{
+    width: 170px;
+    text-align: center;
+}
+
+#medical-histpry-data{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.medical-histpry-data-div{
+    width: 170px;
+    text-align: center;
+}
 
