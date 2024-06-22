@@ -226,3 +226,7 @@ body{
 .content button:hover{
     background-color: whitesmoke;
 }
+
+button{
+    cursor: pointer;
+}

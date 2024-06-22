@@ -247,6 +247,9 @@ body{
     background-color: whitesmoke;
 }
 
+button{
+    cursor: pointer;
+}
 
 
 

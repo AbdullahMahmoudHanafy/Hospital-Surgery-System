@@ -152,3 +152,6 @@ body {
     color: #333;
 } */
 
+button{
+    cursor: pointer;
+}

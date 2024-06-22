@@ -112,3 +112,7 @@ body {
     background-color: #dc3545;
     color: white;
 }
+
+button{
+    cursor: pointer;
+}

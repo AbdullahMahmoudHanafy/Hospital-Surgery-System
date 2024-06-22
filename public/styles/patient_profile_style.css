@@ -207,3 +207,6 @@ body {
     text-align: center;
 }
 
+button{
+    cursor: pointer;
+}
