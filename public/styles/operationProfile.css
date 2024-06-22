@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
-*{
+/* *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} */
 
 body {
     direction: rtl;
@@ -32,7 +32,7 @@ body {
 .details{
     margin: 20px 0;
     align-items: center;
-    padding-top:40px ;
+    padding-top:20px ;
     justify-content: center;
 }
 
@@ -85,7 +85,7 @@ body {
 .details i {
     margin-left: 10px;
     color: #007bff;
-}
+} 
 
 .buttons {
     position: absolute;
