@@ -2401,14 +2401,6 @@ app.get("/doctorsSBADAndFemale", async (req, data) => {
 })
 
 
-
-
-
-
-
-
-
-
 app.get("/maleAdmins", async (req, data) => {
 
     await pool.query("select * from admin where sex = 'ذكر'", (err, res) => {
@@ -2581,14 +2573,6 @@ app.get("/AdminsSBADAndFemale", async (req, data) => {
 })
 
 
-
-
-
-
-
-
-
-
 app.get("/activeDevices", async (req, data) => {
 
     await pool.query("select * from device where status = 'نشط'", (err, res) => {
@@ -2735,13 +2719,6 @@ app.get("/devicesSBWD", async (req, data) => {
     })
 })
 
-
-
-
-
-
-
-
 app.get("/devicesSBDAAndInactive", async (req, data) => {
 
     await pool.query("select * from device where status = 'معطل' order by date asc", (err, res) => {
@@ -2861,15 +2838,6 @@ app.get("/devicesSBWDAndInactive", async (req, data) => {
         }
     })
 })
-
-
-
-
-
-
-
-
-
 
 
 app.get("/devicesSBDAAndActive", async (req, data) => {
