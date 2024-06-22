@@ -112,18 +112,3 @@ body {
     background-color: #dc3545;
     color: white;
 }
-
-
-body{
-    background-color:azure;
-    margin: 0px;
-}
-
-body.night{
-    background-color: #111827;
-    margin: 0px;
-}
-
-h1.night{
-    color: white;
-}
