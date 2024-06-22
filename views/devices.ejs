@@ -40,21 +40,23 @@
                 <div class="title">كل الأجهزة</div>
                 <div class="search">
                     <div class="buttons">
-                        <button class="all">الكل</button>
-                        <button class="active">نشط</button>
-                        <button class="inactive">معطل</button>
+                        <a href="/devices"><button class="all <%=highlitedAll%>">الكل</button></a>
+                        <a href="/activeDevices"><button class="active <%=highlitedFirst%>">نشط</button></a>
+                        <a href="/inactiveDevices"><button class="inactive <%=highlitedSecond%>">معطل</button></a>
                     </div>
-                    <select class="combobox">
-                        <option value="purchaseDate-asc">الترتيب حسب تاريخ الشراء (القديم أولاً)</option>
-                        <option value="purchaseDate-desc">الترتيب حسب تاريخ الشراء (الجديد أولاً)</option>
-                        <option value="name-asc">الترتيب حسب الاسم (A-Z)</option>
-                        <option value="name-desc">الترتيب حسب الاسم (Z-A)</option>
-                        <option value="manufacturer-asc">الترتيب حسب الشركة المصنعة (A-Z)</option>
-                        <option value="manufacturer-desc">الترتيب حسب الشركة المصنعة (Z-A)</option>
-                        <option value="cost-asc">الترتيب باستخدام السعر (تصاعديا)</option>
-                        <option value="cost-desc">الترتيب باستخدام السعر (تنازليا)</option>
-                        <option value="warranty-asc">الترتيب باستخدام الضمان (تصاعديا)</option>
-                        <option value="warranty-desc">الترتيب باستخدام الضمان (تنازليا)</option>
+                    <input type="hidden" id = "hiddenSelect" value="<%=selectElementValue%>">
+                    <select class="combobox" id="endpoint-select">
+                        <option value="/devices">بدون ترتيب</option>
+                        <option value="/devicesSBDA<%=currentPage%>">الترتيب حسب تاريخ الشراء (القديم أولاً)</option>
+                        <option value="/devicesSBDD<%=currentPage%>">الترتيب حسب تاريخ الشراء (الجديد أولاً)</option>
+                        <option value="/devicesSBNA<%=currentPage%>">الترتيب حسب الاسم (A-Z)</option>
+                        <option value="/devicesSBND<%=currentPage%>">الترتيب حسب الاسم (Z-A)</option>
+                        <option value="/devicesSBCA<%=currentPage%>">الترتيب حسب الشركة المصنعة (A-Z)</option>
+                        <option value="/devicesSBCD<%=currentPage%>">الترتيب حسب الشركة المصنعة (Z-A)</option>
+                        <option value="/devicesSBPA<%=currentPage%>">الترتيب باستخدام السعر (تصاعديا)</option>
+                        <option value="/devicesSBPD<%=currentPage%>">الترتيب باستخدام السعر (تنازليا)</option>
+                        <option value="/devicesSBWA<%=currentPage%>">الترتيب باستخدام الضمان (تصاعديا)</option>
+                        <option value="/devicesSBWD<%=currentPage%>">الترتيب باستخدام الضمان (تنازليا)</option>
                     </select>
                     <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
                 </div>

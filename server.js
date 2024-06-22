@@ -135,7 +135,8 @@ app.get("/devices", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./devices.ejs", {allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
         }
     })
 })
@@ -806,7 +807,8 @@ app.post("/devicesPageDelete",async(req,res)=>{
     let Serial = req.body.deletetionSerial
     await pool.query("delete from device where serialnumber = $1",[Serial], async(err, rp) => {
         await pool.query("select * from device", (err, respond) => {
-            res.render("./devices.ejs", {allDevices: respond.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                allDevices: respond.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -952,14 +954,16 @@ app.post("/devicesPageAdd",async(req,res)=>{
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,data)=>{
         if(data.rows.length != 0){
             await pool.query("select * from device",(err,newdata)=>{
-                res.render("./devices.ejs",{allDevices: newdata.rows,show: "show",editShow:null,editErrorMessage:null,savedCode : null, errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
+                res.render("./devices.ejs",{highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                    allDevices: newdata.rows,show: "show",editShow:null,editErrorMessage:null,savedCode : null, errorMessage : "الرقم التسلسلي مستخدم", name: req.session.user["username"], image: req.session.user["image"]})
             })
         }
         else{
             await pool.query("insert into device (name, serialnumber, company, status, warranty, price, date, productcode) values ($1, $2, $3, $4, $5, $6, $7, $8)",
                 [name,serial,company,stat,warranty,price,date, productCode],async(err,respond)=>{
                     await pool.query("select * from device",(err,newdata)=>{
-                        res.render("./devices.ejs",{allDevices:newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode : null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
+                        res.render("./devices.ejs",{highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                            allDevices:newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode : null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]})
                     })
                 })
         }
@@ -1625,7 +1629,8 @@ app.post("/devicesPageEdit",async (req,res)=>{
     await pool.query("select * from device where serialnumber = $1",[serial],async(err,respond)=>{
         if(respond.rows.length == 1 && serial != oldSerial){
             await pool.query("select * from device",(err,newdata)=>{
-                res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:"show",editErrorMessage:"الرقم التسلسلي مستخدم",savedCode : oldSerial, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+                res.render("./devices.ejs",{highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                    allDevices: newdata.rows,show: null,editShow:"show",editErrorMessage:"الرقم التسلسلي مستخدم",savedCode : oldSerial, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
             })
         }
         else{
@@ -1633,7 +1638,8 @@ app.post("/devicesPageEdit",async (req,res)=>{
                 [name,serial,company,warranty,price,date,stat,oldSerial, productCode],async (err,respond2)=>{
                     if(err) console.log(err)
                     await pool.query("select * from device",(err,newdata)=>{
-                        res.render("./devices.ejs",{allDevices: newdata.rows,show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
+                        res.render("./devices.ejs",{highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devices",
+                            allDevices: newdata.rows,show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]})
                     })      
                 })
         }
@@ -2573,6 +2579,419 @@ app.get("/AdminsSBADAndFemale", async (req, data) => {
         }
     })
 })
+
+
+
+
+
+
+
+
+
+
+app.get("/activeDevices", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devices",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+
+
+app.get("/inactiveDevices", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devices",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDA", async (req, data) => {
+
+    await pool.query("select * from device order by date asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBDA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDD", async (req, data) => {
+
+    await pool.query("select * from device order by date desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBDD",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNA", async (req, data) => {
+
+    await pool.query("select * from device order by name ASC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBNA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBND", async (req, data) => {
+
+    await pool.query("select * from device order by name DESC", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBND",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCA", async (req, data) => {
+
+    await pool.query("select * from device order by company asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBCA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCD", async (req, data) => {
+
+    await pool.query("select * from device order by company desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBCD",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPA", async (req, data) => {
+
+    await pool.query("select * from device order by price asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBPA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPD", async (req, data) => {
+
+    await pool.query("select * from device order by price desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBPD",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWA", async (req, data) => {
+
+    await pool.query("select * from device order by warranty asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBWA",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWD", async (req, data) => {
+
+    await pool.query("select * from device order by warranty desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/devicesSBWD",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+
+
+
+
+
+
+
+app.get("/devicesSBDAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by date asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBDAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by date desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBDDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBNAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBNDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by company asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBCAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by company desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBCDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by price asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBPAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by price desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBPDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWAAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by warranty asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBWAAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWDAndInactive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'معطل' order by warranty desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndInactive",selectElementValue:"/devicesSBWDAndInactive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+app.get("/devicesSBDAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by date asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBDAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBDDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by date desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBDDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBNAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBNDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBNDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by company asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBCAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBCDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by company desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBCDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by price asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBPAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBPDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by price desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBPDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWAAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by warranty asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBWAAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/devicesSBWDAndActive", async (req, data) => {
+
+    await pool.query("select * from device where status = 'نشط' order by warranty desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./devices.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndActive",selectElementValue:"/devicesSBWDAndActive",
+                allDevices: res.rows, show: null,editShow:null,editErrorMessage:null,savedCode : null, errorMessage : null, name:req.session.user["username"], image:req.session.user["image"]});
+        }
+    })
+})
+
 
 
 
