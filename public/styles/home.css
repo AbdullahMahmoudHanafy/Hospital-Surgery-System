@@ -133,3 +133,8 @@ label[for="gender"], label[for = "avatar"], label[for="birthDate"]{
     color: #888;
     font-size: 14px;
 }
+
+.openedPageHighlighted{
+    background-color:white !important; 
+    color: rgb(61, 116, 255) !important;
+}

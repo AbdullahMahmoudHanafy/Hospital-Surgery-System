@@ -250,3 +250,8 @@ body{
 button{
     cursor: pointer;
 }
+
+.openedPageHighlighted{
+    background-color:white !important; 
+    color: rgb(61, 116, 255) !important;
+}
