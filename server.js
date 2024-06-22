@@ -6,6 +6,11 @@ import { fileURLToPath } from "url";
 import  pool  from "./database.js"
 import session from 'express-session';
 import { type } from "os";
+import { promisify } from 'util';
+
+const query = promisify(pool.query).bind(pool);
+
+
 
 const port = 3000;
 
@@ -784,10 +789,19 @@ async function getNumbers (req, res){
 app.post("/adminsPageDeleteAdmin",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from admin where nationalid = $1",[id], async(err, rp) => {
+        if(req.session.user["userId"] == id){
+            req.session.destroy((err) => {
+                if(err)
+                    console.log(err)
+                res.render("./loginPage.ejs",{loginError: ""});
+            })
+        }
+        else{
         await pool.query("select * from admin", (err, respond) => {
             res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
                 allAdmins: respond.rows,show: null,savedID:null,savedEmail:null,showEdit:null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
+    }
     })
 })
 
@@ -1241,6 +1255,14 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                                     oldid,
                                 ],
                                 async (err2, respond2) => {
+                                    if(req.session.user["userId"] == oldid){
+                                        req.session.destroy((err) => {
+                                            if(err)
+                                                console.log(err)
+                                            res.render("./loginPage.ejs",{loginError: ""});
+                                        })
+                                    }
+                                    else{
                                     res.render("adminProfile.ejs", {
                                         name: req.session.user["username"],
                                         image: req.session.user["image"],
@@ -1255,7 +1277,7 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                                         age: calculateAge(birthDate),
                                         address:address,
                                         editShow: null
-                                    });
+                                    });}
                                 }
                             );
                         }
@@ -1501,25 +1523,39 @@ app.post("/previewPatientProfile",async(req,res)=>{
 
 app.post("/previewOperationProfile",async(req,res)=>{
     let code = req.body.hiddenOperationCode
-    await pool.query(
-        `SELECT * FROM operation WHERE code = '${code}'`,
-        (err2, respond2) => {
-            res.render("operationProfile.ejs", {
-                name: req.session.user["username"],
-                image: req.session.user["image"],
-                errormessagepatient: "this id has already been registered",
-                operationName: respond2.rows[0].name,
-                operationCode: respond2.rows[0].code,
-                operationPrice: respond2.rows[0].price,
-                operationDuration: respond2.rows[0].duration,
-                roomNumber: respond2.rows[0].roomnumber,
-                operationDescription: respond2.rows[0].description,
-                address:respond2.rows[0].address,
-                editErrorMessage:null,
-                editShow:null
-            });
+    await pool.query("select * from useddevice where operationcode = $1",[code],async (err,usedDevicesRespond)=>{
+        let usedDevicesArray;
+        if(usedDevicesRespond.rows.length != 0){
+        let array = []
+        usedDevicesRespond.rows.forEach((dev)=>{
+            array.push(dev["deviceproductcode"])    
+        })
+        usedDevicesArray = array.join(', ')
         }
-    );
+        else {
+            usedDevicesArray = "لا يوجد"
+        }
+        await pool.query(
+            `SELECT * FROM operation WHERE code = '${code}'`,
+            (err2, respond2) => {
+                res.render("operationProfile.ejs", {
+                    name: req.session.user["username"],
+                    image: req.session.user["image"],
+                    errormessagepatient: "this id has already been registered",
+                    operationName: respond2.rows[0].name,
+                    operationCode: respond2.rows[0].code,
+                    operationPrice: respond2.rows[0].price,
+                    operationDuration: respond2.rows[0].duration,
+                    roomNumber: respond2.rows[0].roomnumber,
+                    operationDescription: respond2.rows[0].description,
+                    address:respond2.rows[0].address,
+                    editErrorMessage:null,
+                    editShow:null,
+                    allUsedDevices: usedDevicesArray
+                });
+            }
+        );
+    })
 })
 
 app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
@@ -1574,10 +1610,18 @@ app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
                                     oldid,
                                 ],
                                 async(err2, respond2) => {
+                                    if(req.session.user["userId"] == oldid){
+                                        req.session.destroy((err) => {
+                                            if(err)
+                                                console.log(err)
+                                            res.render("./loginPage.ejs",{loginError: ""});
+                                        })
+                                    }
+                                    else{
                                     await pool.query("select * from admin", async(err, newdata) => {
                                         res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
                                             allAdmins: newdata.rows,savedID:null,savedEmail:null, show:null, showEdit: null, errorMessage : null,editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
-                                    })
+                                    })}
                                 }
                             );
                         }
@@ -1865,6 +1909,14 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
 app.post("/adminProfileDelete",async (req,res)=>{
     let oldid = req.body.oldid;
     await pool.query("delete from admin where nationalid = $1",[oldid], async(err, rp) => {
+        if(req.session.user["userId"] == oldid){
+            req.session.destroy((err) => {
+                if(err)
+                    console.log(err)
+                res.render("./loginPage.ejs",{loginError: ""});
+            })
+        }
+        else{
         let dataNumbers = await getNumbers()
         res.render("./homePage.ejs",
             {
@@ -1879,7 +1931,7 @@ app.post("/adminProfileDelete",async (req,res)=>{
                 show4:  null,
                 show5:  null,
                 show6:  null
-            })
+            })}
     })
 })
 
@@ -1948,49 +2000,61 @@ app.post("/operationProfileDelete",async (req,res)=>{
     })
 })
 
-app.post("/operationProfileEdit",async (req,res)=>{
-    let name = req.body.operationName,
-    price = req.body.price,
-    duration = req.body.duration,
-    roomnumber = req.body.roomNumber,
-    usedDevices = req.body["multiValueField"],
-    description = req.body.description,
-    oldCode = req.body.oldCode;
+app.post("/operationProfileEdit", async (req, res) => {
+    let { operationName: name, price, duration, roomNumber: roomnumber, multiValueField: usedDevices, description, oldCode } = req.body;
 
-    if(typeof usedDevices == "string")
+    if (typeof usedDevices === "string") {
         usedDevices = [usedDevices];
+    }
 
-            await pool.query("delete from useddevice where operationcode = $1",[oldCode],(err,respond)=>{
-                if(usedDevices != undefined){
-                usedDevices.forEach(async (deviceproductcode)=>{
-                    await pool.query("insert into useddevice (deviceproductcode, operationcode) values ($1, $2)",[deviceproductcode, oldCode],async(err,devicesData)=>{
-                    })
-                })}
-            })
+    try {
+        // Delete old devices
+        await query("DELETE FROM useddevice WHERE operationcode = $1", [oldCode]);
 
-            await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
-                ,[name,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
-                    await pool.query(
-                        `SELECT * FROM operation WHERE code = '${oldCode}'`,
-                        (err2, respond2) => {
-                            res.render("operationProfile.ejs", {
-                                name: req.session.user["username"],
-                                image: req.session.user["image"],
-                                errormessagepatient: "this id has already been registered",
-                                operationName: respond2.rows[0].name,
-                                operationCode: respond2.rows[0].code,
-                                operationPrice: respond2.rows[0].price,
-                                operationDuration: respond2.rows[0].duration,
-                                roomNumber: respond2.rows[0].roomnumber,
-                                operationDescription: respond2.rows[0].description,
-                                address:respond2.rows[0].address,
-                                editErrorMessage:null,
-                                editShow:null
-                            });
-                        }
-                    );
-                })       
-})
+        // Insert new devices
+        if (usedDevices !== undefined) {
+            for (const deviceproductcode of usedDevices) {
+                await query("INSERT INTO useddevice (deviceproductcode, operationcode) VALUES ($1, $2)", [deviceproductcode, oldCode]);
+            }
+        }
+
+        // Update operation details
+        await query("UPDATE operation SET name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 WHERE code = $6", [name, duration, price, roomnumber, description, oldCode]);
+
+        // Fetch updated devices
+        const usedDevicesResult = await query("SELECT * FROM useddevice WHERE operationcode = $1", [oldCode]);
+
+        let usedDevicesArray;
+        if (usedDevicesResult.rows.length !== 0) {
+            usedDevicesArray = usedDevicesResult.rows.map(dev => dev.deviceproductcode).join(', ');
+        } else {
+            usedDevicesArray = "لا يوجد";
+        }
+
+        // Fetch operation details
+        const operationResult = await query("SELECT * FROM operation WHERE code = $1", [oldCode]);
+
+        // Render the response
+        res.render("operationProfile.ejs", {
+            name: req.session.user.username,
+            image: req.session.user.image,
+            errormessagepatient: "this id has already been registered",
+            operationName: operationResult.rows[0].name,
+            operationCode: operationResult.rows[0].code,
+            operationPrice: operationResult.rows[0].price,
+            operationDuration: operationResult.rows[0].duration,
+            roomNumber: operationResult.rows[0].roomnumber,
+            operationDescription: operationResult.rows[0].description,
+            address: operationResult.rows[0].address,
+            editErrorMessage: null,
+            editShow: null,
+            allUsedDevices: usedDevicesArray
+        });
+    } catch (error) {
+        console.error("Error during operation profile edit:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 app.post("/addHistoryPatientPage", async (req, respond) => {
     let operationCode = req.body["operationcode"],
