@@ -168,7 +168,8 @@ app.get("/doctors", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./doctors.ejs", {allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -773,7 +774,8 @@ app.post("/doctorsPageDelete",async(req,res)=>{
     let id = req.body.deletetionID
     await pool.query("delete from surgeon where nationalid = $1",[id], async(err, rp) => {
         await pool.query("select * from surgeon", (err, respond) => {
-            res.render("./doctors.ejs", {allDoctors: respond.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                allDoctors: respond.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -906,21 +908,24 @@ app.post("/doctorsPageAdd", upload.single("image"), async(req,res)=>{
         await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from surgeon", async(err, newdata) => {
-                    res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                    res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                        allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                 })
                 }
             else{
                 await pool.query("select * from surgeon where email = $1",[email], async(err, emaildata) => {
                     if(emaildata.rows.length != 0){
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "البريد الإلكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                                allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "البريد الإلكتروني مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
                         })
                     }
                     else
                     await pool.query("insert into surgeon (name, email, nationalid, phone, address, sex, image, birthdate, speciality) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
                     [name, email, nationalID, phone, address, sex, image, bdate,speciality], async(err, respond) => {
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                        res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                        res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                            allDoctors: newdata.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                     })
                     })
                 })
@@ -1533,7 +1538,8 @@ app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
     await pool.query("select * from surgeon where nationalid = $1",[id],async(err,respond)=>{
         if(respond.rows.length == 1 && id != oldid){
             await pool.query("select * from surgeon", async(err, newdata) => {
-                res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,editShow:"show",savedID:oldid,editErrorMessage:"الرقم القومي مستخدم", errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                    allDoctors: newdata.rows, show: null,editShow:"show",savedID:oldid,editErrorMessage:"الرقم القومي مستخدم", errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
             })
         }
         else{
@@ -1554,7 +1560,8 @@ app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
 
                     async(err2, respond2) => {
                         await pool.query("select * from surgeon", async(err, newdata) => {
-                            res.render("./doctors.ejs", {allDoctors: newdata.rows, show: null,savedID:null,editShow:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                                allDoctors: newdata.rows, show: null,savedID:null,editShow:null,editErrorMessage:null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
                         })  
                     }
                 );
@@ -2205,6 +2212,179 @@ app.get("/appointmentsSBDD", async (req, data) => {
         }
     })
 })
+
+app.get("/maleDoctors", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctors",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+
+app.get("/femaleDoctors", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'أنثي'", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctors",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBNA", async (req, data) => {
+
+    await pool.query("select * from surgeon order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctorsSBNA",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBND", async (req, data) => {
+
+    await pool.query("select * from surgeon order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctorsSBND",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBAA", async (req, data) => {
+
+    await pool.query("select * from surgeon order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctorsSBAA",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBAD", async (req, data) => {
+
+    await pool.query("select * from surgeon order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctorsSBAD",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
+app.get("/doctorsSBNAAndMale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctorsSBNAAndMale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBNDAndMale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctorsSBNDAndMale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBAAAndMale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctorsSBAAAndMale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBADAndMale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/doctorsSBADAndMale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBNAAndFemale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctorsSBNAAndFemale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBNDAndFemale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctorsSBNDAndFemale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBAAAndFemale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by birthdate desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctorsSBAAAndFemale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/doctorsSBADAndFemale", async (req, data) => {
+
+    await pool.query("select * from surgeon where sex = 'ذكر' order by birthdate asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./doctors.ejs", {highlitedAll:null,highlitedFirst:null,highlitedSecond:"highlight",currentPage:"AndFemale",selectElementValue:"/doctorsSBADAndFemale",
+                allDoctors: res.rows, show: null,editShow:null,savedID:null,editErrorMessage:null, errorMessage : null,name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+
  
 app.listen(port, (req, res) => {
   console.log(`server is running on port number ${port}`);
