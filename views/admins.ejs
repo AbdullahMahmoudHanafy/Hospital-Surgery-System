@@ -23,7 +23,7 @@
             </div>
         </div>
         <div id="Left-nav">
-            <a href="devices" class=""><button class = "Nav-bar-btn">المعدات</button></a>
+            <a href="devices" class=""><button class = "Nav-bar-btn">الأجهزة</button></a>
             <a href="operations" class=""><button class = "Nav-bar-btn">العمليات</button></a>
             <a href="admins" class=""><button class = "Nav-bar-btn">المشرفون</button></a>
             <a href="doctors" class=""><button class = "Nav-bar-btn">الجراحون</button></a>
@@ -188,9 +188,9 @@
             <div class="errorMessage"><%= errorMessage %></div>
             <form action="adminsPageAdd" method="post" enctype="multipart/form-data">
                 <label for="name" dir='rtl' lang='ar'>اسم المشرف</label>
-                <input type="name" name="name" placeholder="ادخل اسم المستخدم" dir='rtl' lang='ar' required>
+                <input type="name" name="name" placeholder="أدخل اسم المشرف" dir='rtl' lang='ar' required>
                 <label for="nationalID" dir='rtl' lang='ar'>الرقم القومي للمشرف</label>
-                <input type="name" name="nationalID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
+                <input type="name" name="nationalID" placeholder="أدخل الرقم القومي" dir='rtl' lang='ar' required>
                 <label for="birthDate">تاريخ الميلاد</label>
                 <input type="date" name="birthDate" required>
                 <label for="gender">جنس الجراح</label>
@@ -205,16 +205,16 @@
 
                 <label for="image"dir='rtl' lang='ar'>صورة المشرف</label>
                 <input type="file" name="image" required>
-                <label for="email" dir='rtl' lang='ar'>البريد الاكتروني</label>
-                <input type="email" name="email" placeholder="ادخل ال Email" dir='rtl' lang='ar' required>
+                <label for="email" dir='rtl' lang='ar'>البريد الالكتروني</label>
+                <input type="email" name="email" placeholder="أدخل البريد الالكتروني" dir='rtl' lang='ar' required>
                 <label for="password" dir='rtl' lang='ar'>كلمة المرور</label>
-                <input type="password" name="password" placeholder="ادخل ال password" dir='rtl' lang='ar' required>
+                <input type="password" name="password" placeholder="أدخل كلمة المرور" dir='rtl' lang='ar' required>
                 <label for="repassword" dir='rtl' lang='ar'>تأكيد كلمة المرور</label>
-                <input type="password" name="repassword" placeholder="ادخل ال password مرة اخري " dir='rtl' lang='ar' required>
+                <input type="password" name="repassword" placeholder="أعد كتابة كلمة المرور" dir='rtl' lang='ar' required>
                 <label for="phone" dir='rtl' lang='ar'>رقم الهاتف المحمول</label>
-                <input type="phone" name="phone" placeholder=" ادخل رقم الهاتف المحمول"dir='rtl' lang='ar' required>
+                <input type="phone" name="phone" placeholder=" أدخل رقم الهاتف"dir='rtl' lang='ar' required>
                 <label for="address" dir='rtl' lang='ar'>عنوان المشرف</label>
-                <input type="address" name="address" placeholder="ادخل عنوان المستخدم" dir='rtl' lang='ar' required>
+                <input type="address" name="address" placeholder="أدخل عنوان المشرف" dir='rtl' lang='ar' required>
                 <div class="buttonContainer" dir='rtl' lang='ar' >
                     <button class="submitt" dir='rtl' lang='ar'>حفظ</button>
                     <button class="cancel"dir='rtl' lang='ar'> إغلاق</button>
