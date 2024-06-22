@@ -44,15 +44,17 @@
                         <button class="active">ذكر</button>
                         <button class="inactive">أنثي</button>
                     </div> -->
-                    <select class="combobox">
-                        <option value="purchaseDate-asc">الترتيب حسب اسم المريض (من ألألف الي الياء)</option>
-                        <option value="purchaseDate-desc">الترتيب حسب اسم المريض (من الياء الي الألف)</option>
-                        <option value="purchaseDate-desc">الترتيب حسب اسم الجراح (من ألألف الي الياء)</option>
-                        <option value="purchaseDate-desc">الترتيب حسب اسم الجراح (من الياء الي الألف)</option>
-                        <option value="name-asc">الترتيب حسب رقم العملية (تصاعديا)</option>
-                        <option value="name-desc">الترتيب حسب رثم العملية (تنازليا)</option>
-                        <option value="name-desc">الترتيب حسب التاريخ (من الأقدم الي الأحدث)</option>
-                        <option value="name-desc">الترتيب حسب التاريخ (من الأحدث الي الأقدم)</option>
+                    <input type="hidden" id = "hiddenSelect" value="<%=selectElementValue%>">
+                    <select class="combobox" id="endpoint-select">
+                        <option value="/appointments">بدون ترتيب</option>
+                        <option value="/appointmentsSBPNA">الترتيب حسب اسم المريض (من ألألف الي الياء)</option>
+                        <option value="/appointmentsSBPND">الترتيب حسب اسم المريض (من الياء الي الألف)</option>
+                        <option value="/appointmentsSBSNA">الترتيب حسب اسم الجراح (من ألألف الي الياء)</option>
+                        <option value="/appointmentsSBSND">الترتيب حسب اسم الجراح (من الياء الي الألف)</option>
+                        <option value="/appointmentsSBANA">الترتيب حسب رقم الميعاد (تصاعديا)</option>
+                        <option value="/appointmentsSBAND">الترتيب حسب رثم الميعاد (تنازليا)</option>
+                        <option value="/appointmentsSBDA">الترتيب حسب التاريخ (من الأقدم الي الأحدث)</option>
+                        <option value="/appointmentsSBDD">الترتيب حسب التاريخ (من الأحدث الي الأقدم)</option>
                     </select>
                     <button class="addButton"><i class="fa-solid fa-plus fa-xl add-icon"></i></button>
                 </div>

@@ -157,7 +157,7 @@ app.get("/appointments", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+            data.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
         }
     })
 })
@@ -814,7 +814,7 @@ app.post("/appointmentsPageDelete",async(req,res)=>{
             if(err)
                 console.log(err);
             else {
-                res.render("./appointments.ejs",{allAppointments: appointments.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
+                res.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows,show:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
             }
         })
     })
@@ -1010,7 +1010,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                     if(err)
                                                         console.log(err);
                                                     else {
-                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا التوقيت غير مناسب", savedID: null});
+                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا التوقيت غير مناسب", savedID: null});
                                                     }
                                                 })
                                             }else {
@@ -1020,7 +1020,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                             if(err)
                                                                 console.log(err);
                                                             else {
-                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا الجراح لديه عملية في هذا التوقيت", savedID: null});
+                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا الجراح لديه عملية في هذا التوقيت", savedID: null});
                                                             }
                                                         })
                                                     }else {
@@ -1030,7 +1030,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                     if(err)
                                                                         console.log(err);
                                                                     else {
-                                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا المريض لديه عملية في هذا التوقيت", savedID: null});
+                                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا المريض لديه عملية في هذا التوقيت", savedID: null});
                                                                     }
                                                                 })
                                                             }else {
@@ -1040,7 +1040,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                             if(err)
                                                                                 console.log(err);
                                                                             else {
-                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", savedID: null});
+                                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", savedID: null});
                                                                             }
                                                                         })
                                                                     }else {
@@ -1053,7 +1053,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                                         if(err)
                                                                                             console.log(err);
                                                                                         else {
-                                                                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
+                                                                                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  null, errorMessage: "", savedID: null});
                                                                                         }
                                                                                     })
                                                                                 }
@@ -1071,7 +1071,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                         if(err)
                                             console.log(err);
                                         else {
-                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية لا تتم في هذه الغرفة", savedID: null});
+                                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية لا تتم في هذه الغرفة", savedID: null});
                                         }
                                     })
                                 }
@@ -1080,7 +1080,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                 if(err)
                                     console.log(err);
                                 else {
-                                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا توجد عملية بهذا الكود", savedID: null});
+                                    respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا توجد عملية بهذا الكود", savedID: null});
                                 }
                             })
                         }
@@ -1090,7 +1090,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                         if(err)
                             console.log(err);
                         else {
-                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد جراح بهذا الرقم القومي", savedID: null});
+                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد جراح بهذا الرقم القومي", savedID: null});
                         }
                     })
                 }
@@ -1100,7 +1100,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                 if(err)
                     console.log(err);
                 else {
-                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد مريض بهذا الرقم القومي", savedID: null});
+                    respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "لا يوجد مريض بهذا الرقم القومي", savedID: null});
                 }
             })
         }
@@ -1684,7 +1684,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                     if(err)
                                                         console.log(err);
                                                     else {
-                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا التوقيت غير مناسب", show: null, errorMessage: "", savedID: oldId});
+                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا التوقيت غير مناسب", show: null, errorMessage: "", savedID: oldId});
                                                     }
                                                 })
                                             }else {
@@ -1694,7 +1694,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                             if(err)
                                                                 console.log(err);
                                                             else {
-                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا الجراح لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
+                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا الجراح لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
                                                             }
                                                         })
                                                     }else {
@@ -1704,7 +1704,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                                     if(err)
                                                                         console.log(err);
                                                                     else {
-                                                                        respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا المريض لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
+                                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذا المريض لديه عملية في هذا التوقيت", show: null, errorMessage: "", savedID: oldId});
                                                                     }
                                                                 })
                                                             }else {
@@ -1714,7 +1714,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                                             if(err)
                                                                                 console.log(err);
                                                                             else {
-                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", show: null, errorMessage: "", savedID: oldId});
+                                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", show: null, errorMessage: "", savedID: oldId});
                                                                             }
                                                                         })
                                                                     }else {
@@ -1728,7 +1728,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                                                             if(err)
                                                                                                 console.log(err);
                                                                                             else {
-                                                                                                respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+                                                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
                                                                                             }
                                                                                         })
                                                                                     }
@@ -1747,7 +1747,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                         if(err)
                                             console.log(err);
                                         else {
-                                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية لا تتم في هذه الغرفة", show: null, errorMessage: "", savedID: oldId});
+                                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "هذه العملية لا تتم في هذه الغرفة", show: null, errorMessage: "", savedID: oldId});
                                         }
                                     })
                                 }
@@ -1756,7 +1756,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                 if(err)
                                     console.log(err);
                                 else {
-                                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا توجد عملية بهذا الكود", show: null, errorMessage: "", savedID: oldId});
+                                    respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا توجد عملية بهذا الكود", show: null, errorMessage: "", savedID: oldId});
                                 }
                             })
                         }
@@ -1766,7 +1766,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                         if(err)
                             console.log(err);
                         else {
-                            respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد جراح بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
+                            respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد جراح بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
                         }
                     })
                 }
@@ -1776,7 +1776,7 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                 if(err)
                     console.log(err);
                 else {
-                    respond.render("./appointments.ejs",{allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد مريض بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
+                    respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  "show", editErrorMessage: "لا يوجد مريض بهذا الرقم القومي", show: null, errorMessage: "", savedID: oldId});
                 }
             })
         }
@@ -2113,6 +2113,95 @@ app.get("/operationsSBRND", async (req, data) => {
             console.log(err);
         else {
             data.render("./operations.ejs", {selectElementValue:"/operationsSBRND",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/appointmentsSBPNA", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY P.name ASC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBPNA",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+
+app.get("/appointmentsSBPND", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY P.name DESC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBPND",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBSNA", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY surgeonname ASC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBSNA",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBSND", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY surgeonname DESC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBSND",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBANA", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.appointmentid ASC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBANA",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBAND", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.appointmentid DESC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBAND",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBDA", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.date ASC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBDA",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
+        }
+    })
+})
+
+app.get("/appointmentsSBDD", async (req, data) => {
+
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.date DESC", async (err, appointments) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./appointments.ejs",{selectElementValue:"/appointmentsSBDD",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show: null, errorMessage: "", savedID: null});
         }
     })
 })
