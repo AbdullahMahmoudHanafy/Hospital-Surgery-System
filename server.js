@@ -179,7 +179,7 @@ app.get("/operations", async (req, data) => {
         if(err)
             console.log(err);
         else {
-            data.render("./operations.ejs", {allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            data.render("./operations.ejs", {selectElementValue:"/operations",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
@@ -793,7 +793,7 @@ app.post("/operationsPageDelete",async(req,res)=>{
     })
     await pool.query("delete from operation where code = $1",[code], async(err, rp) => {
         await pool.query("select * from operation", (err, respond) => {
-            res.render("./operations.ejs", {allOperations: respond.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+            res.render("./operations.ejs", {selectElementValue:"/operations",allOperations: respond.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         })
     })
 })
@@ -974,7 +974,7 @@ app.post("/operationsPageAdd",async(req,res)=>{
                             })
                         })
                         await pool.query("select * from operation",async (err, newdata) => {
-                            res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                            res.render("./operations.ejs", {selectElementValue:"/operations",allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
                         })   
     })     
 })
@@ -1646,7 +1646,7 @@ app.post("/operationsPageEdit",async (req,res)=>{
     await pool.query("update operation set name = $1, duration = $2, price = $3, roomnumber = $4, description = $5 where code = $6 "
         ,[name,duration,price,roomnumber,description,oldCode],async (err,respond)=>{
             await pool.query("select * from operation",async (err, newdata) => {
-                res.render("./operations.ejs", {allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+                res.render("./operations.ejs", {selectElementValue:"/operations",allOperations: newdata.rows,show:null,editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
             })   
         })
 })
@@ -2069,6 +2069,50 @@ app.get("/patientsSortedDESCByNameAndMale", async (req, data) => {
             console.log(err);
         else {
             data.render("./patients.ejs", {highlitedAll:null,highlitedFirst:"highlight",highlitedSecond:null,currentPage:"AndMale",selectElementValue:"/patientsSortedDESCByNameAndMale",allPatients: res.rows, show: null,editShow:null,editErrorMessage:null,savedID : null, errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/operationsSBNA", async (req, data) => {
+
+    await pool.query("select * from operation order by name asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {selectElementValue:"/operationsSBNA",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/operationsSBND", async (req, data) => {
+
+    await pool.query("select * from operation order by name desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {selectElementValue:"/operationsSBND",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/operationsSBRNA", async (req, data) => {
+
+    await pool.query("select * from operation order by roomnumber asc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {selectElementValue:"/operationsSBRNA",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+        }
+    })
+})
+
+app.get("/operationsSBRND", async (req, data) => {
+
+    await pool.query("select * from operation order by roomnumber desc", (err, res) => {
+        if(err)
+            console.log(err);
+        else {
+            data.render("./operations.ejs", {selectElementValue:"/operationsSBRND",allOperations: res.rows,show:null, editShow:null,editErrorMessage:null,savedCode:null,errorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
         }
     })
 })
