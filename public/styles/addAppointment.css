@@ -247,3 +247,13 @@
     align-items: center;
     justify-content: center;
 }
+
+
+.overlay6 input[type="number"]{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}

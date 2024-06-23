@@ -202,3 +202,11 @@
     background-color: rgb(149, 11, 11);
 }
 
+.overlay4 input[type="number"]{
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+}
