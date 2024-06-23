@@ -72,7 +72,7 @@
 
                 <div class="appointments">
                     <% for( var i = 0 ; i < allAppointments.length ; i++ ){%>
-                    <div class="appointment-row"><div class="appointment-col id"><div><%= allAppointments[i]["appointmentid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["operationname"] %></div><div class="bottom"><%= allAppointments[i]["operationid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["patientname"] %></div><div class="bottom"><%= allAppointments[i]["patientid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["surgeonname"] %></div><div class="bottom"><%= allAppointments[i]["surgeonid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["roomnumber"] %></div><div class="bottom"><%= allAppointments[i]["operationduration"]%> ساعات</div></div><div class="appointment-col"><div class="top"><%= `${new Date(allAppointments[i]["date"]).getDate()}-${new Date(allAppointments[i]["date"]).getMonth() + 1}-${new Date(allAppointments[i]["date"]).getFullYear()}` %></div><div class="bottom"><%= allAppointments[i]["time"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>  
+                    <div class="appointment-row"><div class="appointment-col id"><div><%= allAppointments[i]["appointmentid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["operationname"] %></div><div class="bottom"><%= allAppointments[i]["operationid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["patientname"] %></div><div class="bottom"><%= allAppointments[i]["patientid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["surgeonname"] %></div><div class="bottom"><%= allAppointments[i]["surgeonid"] %></div></div><div class="appointment-col"><div class="top"><%= allAppointments[i]["roomnumber"] %></div><div class="bottom"><%= allAppointments[i]["duration"]%> ساعات</div></div><div class="appointment-col"><div class="top"><%= `${new Date(allAppointments[i]["date"]).getDate()}-${new Date(allAppointments[i]["date"]).getMonth() + 1}-${new Date(allAppointments[i]["date"]).getFullYear()}` %></div><div class="bottom"><%= allAppointments[i]["time"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>  
                     <% } %>
                 </div>
             </div>
@@ -105,6 +105,12 @@
                     <div class="form-group">
                         <label for="operationID">كود العملية</label>
                         <input type="text" id="operationID" name="operationID" required>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="duration">مدة العملية</label>
+                        <input type="number" id="duration" name="duration" required>
                     </div>
                     <br>
 
@@ -160,6 +166,8 @@
                 <input type="text" name="surgeonID" placeholder="ادخل الرقم القومي" dir='rtl' lang='ar' required>
                 <label for="operationID" dir='rtl' lang='ar'>رمز تعريف العملية</label>
                 <input type="text" name="operationID" placeholder="ادخل رمز تعريف العملية" dir='rtl' lang='ar' required>
+                <label for="duration" dir='rtl' lang='ar'>مدة العملية</label>
+                <input type="number" name="duration" placeholder="ادخل مدة العملية بالساعات" dir='rtl' lang='ar' required>
                 <label for="roomNumber" dir='rtl' lang='ar'>رقم الغرفة</label>
                 <input type="text" name="roomNumber" dir='rtl' placeholder="ادخل رقم الغرفة">
                 <label for="date" dir='rtl' lang='ar'>اختر التاريخ المناسب</label>

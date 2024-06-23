@@ -166,7 +166,8 @@
     margin-bottom: 2px;
 }
 
-.overlay6 input[type="text"]
+.overlay6 input[type="text"],
+.overlay6 input[type = "number"]
 {
     padding: 10px;
     margin-bottom: 15px;

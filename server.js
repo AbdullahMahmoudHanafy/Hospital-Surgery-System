@@ -161,7 +161,7 @@ app.get("/admins", async (req, data) => {
 
 app.get("/appointments", async (req, data) => {
 
-    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
         if(err)
             console.log(err);
         else {
@@ -575,7 +575,7 @@ app.post("/addAppointment", async (req, respond) => {
                     await pool.query(`select roomnumber, duration from operation where code = '${operationID}'`, async (err, resOperation) =>{
                         if(resOperation.rows.length != 0){
                             let operationRoom = resOperation.rows[0]["roomnumber"]
-                            let operationDuration = resOperation.rows[0]["duration"]
+                            let operationDuration = req.body["duration"]
 
                             let enddate = new Date(startdate.getTime() + (2 + Number(operationDuration)) * 60 * 60 * 1000)
                             if(roomNumber == operationRoom)
@@ -650,8 +650,8 @@ app.post("/addAppointment", async (req, respond) => {
                                                                             show6:  "show"
                                                                         })
                                                                     }else {
-                                                                        await pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time, startdate, enddate) values ($1, $2, $3, $4, $5, $6, $7, $8)",
-                                                                            [patientID, surgeonID, operationID, roomNumber, date, time, startdate, enddate], async (err, res) =>{
+                                                                        await pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time, startdate, enddate, duration) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                                                                            [patientID, surgeonID, operationID, roomNumber, date, time, startdate, enddate, operationDuration], async (err, res) =>{
                                                                                 if(err)
                                                                                     console.log(err)
                                                                                 else {
@@ -1046,7 +1046,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                     await pool.query(`select roomnumber, duration from operation where code = '${operationID}'`, async (err, resOperation) =>{
                         if(resOperation.rows.length != 0){
                             let operationRoom = resOperation.rows[0]["roomnumber"]
-                            let operationDuration = resOperation.rows[0]["duration"]
+                            let operationDuration = req.body["duration"]
 
                             let enddate = new Date(startdate.getTime() + (2 + Number(operationDuration)) * 60 * 60 * 1000)
                             if(roomNumber == operationRoom)
@@ -1092,12 +1092,12 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                             }
                                                                         })
                                                                     }else {
-                                                                        await pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time, startdate, enddate) values ($1, $2, $3, $4, $5, $6, $7, $8)",
-                                                                            [patientID, surgeonID, operationID, roomNumber, date, time, startdate, enddate], async (err, res) =>{
+                                                                        await pool.query("insert into appointment (patientid, surgeonid, operationid, roomnumber, date, time, startdate, enddate, duration) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+                                                                            [patientID, surgeonID, operationID, roomNumber, date, time, startdate, enddate, operationDuration], async (err, res) =>{
                                                                                 if(err)
                                                                                     console.log(err)
                                                                                 else {
-                                                                                    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
+                                                                                    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code", async (err, appointments) => {
                                                                                         if(err)
                                                                                             console.log(err);
                                                                                         else {
@@ -1791,10 +1791,10 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
         if(resPatient.rows.length != 0){
             await pool.query(`select * from surgeon where nationalid = '${surgeonID}'`, async (err, resSurgeon) =>{
                 if(resSurgeon.rows.length != 0){
-                    await pool.query(`select roomnumber, duration from operation where code = '${operationID}'`, async (err, resOperation) =>{
+                    await pool.query(`select roomnumber from operation where code = '${operationID}'`, async (err, resOperation) =>{
                         if(resOperation.rows.length != 0){
                             let operationRoom = resOperation.rows[0]["roomnumber"]
-                            let operationDuration = resOperation.rows[0]["duration"]
+                            let operationDuration = req.body["duration"]
 
                             let enddate = new Date(startdate.getTime() + (2 + Number(operationDuration)) * 60 * 60 * 1000)
                             if(roomNumber == operationRoom)
@@ -1840,8 +1840,8 @@ app.post("/appointmentsPageEdit", async (req, respond) => {
                                                                             }
                                                                         })
                                                                     }else {
-                                                                        await pool.query("update appointment set patientid = $1, surgeonid = $2, operationid = $3, date = $4, roomnumber = $5, time = $6, startdate = $7, enddate = $8 where appointmentid = $9 "
-                                                                            ,[patientID,surgeonID,operationID,date,roomNumber,time,startdate, enddate, oldId],async (err,res)=>{
+                                                                        await pool.query("update appointment set patientid = $1, surgeonid = $2, operationid = $3, date = $4, roomnumber = $5, time = $6, startdate = $7, enddate = $8 duration = $10 where appointmentid = $9 "
+                                                                            ,[patientID,surgeonID,operationID,date,roomNumber,time,startdate, enddate, oldId, operationDuration],async (err,res)=>{
                                                                                 await pool.query("select * from operation",async (err, newdata) => {
                                                                                     if(err)
                                                                                         console.log(err)
