@@ -453,7 +453,6 @@ app.post("/addSurgeon", upload.single("image"), async(req,respond) => {
     speciality = req.body["speciality"],
     image = "../images/" + req.file.originalname
 
-    await pool.connect();
     const fileExtension = path.extname(req.file.originalname);
     let extensions = ['.jpeg','.png']
 
@@ -1275,7 +1274,8 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                     birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                     age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
                     address:respond2.rows[0].address,
-                    editShow: "show"
+                    editShow: "show",
+                    adminImage: respond2.rows[0].image
                 });
             }
         );
@@ -1320,7 +1320,8 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                                 age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
                                 address:respond2.rows[0].address,
-                                editShow: "show"
+                                editShow: "show",
+                                adminImage: respond2.rows[0].image
                             });
                         }
                     );
@@ -1518,7 +1519,7 @@ app.post("/editSurgeon", upload.single("image"), async (req, res) => {
                         historyData: historyData.rows,
                         name: req.session.user["username"],
                         image: req.session.user["image"],
-                        errormessagedoctor: "الرقم القومي مستخدم",
+                        errormessagedoctor: "  png, jpeg الصورة غير صالحة ادخل ",
                         doctorName: respond2.rows[0].name,
                         doctorImage: respond2.rows[0].image,
                         email: respond2.rows[0].email,
