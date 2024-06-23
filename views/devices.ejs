@@ -74,14 +74,17 @@
                     </div>
                     <div class="header-col">
                         <div class="header-top">السعر</div>
-                        <div class="header-bottom">الرقم التسلسلي</div>
+                        <div class="header-bottom">تاريخ الشراء</div>
                     </div>
-                    <div class="header-col">تاريخ الشراء</div>
+                    <div class="header-col">
+                        <div class="header-top">الرقم التسلسلي</div>
+                        <div class="header-bottom">كود المنتج</div>
+                    </div>
                 </header>
 
                 <div class="devices">
                     <% for( var i = 0 ; i < allDevices.length ; i++ ){%>
-                    <div class="device-row"><div class="device-col"><div class="top"><%= allDevices[i]["name"] %></div><div class="bottom"><%= allDevices[i]["company"] %></div></div><div class="device-col"><div class="top"><%= allDevices[i]["status"] %></div><div class="bottom"><%= allDevices[i]["warranty"] %></div></div><div class="device-col"><div class="top"><%= allDevices[i]["price"] %></div><div class="bottom id"><%= allDevices[i]["serialnumber"] %></div></div><div class="device-col"><%= `${new Date(allDevices[i]["date"]).getDate()}-${new Date(allDevices[i]["date"]).getMonth() + 1}-${new Date(allDevices[i]["date"]).getFullYear()}` %></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
+                    <div class="device-row"><div class="device-col"><div class="top"><%= allDevices[i]["name"] %></div><div class="bottom"><%= allDevices[i]["company"] %></div></div><div class="device-col"><div class="top"><%= allDevices[i]["status"] %></div><div class="bottom"><%= allDevices[i]["warranty"] %></div></div><div class="device-col"><div class="top"><%= allDevices[i]["price"] %></div><div class="bottom"><%= `${new Date(allDevices[i]["date"]).getDate()}-${new Date(allDevices[i]["date"]).getMonth() + 1}-${new Date(allDevices[i]["date"]).getFullYear()}` %></div></div><div class="device-col"><div class="top id"><%= allDevices[i]["serialnumber"] %></div><div class="bottom"><%= allDevices[i]["productcode"] %></div></div><div class="menu-col"><i class="fa-solid fa-ellipsis fa-2xl threeDots" style="color: #3d74ff;"></i><div class="content"><button class="edit"><i class="fa-solid fa-gear fa-xl" style="color: #3d74ff;"></i> تعديل</button><button class="delete"><i class="fa-solid fa-trash fa-xl" style="color: #ff3d3d;"></i> حذف</button></div></div></div>
                     <% } %>
                 </div>
             </div>
