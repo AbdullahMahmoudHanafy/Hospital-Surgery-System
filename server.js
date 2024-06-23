@@ -249,8 +249,28 @@ app.post("/addAdmin", upload.single("image"), async (req, respond) => {
     nationalID = req.body["nationalID"]
 
     let image = "../images/" + req.file.originalname
+    const fileExtension = path.extname(req.file.originalname);
+    let extensions = ['.jpeg','.png']
 
-    if(repassword == password)
+    if(!extensions.includes(fileExtension)){
+        let dataNumbers = await getNumbers()
+        respond.render("./homePage.ejs",
+            {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                errorMessage: "  png, jpeg الصورة غير صالحة ادخل ",
+                show1:  null,
+                show2:  null,
+                show3:  "show",
+                show4:  null,
+                show5:  null,
+                show6:  null
+            })
+    }
+
+    else if(repassword == password)
     {
 
         await pool.query(`select * from admin where nationalid = '${nationalID}'`, async (err, res) => {
@@ -355,8 +375,29 @@ app.post("/addPatient", upload.single("image"), async(req,respond) => {
     address = req.body["address"], 
     phone = req.body["phone"], 
     image = "../images/" + req.file.originalname
+    const fileExtension = path.extname(req.file.originalname);
+    console.log(fileExtension)
+    let extensions = ['.jpeg','.png']
 
-    await pool.query(`select * from patient where nationalid = '${ID}'`, async (err, res) => {
+    if(!extensions.includes(fileExtension)){
+            let dataNumbers = await getNumbers()
+                respond.render("./homePage.ejs",
+                    {
+                        name: req.session.user["username"],
+                        image: req.session.user["image"],
+                        dataNumbers: dataNumbers,
+                        show:  null, error: "",
+                        errorMessage: "  png, jpeg الصورة غير صالحة ادخل ",
+                        show1:  null,
+                        show2:  "show",
+                        show3:  null,
+                        show4:  null,
+                        show5:  null,
+                        show6:  null
+                    })
+    }
+
+    else await pool.query(`select * from patient where nationalid = '${ID}'`, async (err, res) => {
         if(res.rowCount != 0)
             {
                 let dataNumbers = await getNumbers()
@@ -413,8 +454,28 @@ app.post("/addSurgeon", upload.single("image"), async(req,respond) => {
     image = "../images/" + req.file.originalname
 
     await pool.connect();
+    const fileExtension = path.extname(req.file.originalname);
+    let extensions = ['.jpeg','.png']
 
-    await pool.query(`select * from surgeon where nationalid = '${ID}' OR email = '${email}'`,async (err, res) => {
+    if(!extensions.includes(fileExtension)){
+        let dataNumbers = await getNumbers()
+        respond.render("./homePage.ejs",
+            {
+                name: req.session.user["username"],
+                image: req.session.user["image"],
+                dataNumbers: dataNumbers,
+                show:  null, error: "",
+                errorMessage: "  png, jpeg الصورة غير صالحة ادخل ",
+                show1:  null,
+                show2:  null,
+                show3:  "show",
+                show4:  null,
+                show5:  null,
+                show6:  null
+            })
+    }
+
+    else await pool.query(`select * from surgeon where nationalid = '${ID}' OR email = '${email}'`,async (err, res) => {
         if(res.rows.length == 0)
             {
                 pool.query("insert into surgeon (name, nationalid, birthdate, sex, address, phone, email, speciality, image) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
@@ -868,8 +929,17 @@ app.post("/adminsPageAdd", upload.single("image"), async(req,res)=>{
     address = req.body["address"],
     nationalID = req.body["nationalID"],
     image = "../images/" + req.file.originalname
+    const fileExtension = path.extname(req.file.originalname);
+    let extensions = ['.jpeg','.png']
 
-    if(repassword != password){
+if(!extensions.includes(fileExtension)){
+    await pool.query("select * from admin", (err, data) => {
+        res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+            allAdmins: data.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage :"  png, jpeg الصورة غير صالحة ادخل ",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
+    })
+}
+
+    else if(repassword != password){
         await pool.query("select * from admin", (err, data) => {
             res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
                 allAdmins: data.rows, show: "show",savedID:null,savedEmail:null, showEdit:null, errorMessage : "كلمات المرور غير متطابقة",editErrorMessage:null, name: req.session.user["username"], image: req.session.user["image"]});
@@ -913,8 +983,16 @@ app.post("/patientsPageAdd", upload.single("image"), async(req,res)=>{
     address = req.body["address"],
     nationalID = req.body["nationalID"],
     image = "../images/" + req.file.originalname
+    const fileExtension = path.extname(req.file.originalname);
+    let extensions = ['.jpeg','.png']
 
-    await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
+if(!extensions.includes(fileExtension)){
+    await pool.query("select * from patient", async(err, newdata) => {
+        res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",selectElementValue:"/patients",allPatients: newdata.rows, show: "show", editShow:null,editErrorMessage:null,savedID : null,errorMessage : "  png, jpeg الصورة غير صالحة ادخل ", name: req.session.user["username"], image: req.session.user["image"]});
+    })
+}
+
+    else await pool.query("select * from patient where nationalid = $1",[nationalID], async(err, data) => {
         if(data.rows.length != 0){
             await pool.query("select * from patient", async(err, newdata) => {
                 res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",selectElementValue:"/patients",allPatients: newdata.rows, show: "show", editShow:null,editErrorMessage:null,savedID : null,errorMessage : "الرقم القومي مستخدم", name: req.session.user["username"], image: req.session.user["image"]});
@@ -943,8 +1021,17 @@ app.post("/doctorsPageAdd", upload.single("image"), async(req,res)=>{
     address = req.body["address"],
     nationalID = req.body["nationalID"],
     image = "../images/" + req.file.originalname
+    const fileExtension = path.extname(req.file.originalname);
+    let extensions = ['.jpeg','.png']
+    if(!extensions.includes(fileExtension)){
+        await pool.query("select * from surgeon", async(err, newdata) => {
+            res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                allDoctors: newdata.rows, show: "show",editShow:null,savedID:null,editErrorMessage:null, errorMessage : "  png, jpeg الصورة غير صالحة ادخل ", name: req.session.user["username"], image: req.session.user["image"]});
+        })
+    }
+    
 
-        await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
+        else await pool.query("select * from surgeon where nationalid = $1",[nationalID], async(err, data) => {
             if(data.rows.length != 0){
                 await pool.query("select * from surgeon", async(err, newdata) => {
                     res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
@@ -1169,7 +1256,31 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
         image = "../images/" + req.file.originalname,
         oldid = req.body["oldid"],
         oldEmail = req.body["oldEmail"];
-    await pool.query(
+        const fileExtension = path.extname(req.file.originalname);
+        let extensions = ['.jpeg','.png']
+    
+    if(!extensions.includes(fileExtension)){
+        await pool.query(
+            `select * from admin where nationalid ='${oldid}'`,
+            (err2, respond2) => {
+                res.render("adminProfile.ejs", {
+                    name: req.session.user["username"],
+                    image: req.session.user["image"],
+                    errormessageadmin: "  png, jpeg الصورة غير صالحة ادخل ",
+                    adminName: respond2.rows[0].name,
+                    email: respond2.rows[0].email,
+                    id: respond2.rows[0].nationalid,
+                    mobile: respond2.rows[0].phone,
+                    sex: respond2.rows[0].sex,
+                    birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                    age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                    address:respond2.rows[0].address,
+                    editShow: "show"
+                });
+            }
+        );
+    }
+    else await pool.query(
         `select * from admin where nationalid='${req.body["id"]}'`,
         async (err, respond) => {
             if (!err) {
@@ -1297,7 +1408,36 @@ app.post("/editPatient", upload.single("image"), async (req, res) => {
         address = req.body["address"],
         age = calculateAge(birthdate),
         oldid = req.body["oldid"];
-    await pool.query(
+        const fileExtension = path.extname(req.file.originalname);
+        let extensions = ['.jpeg','.png']
+    
+    if(!extensions.includes(fileExtension)){
+        await pool.query("select * from medicalhistory where patientid = $1", [id], async (err, historyData) => {
+            await pool.query(
+                `SELECT * FROM patient WHERE nationalid = '${oldid}'`,
+                (err2, respond2) => {
+                    res.render("patientProfile.ejs", {
+                        historyData: historyData.rows,
+                        editShow: "show",
+                        name: req.session.user["username"],
+                        image: req.session.user["image"],
+                        errormessagepatient: "  png, jpeg الصورة غير صالحة ادخل ",
+                        patientName: respond2.rows[0].name,
+                        patientImage: respond2.rows[0].image,
+                        id: respond2.rows[0].nationalid,
+                        birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                        sex: respond2.rows[0].sex,
+                        phone: respond2.rows[0].phone,
+                        age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
+                        address:respond2.rows[0].address, historyErrorMessage: "", showHistory: null
+                    });
+                }
+            );
+        })
+    }
+
+
+    else await pool.query(
         `SELECT * from patient WHERE nationalid = '${id}'`,
         async (err, respond) => {
             if (!err) {
@@ -1366,8 +1506,37 @@ app.post("/editSurgeon", upload.single("image"), async (req, res) => {
         image = "../images/" + req.file.originalname,
         address = req.body["address"],
         specialization = req.body["special"];
+        const fileExtension = path.extname(req.file.originalname);
+        let extensions = ['.jpeg','.png']
+    
+    if(!extensions.includes(fileExtension)){
+        await pool.query("select * from medicalhistory where patientid = $1", [id], async (err, historyData) => {
+            await pool.query(
+                `select * from surgeon where nationalid ='${id}'`,
+                (err2, respond2) => {
+                    res.render("doctorProfile.ejs", {
+                        historyData: historyData.rows,
+                        name: req.session.user["username"],
+                        image: req.session.user["image"],
+                        errormessagedoctor: "الرقم القومي مستخدم",
+                        doctorName: respond2.rows[0].name,
+                        doctorImage: respond2.rows[0].image,
+                        email: respond2.rows[0].email,
+                        id: respond2.rows[0].nationalid,
+                        phone: respond2.rows[0].phone,
+                        sex: respond2.rows[0].sex,
+                        birthdate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
+                        specialization: respond2.rows[0].speciality,
+                        age: calculateAge(formatDate(respond2.rows[0].birthdate)),
+                        address:respond2.rows[0].address,
+                        editShow:"show", historyErrorMessage: "", showHistory: null
+                    });
+                }
+            );
+        })
+    }
 
-    await pool.query(
+    else await pool.query(
         `select * from surgeon where nationalid = '${id}'`,
         async (err, respond) => {
             if (!err) {
@@ -1570,7 +1739,19 @@ app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
         image = "../images/" + req.file.originalname,
         oldid = req.body["oldID"],
         oldEmail = req.body["oldEmail"];
-    await pool.query(
+        const fileExtension = path.extname(req.file.originalname);
+        let extensions = ['.jpeg','.png']
+
+    if(!extensions.includes(fileExtension)){
+        await pool.query("select * from admin", async(err, newdata) => {
+            res.render("./admins.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/admins",
+                allAdmins: newdata.rows,savedID:oldid,savedEmail:oldEmail, show:null, showEdit: "show", errorMessage : null,editErrorMessage:"  png, jpeg الصورة غير صالحة ادخل ", name: req.session.user["username"], image: req.session.user["image"]});
+        })
+    }
+
+
+
+    else await pool.query(
         `select * from admin where nationalid='${req.body["id"]}'`,
         async (err, respond) => {
             if (!err) {
@@ -1643,7 +1824,16 @@ app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
         image = "../images/" + req.file.originalname,
         address = req.body["address"],
         specialization = req.body["special"];
-    await pool.query("select * from surgeon where nationalid = $1",[id],async(err,respond)=>{
+        const fileExtension = path.extname(req.file.originalname);
+        let extensions = ['.jpeg','.png']
+    
+    if(!extensions.includes(fileExtension)){
+        await pool.query("select * from surgeon", async(err, newdata) => {
+            res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
+                allDoctors: newdata.rows, show: null,editShow:"show",savedID:oldid,editErrorMessage:"  png, jpeg الصورة غير صالحة ادخل ", errorMessage : null, name: req.session.user["username"], image: req.session.user["image"]});
+        })
+    }
+    else await pool.query("select * from surgeon where nationalid = $1",[id],async(err,respond)=>{
         if(respond.rows.length == 1 && id != oldid){
             await pool.query("select * from surgeon", async(err, newdata) => {
                 res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
@@ -1689,8 +1879,16 @@ app.post("/patientsPageEdit", upload.single("image"), async(req,res)=>{
         address = req.body["address"],
         age = calculateAge(birthdate),
         oldid = req.body["oldID"];
+        const fileExtension = path.extname(req.file.originalname);
+        let extensions = ['.jpeg','.png']
+    
+    if(!extensions.includes(fileExtension)){
+        await pool.query("select * from patient", async(err, newdata) => {
+            res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",allPatients: newdata.rows, show: null, errorMessage : null,editShow:"show",editErrorMessage:"  png, jpeg الصورة غير صالحة ادخل ",savedID : oldid, name: req.session.user["username"], image: req.session.user["image"]});
+        })
+    }
 
-    await pool.query("select * from patient where nationalid = $1",[id],async (err,respond)=>{
+    else await pool.query("select * from patient where nationalid = $1",[id],async (err,respond)=>{
         if(respond.rows.length == 1 && id != oldid){
             await pool.query("select * from patient", async(err, newdata) => {
                 res.render("./patients.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/patients",allPatients: newdata.rows, show: null, errorMessage : null,editShow:"show",editErrorMessage:"الرقم القومي مستخدم",savedID : oldid, name: req.session.user["username"], image: req.session.user["image"]});
