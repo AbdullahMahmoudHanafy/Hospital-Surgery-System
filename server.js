@@ -2542,7 +2542,7 @@ app.get("/appointmentsSBAND", async (req, data) => {
 
 app.get("/appointmentsSBDA", async (req, data) => {
 
-    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.date ASC", async (err, appointments) => {
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.startdate ASC", async (err, appointments) => {
         if(err)
             console.log(err);
         else {
@@ -2553,7 +2553,7 @@ app.get("/appointmentsSBDA", async (req, data) => {
 
 app.get("/appointmentsSBDD", async (req, data) => {
 
-    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.date DESC", async (err, appointments) => {
+    await pool.query("select P.name as patientname, D.name as surgeonname, O.name as operationname, O.duration as operationduration, A.* from appointment A join surgeon D on A.surgeonid = D.nationalid join patient P on A.patientid = P.nationalid join operation O on A.operationid = O.code ORDER BY A.startdate DESC", async (err, appointments) => {
         if(err)
             console.log(err);
         else {
