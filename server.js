@@ -411,9 +411,7 @@ app.post("/addSurgeon", upload.single("image"), async(req,respond) => {
     email = req.body["email"],
     speciality = req.body["speciality"],
     image = "../images/" + req.file.originalname
-
-    await pool.connect();
-
+    
     await pool.query(`select * from surgeon where nationalid = '${ID}' OR email = '${email}'`,async (err, res) => {
         if(res.rows.length == 0)
             {
@@ -466,8 +464,6 @@ app.post("/addDevice", async (req, respond) => {
     company = req.body["company"],
     date = req.body["date"],
     productCode = req.body["productCode"]
-
-    await pool.connect();
 
     await pool.query(`select * from device where serialnumber = '${serial}'`, async (err, res) => {
         if(res.rows.length == 0)
