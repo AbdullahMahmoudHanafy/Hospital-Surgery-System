@@ -411,7 +411,7 @@ app.post("/addSurgeon", upload.single("image"), async(req,respond) => {
     email = req.body["email"],
     speciality = req.body["speciality"],
     image = "../images/" + req.file.originalname
-    
+
     await pool.query(`select * from surgeon where nationalid = '${ID}' OR email = '${email}'`,async (err, res) => {
         if(res.rows.length == 0)
             {
@@ -715,7 +715,7 @@ app.post("/addAppointment", async (req, respond) => {
                         dataNumbers: dataNumbers,
                         show:  null, error: "",
                         show1:  null, addSurgeonError: "",
-                        errorMessage: "لا يوجد جراح بهضا الرقم القومي",
+                        errorMessage: "لا يوجد جراح بهذا الرقم القومي",
                         show1:  null,
                         show2:  null,
                         show3:  null,
@@ -1185,7 +1185,8 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                                 age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
                                 address:respond2.rows[0].address,
-                                editShow: "show"
+                                editShow: "show",
+                                adminImage: image
                             });
                         }
                     );
@@ -1205,7 +1206,8 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                                 birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                                 age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
                                 address:respond2.rows[0].address,
-                                editShow: "show"
+                                editShow: "show",
+                                adminImage: image
                             });
                         }
                     );
@@ -1229,7 +1231,8 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
                                         birthDate: respond2.rows[0].birthdate.toLocaleDateString('en-GB'),
                                         age: calculateAge(respond2.rows[0].birthdate.toLocaleDateString('en-GB')),
                                         address:respond2.rows[0].address,
-                                        editShow: "show"
+                                        editShow: "show",
+                                        adminImage: image
                                     });
                                 }
                             );
