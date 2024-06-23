@@ -376,7 +376,6 @@ app.post("/addPatient", upload.single("image"), async(req,respond) => {
     phone = req.body["phone"], 
     image = "../images/" + req.file.originalname
     const fileExtension = path.extname(req.file.originalname);
-    console.log(fileExtension)
     let extensions = ['.jpeg','.png']
 
     if(!extensions.includes(fileExtension)){
@@ -578,12 +577,7 @@ app.post("/addOperation",async(req,res)=>{
     roomnumber = req.body.roomnumber,
     usedDevices = req.body["multiValueField"],
     description = req.body.description;
-    console.log(name)
-    console.log(price)
-    console.log(roomnumber)
-    console.log(duration)
-    console.log(usedDevices)
-    console.log(description)
+
     
     // if user entered one device typeof used devices will be string and the following algorithm use it as object so there must be a type casting
     if(typeof usedDevices == "string")
@@ -2260,7 +2254,6 @@ app.post("/addHistoryPatientPage", async (req, respond) => {
     patientId = req.body["patientid"],
     surgeonId = req.body["surgeonid"],
     date = req.body["date"]
-    console.log(typeof(date))
     await pool.query("select * from surgeon where nationalid = $1", [surgeonId], async (err, surgeonRespond) => {
         if(err)
             console.log(err)
