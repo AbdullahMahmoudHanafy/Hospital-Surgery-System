@@ -2283,7 +2283,7 @@ app.get("/malePatients", async (req, data) => {
 
 app.get("/femalePatients", async (req, data) => {
 
-    await pool.query("select * from patient where sex = 'أنثي'", (err, res) => {
+    await pool.query("select * from patient where sex = 'أنثى'", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2339,7 +2339,7 @@ app.get("/patientsSortedDESCByName", async (req, data) => {
 
 app.get("/patientsSortedASCByAgeAndFemale", async (req, data) => {
 
-    await pool.query("select * from patient where sex = 'أنثي' ORDER BY birthdate DESC", (err, res) => {
+    await pool.query("select * from patient where sex = 'أنثى' ORDER BY birthdate DESC", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2351,7 +2351,7 @@ app.get("/patientsSortedASCByAgeAndFemale", async (req, data) => {
 
 app.get("/patientsSortedDESCByAgeAndFemale", async (req, data) => {
 
-    await pool.query("select * from patient where sex = 'أنثي' ORDER BY birthdate ASC", (err, res) => {
+    await pool.query("select * from patient where sex = 'أنثى' ORDER BY birthdate ASC", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2362,7 +2362,7 @@ app.get("/patientsSortedDESCByAgeAndFemale", async (req, data) => {
 
 app.get("/patientsSortedASCByNameAndFemale", async (req, data) => {
 
-    await pool.query("select * from patient where sex = 'أنثي' ORDER BY name ASC", (err, res) => {
+    await pool.query("select * from patient where sex = 'أنثى' ORDER BY name ASC", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2373,7 +2373,7 @@ app.get("/patientsSortedASCByNameAndFemale", async (req, data) => {
 
 app.get("/patientsSortedDESCByNameAndFemale", async (req, data) => {
 
-    await pool.query("select * from patient where sex = 'أنثي' ORDER BY name DESC", (err, res) => {
+    await pool.query("select * from patient where sex = 'أنثى' ORDER BY name DESC", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2579,7 +2579,7 @@ app.get("/maleDoctors", async (req, data) => {
 
 app.get("/femaleDoctors", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'أنثي'", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثى'", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2688,7 +2688,7 @@ app.get("/doctorsSBADAndMale", async (req, data) => {
 
 app.get("/doctorsSBNAAndFemale", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'أنثي' order by name asc", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثى' order by name asc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2700,7 +2700,7 @@ app.get("/doctorsSBNAAndFemale", async (req, data) => {
 
 app.get("/doctorsSBNDAndFemale", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'أنثي' order by name desc", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثى' order by name desc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2712,7 +2712,7 @@ app.get("/doctorsSBNDAndFemale", async (req, data) => {
 
 app.get("/doctorsSBAAAndFemale", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'أنثي' order by birthdate desc", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثى' order by birthdate desc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2724,7 +2724,7 @@ app.get("/doctorsSBAAAndFemale", async (req, data) => {
 
 app.get("/doctorsSBADAndFemale", async (req, data) => {
 
-    await pool.query("select * from surgeon where sex = 'أنثي' order by birthdate asc", (err, res) => {
+    await pool.query("select * from surgeon where sex = 'أنثى' order by birthdate asc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2751,7 +2751,7 @@ app.get("/maleAdmins", async (req, data) => {
 
 app.get("/femaleAdmins", async (req, data) => {
 
-    await pool.query("select * from admin where sex = 'أنثي'", (err, res) => {
+    await pool.query("select * from admin where sex = 'أنثى'", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2860,7 +2860,7 @@ app.get("/AdminsSBADAndMale", async (req, data) => {
 
 app.get("/AdminsSBNAAndFemale", async (req, data) => {
 
-    await pool.query("select * from admin where sex = 'أنثي' order by name asc", (err, res) => {
+    await pool.query("select * from admin where sex = 'أنثى' order by name asc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2872,7 +2872,7 @@ app.get("/AdminsSBNAAndFemale", async (req, data) => {
 
 app.get("/AdminsSBNDAndFemale", async (req, data) => {
 
-    await pool.query("select * from admin where sex = 'أنثي' order by name desc", (err, res) => {
+    await pool.query("select * from admin where sex = 'أنثى' order by name desc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2884,7 +2884,7 @@ app.get("/AdminsSBNDAndFemale", async (req, data) => {
 
 app.get("/AdminsSBAAAndFemale", async (req, data) => {
 
-    await pool.query("select * from admin where sex = 'أنثي' order by birthdate desc", (err, res) => {
+    await pool.query("select * from admin where sex = 'أنثى' order by birthdate desc", (err, res) => {
         if(err)
             console.log(err);
         else {
@@ -2896,7 +2896,7 @@ app.get("/AdminsSBAAAndFemale", async (req, data) => {
 
 app.get("/AdminsSBADAndFemale", async (req, data) => {
 
-    await pool.query("select * from admin where sex = 'أنثي' order by birthdate asc", (err, res) => {
+    await pool.query("select * from admin where sex = 'أنثى' order by birthdate asc", (err, res) => {
         if(err)
             console.log(err);
         else {
