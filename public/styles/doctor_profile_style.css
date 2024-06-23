@@ -152,11 +152,9 @@ body {
     color: #333;
 }
 
-.operations h3{
-    margin-top: 0;
+.operations h2{
     color: black;
     text-align: center;
-    margin-left: 300px;
 }
 
 #medical-histpry-labels{
@@ -205,7 +203,9 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    text-align: center;
+    padding: 0px 70px;
 }
 
 button{

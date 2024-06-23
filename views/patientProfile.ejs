@@ -141,10 +141,10 @@
                 <div class="navbar-name"><%= name %></div>
 
             </div>
-            <a href="currentAdminProfile"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button></a>
-            <a href="/logout"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button></a>
-
-
+            <div>
+                <a href="/currentAdminProfile"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button></a>
+                <a href="/logout"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button></a>
+            </div>
         </div>
 
     </div>
@@ -176,9 +176,10 @@
     </div>
         <div class="operations">
             <div id="operation-titles">
-                <h3>آخر العمليات:</h3>
+                <h2>آخر العمليات</h2>
                 <button id="medical-histpry-add-button">أضف عملية</button>
             </div>
+            <hr>
             <div id="patient-medical-history">
                 <div id="medical-histpry-labels">
                     <div class="medical-histpry-label-div"><h4>اسم العملية</h4></div>
@@ -186,6 +187,7 @@
                     <div class="medical-histpry-label-div"><h4>الرقم القومي للجراح</h4></div>
                     <div class="medical-histpry-label-div"><h4>تاريخ العملية</h4></div>
                 </div>
+                <hr>
                 <% for (var i = 0; i < historyData.length; i++){ %>
                 <div id="medical-histpry-data">
                     <div class="medical-histpry-data-div"><h4><%= historyData[i]["operationname"] %></h4></div>

@@ -17,8 +17,10 @@
 <body>
     <div id="Nav-bar">
         <div id="Right-nav">
-            <a href="/logout"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button></a>
-            <a href="currentAdminProfile"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button></a>
+            <div>
+                <a href="/logout"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-right-from-bracket Exit-icon"></i></button></a>
+                <a href="/currentAdminProfile"><button class = "Nav-bar-icon-btn"><i class="fa-solid fa-user"></i></button></a>
+            </div>
             <div id="Admin-data">
                 <div class="navbar-name"><%= name %></div>
                 <img src=<%= image%> alt="An admin's image" id="Admin-img">
