@@ -583,7 +583,6 @@ app.post("/addAppointment", async (req, respond) => {
                                     await pool.query(`SELECT * FROM appointment WHERE roomnumber = $1 AND ((enddate > $2 AND enddate < $3) OR (startdate > $2 AND startdate < $3) OR (startdate < $2 AND enddate > $3));`, [operationRoom, startdate, enddate], async (err, timeRespond) => {
                                         if(timeRespond.rowCount > 0)
                                             {
-                                                console.log(timeRespond.rows, startdate, enddate)
                                                 let dataNumbers = await getNumbers()
                                                 respond.render("./homePage.ejs", {
                                                 name: req.session.user["username"],
@@ -624,7 +623,7 @@ app.post("/addAppointment", async (req, respond) => {
                                                                     image: req.session.user["image"],
                                                                     dataNumbers: dataNumbers,
                                                                     show:  null, error: "",
-                                                                    errorMessage: "هذا المريذ لديه عملية في هذا التوقيت",
+                                                                    errorMessage: "هذا المريض لديه عملية في هذا التوقيت",
                                                                     show1:  null,
                                                                     show2:  null,
                                                                     show3:  null,
@@ -641,7 +640,7 @@ app.post("/addAppointment", async (req, respond) => {
                                                                             image: req.session.user["image"],
                                                                             dataNumbers: dataNumbers,
                                                                             show:  null, error: "",
-                                                                            errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا",
+                                                                            errorMessage: "هذه العملية تتطلب جهازا غير متاح حاليا",
                                                                             show1:  null,
                                                                             show2:  null,
                                                                             show3:  null,
@@ -1058,7 +1057,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                     if(err)
                                                         console.log(err);
                                                     else {
-                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذا التوقيت غير مناسب", savedID: null});
+                                                        respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه الغرفة غير متاحة في هذا التوقيت", savedID: null});
                                                     }
                                                 })
                                             }else {
@@ -1088,7 +1087,7 @@ app.post("/appointmentPageAdd", async (req, respond) => {
                                                                             if(err)
                                                                                 console.log(err);
                                                                             else {
-                                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية تتطلب جهاز غير متاح حاليا", savedID: null});
+                                                                                respond.render("./appointments.ejs",{selectElementValue:"/appointments",allAppointments: appointments.rows, name: req.session.user["username"], image: req.session.user["image"], editShow:  null, editErrorMessage: "", show:  "show", errorMessage: "هذه العملية تتطلب جهازا غير متاح حاليا", savedID: null});
                                                                             }
                                                                         })
                                                                     }else {
