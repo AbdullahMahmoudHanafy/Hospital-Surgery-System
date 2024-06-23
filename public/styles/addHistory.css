@@ -33,8 +33,7 @@
     margin-bottom: 2px;
 }
 
-.add-history-overlay input[type="text"],
-.add-history-overlay input[type="date"]{
+.add-history-overlay input[type="text"]{
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -102,9 +101,10 @@
 }
 
 .add-history-overlay input[type = "date"]{
-    padding: 10px;
-    margin-bottom: 15px;
+    display: block;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 3px;
-    text-align: left;
+    padding: 10px;
+    margin-bottom: 15px;
 }
