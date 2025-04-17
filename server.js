@@ -14,6 +14,8 @@ const query = promisify(pool.query).bind(pool);
 
 const port = 3000;
 
+const extensions = ['.jpeg','.png','.jpg']
+
 const app = express();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -250,7 +252,6 @@ app.post("/addAdmin", upload.single("image"), async (req, respond) => {
 
     let image = "../images/" + req.file.originalname
     const fileExtension = path.extname(req.file.originalname);
-    let extensions = ['.jpeg','.png']
 
     if(!extensions.includes(fileExtension)){
         let dataNumbers = await getNumbers()
@@ -376,7 +377,6 @@ app.post("/addPatient", upload.single("image"), async(req,respond) => {
     phone = req.body["phone"], 
     image = "../images/" + req.file.originalname
     const fileExtension = path.extname(req.file.originalname);
-    let extensions = ['.jpeg','.png']
 
     if(!extensions.includes(fileExtension)){
             let dataNumbers = await getNumbers()
@@ -453,7 +453,6 @@ app.post("/addSurgeon", upload.single("image"), async(req,respond) => {
     image = "../images/" + req.file.originalname
 
     const fileExtension = path.extname(req.file.originalname);
-    let extensions = ['.jpeg','.png']
 
     if(!extensions.includes(fileExtension)){
         let dataNumbers = await getNumbers()
@@ -921,7 +920,6 @@ app.post("/adminsPageAdd", upload.single("image"), async(req,res)=>{
     nationalID = req.body["nationalID"],
     image = "../images/" + req.file.originalname
     const fileExtension = path.extname(req.file.originalname);
-    let extensions = ['.jpeg','.png']
 
 if(!extensions.includes(fileExtension)){
     await pool.query("select * from admin", (err, data) => {
@@ -975,7 +973,6 @@ app.post("/patientsPageAdd", upload.single("image"), async(req,res)=>{
     nationalID = req.body["nationalID"],
     image = "../images/" + req.file.originalname
     const fileExtension = path.extname(req.file.originalname);
-    let extensions = ['.jpeg','.png']
 
 if(!extensions.includes(fileExtension)){
     await pool.query("select * from patient", async(err, newdata) => {
@@ -1013,7 +1010,6 @@ app.post("/doctorsPageAdd", upload.single("image"), async(req,res)=>{
     nationalID = req.body["nationalID"],
     image = "../images/" + req.file.originalname
     const fileExtension = path.extname(req.file.originalname);
-    let extensions = ['.jpeg','.png']
     if(!extensions.includes(fileExtension)){
         await pool.query("select * from surgeon", async(err, newdata) => {
             res.render("./doctors.ejs", {highlitedAll:"highlight",highlitedFirst:null,highlitedSecond:null,currentPage:null,selectElementValue:"/doctors",
@@ -1248,7 +1244,6 @@ app.post("/editAdmin", upload.single("image"), async (req, res) => {
         oldid = req.body["oldid"],
         oldEmail = req.body["oldEmail"];
         const fileExtension = path.extname(req.file.originalname);
-        let extensions = ['.jpeg','.png']
     
     if(!extensions.includes(fileExtension)){
         await pool.query(
@@ -1404,7 +1399,6 @@ app.post("/editPatient", upload.single("image"), async (req, res) => {
         age = calculateAge(birthdate),
         oldid = req.body["oldid"];
         const fileExtension = path.extname(req.file.originalname);
-        let extensions = ['.jpeg','.png']
     
     if(!extensions.includes(fileExtension)){
         await pool.query("select * from medicalhistory where patientid = $1", [id], async (err, historyData) => {
@@ -1502,7 +1496,6 @@ app.post("/editSurgeon", upload.single("image"), async (req, res) => {
         address = req.body["address"],
         specialization = req.body["special"];
         const fileExtension = path.extname(req.file.originalname);
-        let extensions = ['.jpeg','.png']
     
     if(!extensions.includes(fileExtension)){
         await pool.query("select * from medicalhistory where patientid = $1", [id], async (err, historyData) => {
@@ -1735,7 +1728,6 @@ app.post("/adminsPageEdit", upload.single("image"), async(req,res)=>{
         oldid = req.body["oldID"],
         oldEmail = req.body["oldEmail"];
         const fileExtension = path.extname(req.file.originalname);
-        let extensions = ['.jpeg','.png']
 
     if(!extensions.includes(fileExtension)){
         await pool.query("select * from admin", async(err, newdata) => {
@@ -1820,7 +1812,6 @@ app.post("/doctorsPageEdit", upload.single("image"), async(req,res)=>{
         address = req.body["address"],
         specialization = req.body["special"];
         const fileExtension = path.extname(req.file.originalname);
-        let extensions = ['.jpeg','.png']
     
     if(!extensions.includes(fileExtension)){
         await pool.query("select * from surgeon", async(err, newdata) => {
@@ -1875,7 +1866,6 @@ app.post("/patientsPageEdit", upload.single("image"), async(req,res)=>{
         age = calculateAge(birthdate),
         oldid = req.body["oldID"];
         const fileExtension = path.extname(req.file.originalname);
-        let extensions = ['.jpeg','.png']
     
     if(!extensions.includes(fileExtension)){
         await pool.query("select * from patient", async(err, newdata) => {
