@@ -4,6 +4,7 @@ The Hospital Surgery System is a comprehensive web application designed to manag
 
 ## Table of Contents
 - [Demo](#demo)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
@@ -14,6 +15,11 @@ The Hospital Surgery System is a comprehensive web application designed to manag
 ## Demo
 https://github.com/user-attachments/assets/b5363139-66f6-45da-baa1-c08e30f7abc5
 
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ## Installation
 
@@ -87,6 +93,7 @@ https://github.com/user-attachments/assets/b5363139-66f6-45da-baa1-c08e30f7abc5
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js, Express.js, EJS (Embedded JavaScript templates)
+- **Database**: PostgreSQL
 
 ## Contributors
 - **AhmedAmgadElsharkawy**: [GitHub Profile](https://github.com/AhmedAmgadElsharkawy)
