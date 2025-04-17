@@ -17,6 +17,8 @@ https://github.com/user-attachments/assets/b5363139-66f6-45da-baa1-c08e30f7abc5
 
 ## Installation
 
+### Project Setup
+
 1. **Clone the repository:**
 
    ```bash
@@ -28,12 +30,35 @@ https://github.com/user-attachments/assets/b5363139-66f6-45da-baa1-c08e30f7abc5
     cd Hospital-Surgery-System
     ``````
 
-2. **Install dependencies:**  
+3. **Install dependencies:**  
 
 
     ```bash
     npm install
     ``````
+
+### Database Setup
+
+1. **Create your Database**
+
+
+2. **Load The Schema**  
+
+    using Edit [`schema.sql`](sql/schema.sql)
+
+
+3. **Update the database configuration:**  
+
+   Edit [`database.js`](database.js) and replace the default credentials with your own PostgreSQL setup:
+   ```js
+   const pool = new Pool({
+     user: 'your_username',
+     host: 'localhost',
+     database: 'surgery',
+     password: 'your_password',
+     port: <your_postgres_port>,
+   });
+   ``````
 
 ## Usage
 
